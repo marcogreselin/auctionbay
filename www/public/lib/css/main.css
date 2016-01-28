@@ -1,0 +1,54 @@
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../css/font-awesome/fonts/fontawesome-webfont.woff2') format('woff2'),
+    url('../css/font-awesome/fonts/fontawesome-webfont.woff') format('woff'),
+    url('../css/font-awesome/fonts/fontawesome-webfont.ttf') format('truetype');
+}
+
+
+/*!*** custom checkboxes ***!*/
+/*!* SOURCE: http://codepen.io/jamesbarnett/pen/yILjk/ *!*/
+/*input[type=radio],*/
+/*input[type=checkbox] {*/
+    /*display:none; !* to hide the checkbox itself *!*/
+/*}*/
+/*input[type=radio] + label:before,*/
+/*input[type=checkbox] + label:before {*/
+    /*font-family: FontAwesome;*/
+    /*display: inline;*/
+    /*font-size: 1.3em;*/
+    /*color: rgba(255,255,255,0.8);*/
+    /*letter-spacing: 10px;*/
+    /*content: "\f096";*/
+/*}*/
+/*input[type=radio]:checked + label:before,*/
+/*input[type=checkbox]:checked + label:before{ !* checked icon *!*/
+    /*content: "\f046";*/
+    /*color: rgba(255,255,255,1);*/
+    /*letter-spacing: 7px;*/
+/*}*/
+
+/*.role-check-label{*/
+    /*font-size: 1.5em;*/
+    /*color: rgba(255,255,255,1);*/
+/*}*/
+/*!* END CUSTOM CHECKBOXES *!*/
+
+
+/*** custom checkboxes ***/
+
+input[type=radio] { display:none; } /* to hide the checkbox itself */
+input[type=radio] + label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+}
+
+input[type=radio] + label:before { content: "\f096"; } /* unchecked icon */
+input[type=radio] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+
+input[type=radio]:checked + label:before { content: "\f046"; } /* checked icon */
+input[type=radio]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */
+
+.role-check-label {
+    font-size: 1.5em;
+}

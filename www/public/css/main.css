@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../css/font-awesome/fonts/fontawesome-webfont.woff2') format('woff2'),
+    url('../css/font-awesome/fonts/fontawesome-webfont.woff') format('woff'),
+    url('../css/font-awesome/fonts/fontawesome-webfont.ttf') format('truetype');
+}
+
+/*** custom checkboxes ***/
+
+input[type=radio] { display:none; } /* to hide the checkbox itself */
+input[type=radio] + label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+}
+
+input[type=radio] + label:before { content: "\f096"; } /* unchecked icon */
+input[type=radio] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+
+input[type=radio]:checked + label:before { content: "\f046"; } /* checked icon */
+input[type=radio]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */
+
+.role-check-label {
+    font-size: 1.5em;
+}
