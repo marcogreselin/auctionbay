@@ -60,11 +60,9 @@
         <p><button onclick="location.href='cookies.php'" class="btn btn-hg btn-primary">
           Enter!
         </button></p>
-<<<<<<< HEAD
+
         <p><h7><a href="signup.php">Not yet a member?</a></h7></p>
-=======
         <p><h7><a href="">Not yet a member?</a></h7></p>
->>>>>>> 62ffb54553ce3039c3403ab9ea6468ac00f44c76
 
     </div>
     <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
