@@ -1,0 +1,44 @@
+.login-headline {
+	padding: 20px 0;
+	margin-top: 2px;
+	margin-bottom: 40px;
+	font: 700 118px/1.1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #1abc9c;
+	text-align: center;
+	word-wrap: break-word;
+}
+@media screen and (max-width: 600px){
+	.login-headline {
+		font-size: 50px;
+	}
+}
+.login-box{
+  	width: 45%;
+  	min-width: 300px;
+  	margin: 0 auto;
+}
+.logout{
+  	/*background-color: lightblue;*/
+  	background-image: url("../img/rainbow.png");
+  	background-repeat: no-repeat;
+  	background-position: left bottom;
+  	background-attachment: fixed;
+}
+@media screen and (max-width: 900px){
+	.logout{
+		background-image: none;
+	}
+}
+.logo-small{
+	content:url(../img/logo-small.png);
+	height: 30px;
+    width: 30px;
+    float:left;
+    margin-right: 10px;
+    height: 100%;
+    width: auto;
+    vertical-align: middle;
+}
+.navbar-brand:hover{
+	color: #34495e !important;
+}
