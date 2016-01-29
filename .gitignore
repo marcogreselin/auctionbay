@@ -6,6 +6,9 @@
 .idea/tasks.xml
 .idea/dictionaries
 
+/* PHPStorm-specific */
+.idea/**
+
 # Sensitive or high-churn files:
 .idea/dataSources.ids
 .idea/dataSources.xml
