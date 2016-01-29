@@ -62,7 +62,6 @@
         </button></p>
 
         <p><h7><a href="signup.php">Not yet a member?</a></h7></p>
-        <p><h7><a href="">Not yet a member?</a></h7></p>
 
     </div>
     <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
