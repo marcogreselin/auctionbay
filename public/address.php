@@ -50,17 +50,22 @@ setcookie("test",45, time()+60*60*24*7);
 
 <body>
 <!-- Navbar -->
-<nav class="navbar navbar-default navbar-lg" role="navigation">
-    <div class="navbar-header">
+    <nav class="navbar navbar-default navbar-lg" role="navigation">
+      <div class="navbar-header">
         <a class="navbar-brand"><div class="logo-small"></div>AuctionBay</a>
-    </div>
-    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+      </div>
+            <p class="navbar-text navbar-right">Return to the <a class="navbar-link" href="index.php">Home Page</a></p>
+
+      <div class="collapse navbar-collapse" id="navbar-collapse-01">
         <ul class="nav navbar-nav">
 
         </ul>
 
-    </div><!-- /.navbar-collapse -->
-</nav><!-- /navbar -->
+      </div><!-- /.navbar-collapse -->
+    </nav><!-- /navbar -->
+
+<div class="container">
+    <h1>Sign Up</h1>
 
 <div class="container text-center">
     <div class="address-headline"><h4>Enter your address</h4></div>
