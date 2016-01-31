@@ -18,7 +18,7 @@
     <!-- Loading AB CSS -->
     <link href="css/auctionbay.css" rel="stylesheet">
 
-    
+    <!-- Favicon -->
     <link rel="shortcut icon" href="img/favicon.ico">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
