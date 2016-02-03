@@ -1,65 +1,31 @@
 <?php
+
 //  Dependencies
 require_once('../includes/dbconnection.php');
 require_once('../includes/session.php');
 require_once('../includes/navigation.php');
 require_once('../includes/validation_functions.php');
+require_once('../includes/form_processing.php');
+
 //  Cookies:
 setcookie("test",45, time()+60*60*24*7);
-?>
-<?php
-//DEBUG
-$success = "";
-//Process form from signup.php:
+
+//  Process form from signup.php:
 if(isset($_POST['submit'])) {
-
-  $required_fields = array("firstname",
-  "lastname",
-  "email",
-  "password",
-  "passwordagain",
-  "role-check");
-  validate_presences($required_fields);
-
-  $fields_with_max_lengths = array("firstname" => 20,
-  "lastname" => 20,
-  "email" => 50,
-  "password" => 20);
-  validate_max_lengths($fields_with_max_lengths);
-
-  // Check that password == passwordagain
-  match($_POST['password'], $_POST['passwordagain']);
-
-  if(empty($errors)) {
-    // Success outcome:
-    // Store values entered and wait for user to submit current form
-
-    //  This uses the current session, session should be
-    //  destroyed once the registration process ends :NT
-    $_SESSION['firstname']= $_POST['firstname'];
-    $_SESSION["lastname"] = $_POST['lastname'];
-    $_SESSION["email"] = $_POST['email'];
-    $_SESSION["password"] = $_POST['password'];
-    $_SESSION["role"] = $_POST['role-check'];
-
-  } else {
-    // Failure outcome: one or more elements in $errors
-
-    //  Either display messages from $erros here in address.php or
-    //  signup.php
-    //  redirect_to("signup.php");
-  }
+  process_first_form();
 
 } elseif (isset($_POST['second_submit'])){
-  //$success = "Second submit confirmed!";
-//TODO
+//TODO process_second_form();
+//process_second_form();
 
 } else {
   //if(!isset($_POST['submit']))
   //the user should not navigate to this page via a standard get request
 
-  redirect_to("signup.php");
+  //must be commented out for testing
+  //redirect_to("signup.php");
 }
+
 ?>
 
 <!-- TODO: Add the logic for sending the data to the database -->
@@ -458,9 +424,9 @@ if(isset($_POST['submit'])) {
 </script>
 
 <!--DEBUG-->
-<?php// echo $success . "<br/>"; ?>
-<pre>
+<!--<pre>-->
 <?php
+// echo $success . "<br/>";
   /*if(empty($errors)){
 
     print_r($_SESSION);
@@ -468,7 +434,7 @@ if(isset($_POST['submit'])) {
     print_r($errors);
   }*/
 ?>
-</pre>
+<!--</pre>-->
 
 
 
