@@ -66,7 +66,7 @@
     <div class="row">
       <div class="col-md-2 menu-margin">
         <ul class="nav nav-list">
-          <li class="active">
+          <li>
             <a href="#address">
               Address
             </a>
