@@ -90,7 +90,7 @@ input[type=radio]:checked + label:before { letter-spacing: 5px; } /* allow space
 	left: -0.68em;
 	right: 0.30em;
 	bottom: 0.45em;
-	width: 320px !important;
+	width: 390px !important;
 }
 .menu-margin{
 	margin-top: 30px;

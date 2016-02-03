@@ -1,5 +1,31 @@
 <?php
+
+//  Dependencies
+require_once('../includes/dbconnection.php');
+require_once('../includes/session.php');
+require_once('../includes/navigation.php');
+require_once('../includes/validation_functions.php');
+require_once('../includes/form_processing.php');
+
+//  Cookies:
 setcookie("test",45, time()+60*60*24*7);
+
+//  Process form from signup.php:
+if(isset($_POST['submit'])) {
+  process_first_form();
+
+} elseif (isset($_POST['second_submit'])){
+//TODO process_second_form();
+//process_second_form();
+
+} else {
+  //if(!isset($_POST['submit']))
+  //the user should not navigate to this page via a standard get request
+
+  //must be commented out for testing
+  //redirect_to("signup.php");
+}
+
 ?>
 
 <!-- TODO: Add the logic for sending the data to the database -->
@@ -69,7 +95,7 @@ setcookie("test",45, time()+60*60*24*7);
 
 <div class="container text-center">
     <div class="address-headline"><h4>Enter your address</h4></div>
-    <form class="address-form form-horizontal" role="form" action="cookies.php" method="post">
+    <form class="address-form form-horizontal" role="form" action="address.php" method="post">
 
 
         <!-- Checks that the data from signup.php can be accessed in address.php -->
@@ -377,7 +403,7 @@ setcookie("test",45, time()+60*60*24*7);
 
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-2 text-center">
-                <input class="btn-register btn-hg btn-primary btn-block" type="submit" name="submit" value="Register">
+                <input class="btn-register btn-hg btn-primary btn-block" type="submit" name="second_submit" value="Register">
             </div>
         </div>
     </form>
@@ -397,7 +423,18 @@ setcookie("test",45, time()+60*60*24*7);
     $('select').select2();
 </script>
 
+<!--DEBUG-->
+<!--<pre>-->
+<?php
+// echo $success . "<br/>";
+  /*if(empty($errors)){
 
+    print_r($_SESSION);
+  } else {
+    print_r($errors);
+  }*/
+?>
+<!--</pre>-->
 
 
 
