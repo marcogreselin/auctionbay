@@ -1,0 +1,94 @@
+.login-headline {
+	padding: 20px 0;
+	margin-top: 2px;
+	margin-bottom: 40px;
+	font: 700 118px/1.1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #1abc9c;
+	text-align: center;
+	word-wrap: break-word;
+}
+@media screen and (max-width: 600px){
+	.login-headline {
+		font-size: 50px;
+	}
+}
+.login-box{
+  	width: 45%;
+  	min-width: 300px;
+  	margin: 0 auto;
+}
+.logout{
+  	/*background-color: lightblue;*/
+  	background-image: url("../img/rainbow.png");
+  	background-repeat: no-repeat;
+  	background-position: left bottom;
+  	background-attachment: fixed;
+}
+@media screen and (max-width: 900px){
+	.logout{
+		background-image: none;
+	}
+}
+.logo-small{
+	content:url(../img/logo-small.png);
+	height: 30px;
+    width: 30px;
+    float:left;
+    margin-right: 10px;
+    height: 100%;
+    width: auto;
+    vertical-align: middle;
+}
+.navbar-brand:hover{
+	color: #34495e !important;
+}
+
+
+
+
+/* signup.css */
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('../css/font-awesome/fonts/fontawesome-webfont.woff2') format('woff2'),
+	url('../css/font-awesome/fonts/fontawesome-webfont.woff') format('woff'),
+	url('../css/font-awesome/fonts/fontawesome-webfont.ttf') format('truetype');
+}
+
+/*** custom checkboxes ***/
+
+input[type=radio] { display:none; } /* to hide the checkbox itself */
+input[type=radio] + label:before {
+	font-family: FontAwesome;
+	display: inline-block;
+}
+
+input[type=radio] + label:before { content: "\f096"; } /* unchecked icon */
+input[type=radio] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+
+input[type=radio]:checked + label:before { content: "\f046"; } /* checked icon */
+input[type=radio]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */
+
+.role-check-label {
+	font-size: 1.5em;
+}
+
+.signup-headline {
+	padding: 20px 0;
+	margin-top: 2px;
+	margin-bottom: 40px;
+	font: 700 118px/1.1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #1abc9c;
+	text-align: center;
+	word-wrap: break-word;
+}
+
+/** address.css **/
+
+.country-select {
+	position: relative;
+	left: -0.68em;
+	right: 0.30em;
+	bottom: 0.45em;
+	width: 390px !important;
+}
