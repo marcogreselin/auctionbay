@@ -51,6 +51,7 @@ function validate_max_lengths($fields_with_max_lengths) {
 	}
 }
 
+/*  Constructs an appropriate error if the parameters do not match*/
 function matches($first_field, $second_field) {
   global $errors;
 
@@ -59,5 +60,19 @@ function matches($first_field, $second_field) {
     $errors[$first_field] = fieldname_as_text($first_field) . "s do not match";
   }//else do nothing
 }
+
+/*  Constructs an appropriate error if the parameter */
+function validate_phone($field) {
+    global $errors;
+
+    if(ctype_digit($_POST[$field])) {
+
+      return 1;
+    } else {
+      $errors[$field] = fieldname_as_text($field) . " must be a series of digits";
+      return 0;
+    }
+}
+
 
 ?>

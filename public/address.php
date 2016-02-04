@@ -16,7 +16,7 @@ if(isset($_POST['submit'])) {
 
 } elseif (isset($_POST['second_submit'])){
 //TODO process_second_form();
-//process_second_form();
+process_second_form();
 
 } else {
   //if(!isset($_POST['submit']))
@@ -137,7 +137,7 @@ if(isset($_POST['submit'])) {
             </div>
 
             <div class="col-sm-4">
-            <select class="country-select form-control select select-primary select-hg mbl">
+            <select class="country-select form-control select select-primary select-hg mbl" name="country">
                 <option value="">Country...</option>
                 <option value="AFG">Afghanistan</option>
                 <option value="ALA">Åland Islands</option>
