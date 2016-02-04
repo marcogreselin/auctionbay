@@ -14,9 +14,33 @@ setcookie("test",45, time()+60*60*24*7);
 if(isset($_POST['submit'])) {
   process_first_form();
 
-} elseif (isset($_POST['second_submit'])){
-//TODO process_second_form();
-process_second_form();
+//  Process form from address.php
+} elseif (isset($_POST['second_submit']) && $_SESSION['user_details']) {
+  process_second_form();
+
+  //  Double check for success of previous form submission before proceeding
+  //  to send data to the database
+  if($_SESSION['user_details'] && $_SESSION['address_details']){
+    echo "details correct <br/>";
+    if(create_new_user()) {
+      echo "user created<br/>";
+      redirect_to("cookies.php");
+    } else {
+      //DEBUG
+      echo "Errors:";
+      echo "<pre>";
+      echo print_r($errors);
+      echo "</pre>";
+      echo "POST:";
+      echo "<pre>";
+      echo print_r($_POST);
+      echo "</pre>";
+      echo "Session:";
+      echo "<pre>";
+      echo print_r($_SESSION);
+      echo "</pre>";
+    }
+  }
 
 } else {
   //if(!isset($_POST['submit']))
@@ -24,11 +48,11 @@ process_second_form();
 
   //must be commented out for testing
   //redirect_to("signup.php");
+
+
 }
 
 ?>
-
-<!-- TODO: Add the logic for sending the data to the database -->
 
 <!DOCTYPE html>
 <html lang="en">

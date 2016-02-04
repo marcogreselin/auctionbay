@@ -36,7 +36,16 @@ function query_insert_user() {
   }
 }
 
-
+/*Constructs a query and sends it to the database connection specified by the
+* $connection global variable. Fetches the data to input in the query from the
+* $_POST super global. Uses an inefficient futher query to the database in order
+* to determine the latest user inserted. This may also cause issues where
+* multiple user insertion queries are performed close to each other and their
+* complementary address insertion queries are performed asynchronously. Would be
+* best to lock the user table until the present procedure returns, so that no
+* user can be added to the database while another user's data is being inserted
+* into the "user" and "address" tables.
+* Returns 1 if the query succeeded, 0 otherwise.*/
 function query_insert_address() {
   global $connection;
 

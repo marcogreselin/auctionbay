@@ -104,7 +104,7 @@
                                        type="radio"
                                        id="role-checkbox-buyer"
                                        name="role-check"
-                                       value="buyer"/>
+                                       value="0"/>
                                 <label class="role-check-label" for="role-checkbox-buyer">
                                     Buyer
                                 </label>
@@ -120,7 +120,7 @@
                                        type="radio"
                                        id="role-checkbox-seller"
                                        name="role-check"
-                                       value="seller"/>
+                                       value="1"/>
                                 <label class="role-check-label" for="role-checkbox-seller">
                                     Seller
                                 </label>

@@ -2,6 +2,7 @@
 
 require_once('../includes/navigation.php');
 require_once('../includes/validation_functions.php');
+require_once('../includes/queries.php');
 
 /*  Processes the content of the first form, not needed outside of
 address.php*/
@@ -32,11 +33,13 @@ function process_first_form() {
 
     //  This uses the current session, session should be
     //  destroyed once the registration process ends :NT
-    $_SESSION['firstname']= $_POST['firstname'];
-    $_SESSION["lastname"] = $_POST['lastname'];
-    $_SESSION["email"] = $_POST['email'];
-    $_SESSION["password"] = $_POST['password'];
-    $_SESSION["role"] = $_POST['role-check'];
+    $_SESSION['firstname']  = $_POST['firstname'];
+    $_SESSION["lastname"]   = $_POST['lastname'];
+    $_SESSION["email"]      = $_POST['email'];
+    $_SESSION["password"]   = $_POST['password'];
+    $_SESSION["role"]       = $_POST['role-check'];
+    $_SESSION['user_details'] = 1; //confirm successful outcome in session
+
 
   } else {
     // Failure outcome: one or more elements in $errors
@@ -52,8 +55,7 @@ function process_first_form() {
       echo "</pre>";
     }
     else {
-      if(!isset($_POST['test']))
-        redirect_to("signup.php");
+        //redirect_to("signup.php");
     }
   }
 }
@@ -90,12 +92,13 @@ function process_second_form() {
     //  on second thought: this better be a fresh post request to a pure php
     //  processing document, so that a user cannot otherwise navigate to the
     //  document with a get request TODO
-    $_SESSION['address'] = $_POST['address'];
-    $_SESSION['city'] = $_POST['city'];
-    $_SESSION['county'] = $_POST['county'];
-    $_SESSION['postcode'] = $_POST['postcode'];
-    $_SESSION['country'] = $_POST['country'];
-    $_SESSION['phonenumber'] = $_POST['phonenumber'];
+    $_SESSION['address']      = $_POST['address'];
+    $_SESSION['city']         = $_POST['city'];
+    $_SESSION['county']       = $_POST['county'];
+    $_SESSION['postcode']     = $_POST['postcode'];
+    $_SESSION['country']      = $_POST['country'];
+    $_SESSION['phonenumber']  = $_POST['phonenumber'];
+    $_SESSION['address_details'] = 1; //confirm successful outcome in session
 
     if(isset($_POST['test'])) {
       echo "SESSION:";
@@ -113,9 +116,22 @@ function process_second_form() {
       echo "</pre>";
     }
     else {
-      if(!isset($_POST['test']))
-        redirect_to("signup.php");
+        //redirect_to("signup.php");
     }
+  }
+}
+
+/* Performs the necessary queries against the database in order to create a new
+* user and link the new userId to a new row in the "address" table.*/
+function create_new_user() {
+  global $connection;
+
+  if(!query_insert_user()) {
+    return 0;
+  } elseif (!query_insert_address()) {
+    return 0;
+  } else {
+    return 1;
   }
 }
 

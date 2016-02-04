@@ -7,7 +7,9 @@ assert_options(ASSERT_BAIL, 0);
 //Dependencies
 require("../includes/validation_functions.php");
 require("../includes/form_processing.php");
-
+require("../includes/dbconnection.php");
+require("../includes/session.php");
+//require("../includes/queries.php");
 
 function clear_errors() {
   global $errors;
@@ -94,6 +96,46 @@ function second_form_test_success() {
   //assert($_SESSION contains all the fields expected);
 }
 
+function create_new_user_success() {
+  global $connection;
+
+  session_unset();
+
+  $_SESSION['firstname'] = "createnewusertest";
+  $_SESSION['lastname'] = "createnewusertest";
+  $_SESSION['email'] = "createnewusertestemail";
+  $_SESSION['role'] = 1;
+  $_SESSION['password'] = 'pw';
+  $_POST['address'] = "address";
+  $_POST['city'] = "city";
+  $_POST['county'] = "county";
+  $_POST['postcode'] = "postcode";
+  $_POST['county'] = "county";
+  $_POST['phonenumber'] = 1234;
+
+  assert(create_new_user());
+}
+
+function create_new_user_failure() {
+  global $connection;
+
+  session_unset();
+
+  $_SESSION['firstname'] = "createnewusertest";
+  $_SESSION['lastname'] = "createnewusertest";
+  $_SESSION['email'] = "createnewusertestemail";
+  $_SESSION['role'] = "non-numeric-input";
+  $_SESSION['password'] = 'pw';
+  $_POST['address'] = "address";
+  $_POST['city'] = "city";
+  $_POST['county'] = "county";
+  $_POST['postcode'] = "postcode";
+  $_POST['county'] = "county";
+  $_POST['phonenumber'] = "non-numeric-input";
+
+  assert(!create_new_user());
+}
+
 //test for failure first post
 first_form_test_failure();
 //$errors = array();
@@ -113,6 +155,11 @@ clear_errors();
 second_form_test_success();
 //$errors = array();
 clear_errors();
+
+//create_new_user()
+create_new_user_success();
+create_new_user_failure();
+
 
 echo "<h3>All tests completed</h3>";
 
