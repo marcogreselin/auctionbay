@@ -57,7 +57,7 @@
 
         <p><input type="text" class="form-control input-hg login-box" placeholder="Enter your email" /></p>
         <p><input type="password" class="form-control input-hg login-box" placeholder="Enter your password" /></p>
-        <p><button onclick="location.href='cookies.php'" class="btn btn-hg btn-primary">
+        <p><button onclick="location.href='buyer_account.php'" class="btn btn-hg btn-primary">
           Enter!
         </button></p>
 

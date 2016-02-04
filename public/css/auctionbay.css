@@ -92,3 +92,34 @@ input[type=radio]:checked + label:before { letter-spacing: 5px; } /* allow space
 	bottom: 0.45em;
 	width: 390px !important;
 }
+.menu-margin{
+	margin-top: 30px;
+}
+a > h3 {
+	color: #34495e;
+}
+tr {
+	height: 50px;
+}
+.trash-icon{
+	height: 40px;
+	margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+img.image-table{
+	height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.table{
+	margin-bottom: 80px;
+}
+th{
+	padding-top: 0px!important;
+	padding-bottom: 0px!important;
+	vertical-align: middle!important;
+}
