@@ -5,7 +5,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>AuctionBay</title>
@@ -52,8 +52,24 @@
       </div><!-- /.navbar-collapse -->
     </nav><!-- /navbar -->
 
-<div class="container">
-    <h1>Sign Up</h1>
+
+    <div class="row">
+        <div class="col-sm-4 header-signup">
+            <h1>Sign Up</h1>
+        </div>
+        <div class="col-sm-8 pull-left login-box">
+            <p>
+                <div class="alert alert-danger">
+                    <button class="close fui-cross" data-dismiss="alert"></button>
+                    <h4>Opps!</h4>
+                    <p>The email address has been used, please use another email address.</p>
+                </div>
+            </p>
+        </div>
+    </div>
+
+
+
 
     <form class="sign-up-form form-horizontal" action="address.php" method="post">
 
@@ -144,10 +160,10 @@
 
 
 <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-<script src="../dist/js/vendor/jquery.min.js"></script>
+<script src="js/vendor/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../dist/js/vendor/video.js"></script>
-<script src="../dist/js/flat-ui.min.js"></script>
+<script src="js/vendor/video.js"></script>
+<script src="js/flat-ui-pro.js"></script>
 
 </body>
 </html>

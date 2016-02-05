@@ -85,6 +85,17 @@ input[type=radio]:checked + label:before { letter-spacing: 5px; } /* allow space
 	word-wrap: break-word;
 }
 
+.header-signup {
+	padding-left: 5em;
+
+}
+
+.sign-up-form {
+	padding-right: 10em;
+}
+
+
+
 /** address.css **/
 
 .country-select {
@@ -271,3 +282,4 @@ html, body {
 	padding-bottom: 10px;
 	border: none;
 }
+
