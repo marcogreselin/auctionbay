@@ -45,7 +45,7 @@
         <p class="navbar-text navbar-right">
           <a class="navbar-link" href="index.php">Logout</a>
         </p>
-        <form class="navbar-form navbar-right" action="#" role="search">
+        <form class="navbar-form navbar-right" action="searchpage.php" role="search">
           <div class="form-group">
             <div class="input-group">
               <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
@@ -61,6 +61,7 @@
 
     <div class="container">
       <h1>My Account</h1>
+
     </div>
 
 
