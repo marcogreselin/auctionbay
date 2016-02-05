@@ -104,22 +104,22 @@
           <th>Status</th>
         </tr>
         <tr>
-          <td><a href="#"><img src="img/user-interface.svg" title="Insert title" class="image-table">First Row, first column</a></td>
+          <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
           <td>First Row, second column</td>
           <td>First Row, third column</td>
         </tr>
         <tr>
-          <td><a href="#"><img src="img/user-interface.svg" title="Insert title" class="image-table">Second Row, first column</a></td>
+          <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Second Row, first column</a></td>
           <td>Second Row, second column</td>
           <td>Second Row, third column</td>
         </tr>
         <tr>
-          <td><a href="#"><img src="img/user-interface.svg" title="Insert title" class="image-table">Third Row, first column</a></td>
+          <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
           <td>Third Row, second column</td>
           <td>Third Row, third column</td>
         </tr>
         <tr>
-          <td><a href="#"><img src="img/user-interface.svg" title="Insert title" class="image-table">Third Row, first column</a></td>
+          <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
           <td>Third Row, second column</td>
           <td>Third Row, third column</td>
         </tr>
@@ -138,28 +138,28 @@
           <th>Unfollow</th>
         </tr>
         <tr>
-          <td><a href="#"><img src="img/user-interface.svg" title="Insert title" class="image-table">First Row, first column</a></td>
+          <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
           <td>First Row, second column</td>
           <td>First Row, third column</td>
-          <td><a href="#"><img src="img/trash.svg" class="trash-icon" title="CUnollow"></a></td>
+          <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
         </tr>
         <tr>
-          <td><a href="#"><img src="img/user-interface.svg" title="Insert title" class="image-table">Second Row, first column</a></td>
+          <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Second Row, first column</a></td>
           <td>Second Row, second column</td>
           <td>Second Row, third column</td>
-          <td><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
+          <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
         </tr>
         <tr>
-          <td><a href="#"><img src="img/user-interface.svg" title="Insert title" class="image-table">Third Row, first column</a></td>
+          <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
           <td>Third Row, second column</td>
           <td>Third Row, third column</td>
-          <td><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
+          <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
         </tr>
         <tr>
-          <td><a href="#"><img src="img/user-interface.svg" title="Insert title" class="image-table">Third Row, first column</a></td>
+          <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
           <td>Third Row, second column</td>
           <td>Third Row, third column</td>
-          <td><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
+          <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
         </tr>
       </table>
     </div>
