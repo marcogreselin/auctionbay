@@ -1,3 +1,5 @@
+/*@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css")*/
+
 .login-headline {
 	padding: 20px 0;
 	margin-top: 2px;
@@ -92,6 +94,7 @@ input[type=radio]:checked + label:before { letter-spacing: 5px; } /* allow space
 	bottom: 0.45em;
 	width: 390px !important;
 }
+
 .menu-margin{
 	margin-top: 30px;
 }
@@ -122,4 +125,123 @@ th, .trash{
 	padding-top: 0px!important;
 	padding-bottom: 0px!important;
 	vertical-align: middle!important;
+}
+th {
+	padding-top: 0px ! important;
+	padding-bottom: 0px ! important;
+	vertical-align: middle !important;
+}
+
+
+/** search.css **/
+
+
+.list-subcategory {
+	left: 0.68em;
+}
+
+
+.navbar-divider-vertical {
+	height: 40px;
+	margin: 0.9px;
+	border-left: 1px solid #f2f2f2;
+	border-right: 1px solid #ffffff;
+}
+
+
+
+.search-side-panel {
+	margin-left: 20px;
+	margin-right: -1.5px;
+	border-right: 3px solid #edeff1;
+	border-bottom: 3px solid #edeff1;
+}
+
+
+img.search-result-table {
+	height: 80px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.category-select {
+	width: auto;
+}
+
+.search-page-header {
+	padding-left: 20px;
+}
+
+.search-page-table {
+	padding-right: 20px !important;
+
+
+}
+
+
+/** Rating star **/
+
+.star-ctr {
+	display: inline-block;
+	position: relative;
+	left: 1.0em;
+	padding-bottom: 2em;
+}
+
+.star-ctr ul {
+	white-space: nowrap;
+	list-style: none outside none;
+	padding-left: 0;
+	overflow: hidden;
+}
+
+.star-fg {
+	top: 0;
+	position: absolute;
+}
+
+.star-ctr li {
+	display: inline-block;
+}
+
+.star-ctr a > span {
+	font-size: 3em;
+}
+
+.star-ctr a:hover {
+	text-decoration: none;
+}
+
+.star-bg a > span {
+	color: silver
+}
+
+.star-fg a > span {
+	color: yellow;
+}
+
+.glyphicon-star-active {
+	content: '★ ';
+	font-size: 3em;
+	color: yellow;
+}
+
+
+.glyphicon-star-inactive {
+	content: '★ ';
+	font-size: 3em;
+}
+
+.up-word {
+	position: relative;
+	bottom: 10em;
+}
+
+.btn-filter {
+	width: 40px;
+	padding-bottom: 10px;
+	border: none;
 }

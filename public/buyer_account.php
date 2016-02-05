@@ -40,12 +40,12 @@
       <div class="collapse navbar-collapse" id="navbar-collapse-01">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#fakelink">My Account</a></li>
-          <li><a href="#fakelink">Search</a></li>
+          <li><a href="">Search</a></li>
         </ul>
         <p class="navbar-text navbar-right">
           <a class="navbar-link" href="index.php">Logout</a>
         </p>
-        <form class="navbar-form navbar-right" action="#" role="search">
+        <form class="navbar-form navbar-right" action="searchpage.php" role="search">
           <div class="form-group">
             <div class="input-group">
               <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
@@ -104,6 +104,7 @@
           <th>Status</th>
         </tr>
         <tr>
+
           <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
           <td>First Row, second column</td>
           <td>First Row, third column</td>
