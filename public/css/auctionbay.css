@@ -245,3 +245,34 @@ img.search-result-table {
 	padding-bottom: 10px;
 	border: none;
 }
+
+.search-result-list li {
+	list-style-type: none;
+}
+
+html, body {
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+.container-item-description {
+	padding-left: 0.8em;
+	max-width: 1000px;
+	padding-right: 5em;
+}
+
+
+.btn-bid {
+	width: 40px;
+	padding-bottom: 10px;
+	padding-bottom: 10px;
+	border: none;
+}
+
+
+.btn-follow {
+	width: 40px;
+	padding-bottom: 10px;
+	padding-bottom: 10px;
+	border: none;
+}
