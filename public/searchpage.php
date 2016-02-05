@@ -211,284 +211,176 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
+                            <ul class="search-result-list">
+                                <li>
+                                    <div class="col-sm-6">
+                                        <a href="#"><h6>Item name</h6></a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div><h6>Price</h6></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="container-item-description">
+                                        Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
+                                        munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
+                                        Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
+                                        quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
+                                        duo, ne z
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="container-item-description">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
+                                                       name="btn-bid" value="Bid">
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <input class="btn-follow btn-lg btn-primary btn-wide" type="submit"
+                                                       name="btn-follow" value="Follow">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                     </td>
                 </tr>
 
-                <tr>
+<tr>
                     <td>
                         <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
+                            <ul class="search-result-list">
+                                <li>
+                                    <div class="col-sm-6">
+                                        <a href="#"><h6>Item name</h6></a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div><h6>Price</h6></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="container-item-description">
+                                        Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
+                                        munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
+                                        Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
+                                        quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
+                                        duo, ne z
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="container-item-description">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
+                                                       name="btn-bid" value="Bid">
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <input class="btn-follow btn-lg btn-primary btn-wide" type="submit"
+                                                       name="btn-follow" value="Follow">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                     </td>
                 </tr>
 
-                <tr>
+<tr>
                     <td>
                         <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
+                            <ul class="search-result-list">
+                                <li>
+                                    <div class="col-sm-6">
+                                        <a href="#"><h6>Item name</h6></a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div><h6>Price</h6></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="container-item-description">
+                                        Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
+                                        munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
+                                        Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
+                                        quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
+                                        duo, ne z
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="container-item-description">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
+                                                       name="btn-bid" value="Bid">
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <input class="btn-follow btn-lg btn-primary btn-wide" type="submit"
+                                                       name="btn-follow" value="Follow">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                     </td>
                 </tr>
 
-                <tr>
+<tr>
                     <td>
                         <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
+                            <ul class="search-result-list">
+                                <li>
+                                    <div class="col-sm-6">
+                                        <a href="#"><h6>Item name</h6></a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div><h6>Price</h6></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="container-item-description">
+                                        Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
+                                        munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
+                                        Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
+                                        quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
+                                        duo, ne z
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="container-item-description">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
+                                                       name="btn-bid" value="Bid">
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <input class="btn-follow btn-lg btn-primary btn-wide" type="submit"
+                                                       name="btn-follow" value="Follow">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                     </td>
                 </tr>
 
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
 
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
 
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
 
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
 
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#"><h6>Item name</h6></a>
-                            </div>
-                            <div class="col-sm-6">
-                                <div><h6>Price</h6></div>
-                            </div>
-                        </div>
-                        <div>Item description: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoqu
-                        </div>
-                    </td>
-                </tr>
             </table>
         </div>
     </div> <!-- /row -->
