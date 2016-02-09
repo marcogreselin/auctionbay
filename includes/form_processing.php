@@ -135,4 +135,40 @@ function create_new_user() {
   }
 }
 
+/*Processes the content of the login form.*/
+function process_login_form() {
+  global $errors;
+
+  $required_fields = array("email", "password");
+  validate_presences($required_fields);
+
+  $fields_with_max_lengths = array("email" => 50, "password" => 20);
+  validate_max_lengths($fields_with_max_lengths);
+
+  if(empty($errors)){
+    $_POST['login_details'] = 1;
+  } else {
+    $_POST['login_details'] = 0;
+  }
+}
+
+/*Confronts input parameters with records, returns 1 if a match is found, 0
+* otherwise*/
+function attempt_login($email, $password) {
+  //select user row from database
+  //if row is not empty then compare the hashed passwords
+  //return the admin object or false
+  $user = query_select_user_by_email($email);
+
+  if($user && (password_verify($password, $user['password']))) {
+    //user found in database, and password matches
+    return $user;
+  } else {
+    //email does not match any user (boolean short-circuit),
+    //or if it does the passwords does not match
+    return 0;
+  }
+}
+
+
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 /*Constructs a query and sends it to the database connection specified by the
 * $connection global variable. Fetches the data to input in the query from the
 * $_SESSION super global. Returns 1 if the query succeeded, 0 otherwise.*/
@@ -85,7 +84,7 @@ function query_insert_address() {
   }
 }
 
-/*Fetches the user with the largest userId (the last inserted user)*/
+/*Fetches the user with the largest userId (the last inserted user).*/
 function query_select_last_user() {
   global $connection;
 
@@ -95,4 +94,47 @@ function query_select_last_user() {
 
   return mysqli_fetch_assoc($result_set);
 }
+
+/*@UNUSED <strike>@NEEDS: to also check the type of account</strike>
+* Should be used to verify that the user registering has not previously
+* registered*/
+function query_email_exists(/*$account_type*/) {
+  //SELECT count(1) FROM user WHERE email='{$email}';
+  global $connection;
+
+  //prep value
+  $email = mysqli_real_escape_string($connection, $_SESSION['email']);
+
+  //construct query
+  $query = "SELECT count(1) FROM user WHERE email='{$email}'";
+
+  //execute query
+  $result = mysqli_query($connection, $query);
+
+  return $result;
+}
+
+/*Returns the row from the user table corresponding to the email parameter
+* or 0/false if no match can be found*/
+function query_select_user_by_email($email) {
+  global $connection;
+
+  //prep values
+  $email  = mysqli_real_escape_string($connection, $email);
+  //$role   = mysqli_real_escape_string($connection, $role);
+
+  //construct query
+  $query = "SELECT * FROM user WHERE email='{$email}' LIMIT 1";
+
+  //execute query
+  $result = mysqli_query($connection, $query);
+
+  if($result) {
+    return mysqli_fetch_assoc($result);
+  } else {
+    return 0;
+  }
+}
+
+
 ?>

@@ -1,5 +1,17 @@
 <?php
+  // Dependencies
+  require_once('../includes/session.php');
+  require_once('../includes/navigation.php');
+
+  // Cookies
   setcookie("test",45,time()+60*60*24*7);
+
+  echo ROLE_BUYER . "<br/>";
+  echo $_SESSION['role'] . "<br/>";
+
+  if(!$_SESSION['logged_in'] || $_SESSION['role'] != ROLE_BUYER) {
+    redirect_to("index.php");
+  }
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +30,7 @@
     <!-- Loading AB CSS -->
     <link href="css/auctionbay.css" rel="stylesheet">
 
-    
+
     <link rel="shortcut icon" href="img/favicon.ico">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -62,7 +74,7 @@
     <div class="container">
       <h1>My Account</h1>
       <p>Welcome to your personal area. Here you can check your personal details as well as monitor auctions you have bid for.</p>
-    
+
     <div class="row">
       <div class="col-md-2 menu-margin">
         <ul class="nav nav-list">

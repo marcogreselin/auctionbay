@@ -21,10 +21,10 @@ if(isset($_POST['submit'])) {
   //  Double check for success of previous form submission before proceeding
   //  to send data to the database
   if($_SESSION['user_details'] && $_SESSION['address_details']){
-    echo "details correct <br/>";
+
     if(create_new_user()) {
-      echo "user created<br/>";
       redirect_to("cookies.php");
+      //TODO destroy the session after registration is complete
     } else {
       //DEBUG
       echo "Errors:";
