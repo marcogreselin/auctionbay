@@ -78,7 +78,7 @@ if(isset($_POST['submit'])) {
     <div class="login-headline">Welcome!</div>
 
     <!-- Alert if wrong credentials -->
-    <?php if(!isset($errors) || !empty($errors)) {
+    <?php if(isset($errors) && !empty($errors)) {
       $output  = "<p>";
       $output .= "<div class=\"alert alert-danger login-box\">";
       $output .= "<button class=\"close fui-cross\" data-dismiss=\"alert\"></button>";

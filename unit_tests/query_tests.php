@@ -106,10 +106,32 @@ function query_email_exists_success() {
 };
 
 //@TEST
+function query_count_occurrences_success() {
+  global $connection;
+
+  $value = "testemail";
+  $column = "email";
+  $table = "user";
+
+  assert(query_count_occurrences($value, $column, $table));
+}
+
+//@TEST
+function query_count_occurrences_failure() {
+  global $connection;
+
+  $value = 22;
+  $column = "email";
+  $table = "user";
+
+  assert(!query_count_occurrences($value, $column, $table));
+}
+
+//@TEST
 function query_select_user_by_email_failure() {
   global $connection;
 
-  $email = null;
+  $email = "notused";
   //$role = "notanumber";
   assert(!query_select_user_by_email($email));
 }
@@ -120,7 +142,7 @@ function query_select_user_by_email_success() {
 
   $email = "niccolo.terreri.15@ucl.ac.uk";
   //$role = 0;
-  
+
   assert(query_select_user_by_email($email));
 }
 
@@ -138,6 +160,10 @@ query_insert_address_success();
 //query_email_exists()
 query_select_user_by_email_failure();
 query_select_user_by_email_success();
+
+//query_count_occurrences()
+query_count_occurrences_success();
+query_count_occurrences_failure();
 
 
 echo "<h3>All tests completed</h3>";

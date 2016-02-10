@@ -14,7 +14,8 @@ function process_first_form() {
   "email",
   "password",
   "passwordagain",
-  "role-check");
+  //"role-check"
+);
   validate_presences($required_fields);
 
   //  Limits provided should correspond to the limits set in the sql database
@@ -26,6 +27,9 @@ function process_first_form() {
 
   // Check that password == passwordagain
   matches($_POST['password'], $_POST['passwordagain']);
+
+  // check that email has not already been used
+  validate_email($_POST['email']);
 
   if(empty($errors)) {
     // Success outcome:
@@ -47,15 +51,21 @@ function process_first_form() {
     //  Either display messages from $erros here in address.php or
     //  signup.php
 
+    if(!isset($_POST['test'])) {
+    //Store what is needed in the session
+    $_SESSION['firstname']  = $_POST['firstname'];
+    $_SESSION["lastname"]   = $_POST['lastname'];
+    $_SESSION["email"]      = $_POST['email'];
+    $_SESSION['errors'] = $errors;
+    redirect_to("signup.php");
+  }
+
     //Unit-testing only:
     if(isset($_POST['test'])){
       echo "Errors from process_first_form():";
       echo "<pre>";
       echo print_r($errors);
       echo "</pre>";
-    }
-    else {
-        //redirect_to("signup.php");
     }
   }
 }

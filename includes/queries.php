@@ -17,7 +17,7 @@ function query_insert_user() {
 
   //construct query
   $query  = "INSERT INTO user ";
-  $query .= "(role, email, username, password, firstName, lastName) ";
+  $query .= "(role, email, username, password, firstname, lastName) ";
   $query .= "VALUES ";
   $query .= "({$role}, '{$email}', '{$username}', '{$password}', ";
   $query .= "'{$firstname}', '{$lastname}');";
@@ -110,6 +110,24 @@ function query_email_exists(/*$account_type*/) {
 
   //execute query
   $result = mysqli_query($connection, $query);
+
+  return $result;
+}
+
+/*Generic method to return the number of occurrences of $value parameter inside
+* the $column of the table specified by $table.*/
+function query_count_occurrences($value, $column, $table) {
+  global $connection;
+
+  //prep value
+  $value = mysqli_real_escape_string($connection, $value);
+
+  //construct query
+  $query = "SELECT * FROM {$table} WHERE {$column}='{$value}'";
+
+  //execute query
+  $result = mysqli_query($connection, $query);
+  $result = mysqli_num_rows($result);
 
   return $result;
 }
