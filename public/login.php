@@ -4,14 +4,17 @@ require_once('../includes/dbconnection.php');
 require_once('../includes/session.php');
 require_once('../includes/form_processing.php');
 
-
 // Cookies
 setcookie("test",45,time()+60*60*24*7);
 
-if(isset($_POST['submit'])) {
-  //  Process form from login.php
-  process_login_form();
 
+if(isset($_POST['submit'])) {
+  //store form data to display back to the user:
+  $email = $_POST['email'];
+
+  //  Process form from login.php
+
+  process_login_form();
   if($_POST['login_details']) {
     $user = attempt_login($_POST['email'], $_POST['password']);
     if($user) {
@@ -23,6 +26,8 @@ if(isset($_POST['submit'])) {
       $_SESSION['role'] = $user['role'];
 
       redirect_to("buyer_account.php");
+    } else {
+      $errors['login'] = "No database match";
     }
   }
 }
@@ -73,17 +78,22 @@ if(isset($_POST['submit'])) {
     <div class="login-headline">Welcome!</div>
 
     <!-- Alert if wrong credentials -->
-    <p>
-      <div class="alert alert-danger login-box">
-        <button class="close fui-cross" data-dismiss="alert"></button>
-        <h4>Something went wrong!</h4>
-        <p>Your email or password was wrong. Please try again.</p>
-      </div>
-    </p>
+    <?php if(!isset($errors) || !empty($errors)) {
+      $output  = "<p>";
+      $output .= "<div class=\"alert alert-danger login-box\">";
+      $output .= "<button class=\"close fui-cross\" data-dismiss=\"alert\"></button>";
+      $output .= "<h4>Something went wrong!</h4>";
+      $output .= "<p>Your email or password was wrong. Please try again.</p>";
+      $output .= "</div>";
+      $output .= "</p>";
+
+      echo $output;
+    }?>
 
     <form action="login.php" method="post">
       <p><input type="email" class="form-control input-hg login-box"
-        name="email" placeholder="Enter your email" /></p>
+        name="email" placeholder="Enter your email"
+        value=<?php echo ((isset($_POST['submit'])) ? $email : "") ?> ></p>
         <p><input type="password" class="form-control input-hg login-box"
           name="password" placeholder="Enter your password" /></p>
           <p><input class="btn btn-hg btn-primary"
