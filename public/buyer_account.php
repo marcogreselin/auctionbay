@@ -6,7 +6,7 @@
   // Cookies
   setcookie("test",45,time()+60*60*24*7);
 
-  if(!$_SESSION['logged_in'] || $_SESSION['role'] != ROLE_BUYER) {
+  if(!is_buyer()) {
     redirect_to("index.php");
   }
 ?>

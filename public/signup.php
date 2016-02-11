@@ -7,6 +7,9 @@ require_once("../includes/output.php");
 //  Cookies
  setcookie("test",45, time()+60*60*24*7);
 
+ //if user is logged in, log them out:
+ //TODO (see login.php)
+
 //SESSION is used to communicate errors between signup.php and address.php
 if(isset($_SESSION['errors']))
   $errors = $_SESSION['errors'];
@@ -159,7 +162,7 @@ $email = repeat_input("email");
                                        type="radio"
                                        id="role-checkbox-buyer"
                                        name="role-check"
-                                       value="0"/>
+                                       value="1"/>
                                 <label class="role-check-label" for="role-checkbox-buyer">
                                     Buyer
                                 </label>
@@ -175,7 +178,7 @@ $email = repeat_input("email");
                                        type="radio"
                                        id="role-checkbox-seller"
                                        name="role-check"
-                                       value="1"/>
+                                       value="2"/>
                                 <label class="role-check-label" for="role-checkbox-seller">
                                     Seller
                                 </label>

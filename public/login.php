@@ -7,6 +7,10 @@ require_once('../includes/form_processing.php');
 // Cookies
 setcookie("test",45,time()+60*60*24*7);
 
+//if user is logged in, log out first:
+if(is_buyer() || is_seller()) {
+  clear_session();
+}
 
 if(isset($_POST['submit'])) {
   //store form data to display back to the user:
@@ -21,8 +25,8 @@ if(isset($_POST['submit'])) {
       //login successful
 
       //restart the session
-      $_SESSION = array();
-      $_SESSION['logged_in'] = 1;
+      clear_session();
+      //$_SESSION['logged_in'] = 1;
       $_SESSION['role'] = $user['role'];
 
       redirect_to("buyer_account.php");

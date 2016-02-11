@@ -1,5 +1,13 @@
 <?php
+//Dependencies
+
+require_once("../includes/session.php");
+
 setcookie("test", 45, time() + 60 * 60 * 24 * 7);
+
+if(!is_buyer() && !is_seller()) {
+  redirect_to("index.php");
+}
 ?>
 
 <!DOCTYPE html>

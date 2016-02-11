@@ -1,5 +1,13 @@
 <?php
-  setcookie("test",45,time()+60*60*24*7);
+//Dependencies
+
+require_once("../includes/session.php");
+
+setcookie("test", 45, time() + 60 * 60 * 24 * 7);
+
+if(!is_buyer() && !is_seller()) {
+  redirect_to("index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +26,7 @@
     <!-- Loading AB CSS -->
     <link href="css/auctionbay.css" rel="stylesheet">
 
-    
+
     <link rel="shortcut icon" href="img/favicon.ico">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
