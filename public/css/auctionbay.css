@@ -65,17 +65,17 @@
 
 /*** custom checkboxes ***/
 
-input[type=radio] { display:none; } /* to hide the checkbox itself */
-input[type=radio] + label:before {
+.container-survey-yesno > input[type=radio] { display:none; } /* to hide the checkbox itself */
+.container-survey-yesno > input[type=radio] + label:before {
 	font-family: FontAwesome;
 	display: inline-block;
 }
 
-input[type=radio] + label:before { content: "\f096"; } /* unchecked icon */
-input[type=radio] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+.container-survey-yesno > input[type=radio] + label:before { content: "\f096"; } /* unchecked icon */
+.container-survey-yesno > input[type=radio] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
 
-input[type=radio]:checked + label:before { content: "\f046"; } /* checked icon */
-input[type=radio]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */
+.container-survey-yesno > input[type=radio]:checked + label:before { content: "\f046"; } /* checked icon */
+.container-survey-yesno > input[type=radio]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */
 
 .role-check-label {
 	font-size: 1.5em;
@@ -258,7 +258,10 @@ img.search-result-table {
 }
 
 .btn-filter {
-	width: 40px;
+	position: relative;
+	right: 70px;
+	width: 200px;
+	padding-right: 5em;
 	padding-bottom: 10px;
 	border: none;
 }
@@ -297,5 +300,77 @@ html, body {
      float: none;
      margin-left: auto;
      margin-right: auto;
+}
+
+/** Star rating, pure css **/
+
+
+.rating {
+	content: '★ ';
+	float:left;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+	content: '★ ';
+	position:absolute;
+	top:-9999px;
+	clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+	content: '★ ';
+	float:right;
+	width:1em;
+	padding:0 .1em;
+	overflow:hidden;
+	white-space:nowrap;
+	cursor:pointer;
+	font-size:200%;
+	line-height:1.2;
+	color:#ddd;
+	text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:before {
+	content: '★ ';
+}
+
+.rating > input:checked ~ label {
+	content: '★ ';
+	color: #f70;
+	text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+	content: '★ ';
+	color: gold;
+	text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+	content: '★ ';
+	color: #ea0;
+	text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > label:active {
+	content: '★ ';
+	position:relative;
+	top:2px;
+	left:2px;
+}
+
+/** feedback.css **/
+
+.feedback-list li {
+	list-style-type: none;
 }
 
