@@ -375,6 +375,10 @@ html, body {
 	left:2px;
 }
 
+.rating > label {
+	width: 40px !important;
+}
+
 /** feedback.css **/
 
 .feedback-list li {
