@@ -417,6 +417,7 @@ html, body {
 	width: 10px !important;
 }
 
+/** Adjusts the spacing of the feedback stars **/
 .rating-leave-feedback > label {
 	width: 40px !important;
 }
