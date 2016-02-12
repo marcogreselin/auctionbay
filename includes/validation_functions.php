@@ -2,8 +2,6 @@
 /*form input validation functions,
   see http://www.lynda.com/MySQL-tutorials/Welcome/119003/136910-4.html*/
 
-$errors = array();
-
 function fieldname_as_text($fieldname) {
   $fieldname = str_replace("_", " ", $fieldname);
   $fieldname = ucfirst($fieldname);
@@ -46,7 +44,7 @@ function validate_max_lengths($fields_with_max_lengths) {
 	foreach($fields_with_max_lengths as $field => $max) {
 		$value = trim($_POST[$field]);
 	  if (!has_max_length($value, $max)) {
-	    $errors[$field] = fieldname_as_text($field) . " is too long";
+	    $errors[$field] = fieldname_as_text($field) . " is too long, must be less than {$max} characters";
 	  }
 	}
 }
@@ -56,8 +54,8 @@ function matches($first_field, $second_field) {
   global $errors;
 
   //strcmp returns 0 where the strings match, see http://php.net/manual/en/function.strcmp.php
-  if(strcmp($first_field, $second_field)){
-    $errors[$first_field] = fieldname_as_text($first_field) . "s do not match";
+  if(strcmp($first_field, $second_field)) {
+    $errors['passwords'] = "Passwords do not match";
   }//else do nothing
 }
 
@@ -74,5 +72,25 @@ function validate_phone($field) {
     }
 }
 
+/* Checks that the email does not already exist within the database,
+* preconditions: (1)the database can be queried from the point this function is
+* called, and (2) there is an $errors global visible from the point this
+* function is called*/
+function validate_email($email) {
+  global $errors;
+
+  //$email value in the "email" column of the "user" table
+  if(query_count_occurrences($email, "email", "user")) {
+    //if it occurs one or more times
+    $errors['email_used'] = "The email address has been used, please use another email address.";
+  }
+}
+
+/*Utility function to reset the $errors global array*/
+function clear_errors() {
+  global $errors;
+
+  $errors = array();
+}
 
 ?>

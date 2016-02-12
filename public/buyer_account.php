@@ -1,5 +1,6 @@
 <?php
   include("../includes/layouts/header_buyer.php");
+
 ?>
 
 <div class="container">
@@ -112,3 +113,4 @@
 <?php
   include("../includes/layouts/footer.php");
 ?>
+

@@ -1,5 +1,13 @@
 <?php
+//Dependencies
+
+require_once("../includes/session.php");
+
 setcookie("test", 45, time() + 60 * 60 * 24 * 7);
+
+if(!is_buyer() && !is_seller()) {
+  redirect_to("index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,9 +63,11 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
     <div class="collapse navbar-collapse" id="navbar-collapse-01">
         <ul class="nav navbar-nav">
-        </ul>
-    </div><!-- /.navbar-collapse -->
+</ul>
+</div><!-- /.navbar-collapse -->
 </nav><!-- /navbar -->
+
+
 
 
 <div class="container-search-page" id="wrapper">
@@ -133,69 +143,20 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
                 ?>
 
                 <div class="star-ctr center" data-steps="2">
-
-                    <a href="#">
-                        <ul>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                        </ul>
-                    </a>
-
-
-                    <a href="#">
-                        <ul>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                        </ul>
-                    </a>
-
-
-                    <a href="#">
-                        <ul>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                        </ul>
-                    </a>
-
-
-                    <a href="#">
-                        <ul>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                        </ul>
-                    </a>
-
-
-                    <a href="#">
-                        <ul>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-active"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                            <li><span class="glyphicon glyphicon-star glyphicon-star-inactive"></span></li>
-                        </ul>
-                    </a>
-
-                    <div class="col-sm-8 col-sm-offset-2 text-center">
-                        <input class="btn-filter btn-hg btn-primary btn-wide" type="submit" name="btn-filter" value="Filter">
+                    <fieldset class="rating">
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                    </fieldset>
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <input class="btn-filter btn-hg btn-primary btn-wide pull-left" type="submit" name="btn-filter" value="Filter">
                     </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
 
         <div class="mainContent col-sm-9">
@@ -248,7 +209,7 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
                     </td>
                 </tr>
 
-<tr>
+                <tr>
                     <td>
                         <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
                     </td>
@@ -291,7 +252,7 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
                     </td>
                 </tr>
 
-<tr>
+                <tr>
                     <td>
                         <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
                     </td>
@@ -334,7 +295,7 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
                     </td>
                 </tr>
 
-<tr>
+                <tr>
                     <td>
                         <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
                     </td>
@@ -376,11 +337,6 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
                             </ul>
                     </td>
                 </tr>
-
-
-
-
-
             </table>
         </div>
     </div> <!-- /row -->

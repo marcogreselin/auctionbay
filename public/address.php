@@ -6,25 +6,27 @@ require_once('../includes/session.php');
 require_once('../includes/navigation.php');
 require_once('../includes/validation_functions.php');
 require_once('../includes/form_processing.php');
+require_once("../includes/output.php");
 
 //  Cookies:
 setcookie("test",45, time()+60*60*24*7);
 
 //  Process form from signup.php:
 if(isset($_POST['submit'])) {
+  //Processes form content and redirects with error feedback if needed
   process_first_form();
 
 //  Process form from address.php
-} elseif (isset($_POST['second_submit']) && $_SESSION['user_details']) {
+} elseif (isset($_POST['second_submit']) && isset($_SESSION['user_details'])) {
   process_second_form();
 
   //  Double check for success of previous form submission before proceeding
   //  to send data to the database
-  if($_SESSION['user_details'] && $_SESSION['address_details']){
-    echo "details correct <br/>";
+  if(isset($_SESSION['user_details']) && isset($_SESSION['address_details'])) {
+
     if(create_new_user()) {
-      echo "user created<br/>";
       redirect_to("cookies.php");
+      //TODO destroy the session after registration is complete
     } else {
       //DEBUG
       echo "Errors:";
@@ -46,10 +48,7 @@ if(isset($_POST['submit'])) {
   //if(!isset($_POST['submit']))
   //the user should not navigate to this page via a standard get request
 
-  //must be commented out for testing
-  //redirect_to("signup.php");
-
-
+  redirect_to("signup.php");
 }
 
 ?>
@@ -132,32 +131,42 @@ if(isset($_POST['submit'])) {
 
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-2">
-                <input type="text" class="form-control" name="addresslineone" value="" id="addresslineone" placeholder="Address Line 1">
+                <input type="text" class="form-control" name="addresslineone"
+                <?php echo "value='" . repeat_input_POST("addresslineone") . "'"; ?>
+                 id="addresslineone" placeholder="Address Line 1">
             </div>
         </div>
 
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-2">
-                <input type="text" class="form-control" name="addresslinetwo" value="" id="addresslinetwo" placeholder="Address Line 2">
+                <input type="text" class="form-control" name="addresslinetwo"
+                <?php echo "value='" . repeat_input_POST("addresslinetwo") . "'"; ?>
+                id="addresslinetwo" placeholder="Address Line 2">
             </div>
         </div>
 
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-2">
-                <input type="text" class="form-control" name="city" value="" id="city" placeholder="Town/City">
+                <input type="text" class="form-control" name="city"
+                <?php echo "value='" . repeat_input_POST("city") . "'"; ?>
+                id="city" placeholder="Town/City">
             </div>
         </div>
 
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-2">
-                <input type="text" class="form-control" name="county" value="" id="county" placeholder="County">
+                <input type="text" class="form-control" name="county"
+                <?php echo "value='" . repeat_input_POST("county") . "'"; ?>
+                id="county" placeholder="County">
             </div>
         </div>
 
         <div class="form-group form-group-hg">
 
             <div class="col-sm-4 col-sm-offset-2">
-                <input type="text" class="form-control" name="postcode" value="" id="postcode" placeholder="Postcode">
+                <input type="text" class="form-control" name="postcode"
+                <?php echo "value='" . repeat_input_POST("postcode") . "'"; ?>
+                id="postcode" placeholder="Postcode">
             </div>
 
             <div class="col-sm-4">
@@ -421,13 +430,16 @@ if(isset($_POST['submit'])) {
 
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-2">
-                <input type="text" class="form-control" name="phonenumber" value="" id="phonenumber" placeholder="Phone number">
+                <input type="text" class="form-control" name="phonenumber"
+                <?php echo "value='" . repeat_input_POST("phonenumber") . "'"; ?>
+                id="phonenumber" placeholder="Phone number">
             </div>
         </div>
 
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-2 text-center">
-                <input class="btn-register btn-hg btn-primary btn-block" type="submit" name="second_submit" value="Register">
+                <input class="btn-register btn-hg btn-primary btn-block"
+                type="submit" name="second_submit" value="Register">
             </div>
         </div>
     </form>

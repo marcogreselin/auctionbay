@@ -14,7 +14,8 @@ function process_first_form() {
   "email",
   "password",
   "passwordagain",
-  "role-check");
+  //"role-check"
+);
   validate_presences($required_fields);
 
   //  Limits provided should correspond to the limits set in the sql database
@@ -26,6 +27,9 @@ function process_first_form() {
 
   // Check that password == passwordagain
   matches($_POST['password'], $_POST['passwordagain']);
+
+  // check that email has not already been used
+  validate_email($_POST['email']);
 
   if(empty($errors)) {
     // Success outcome:
@@ -47,15 +51,21 @@ function process_first_form() {
     //  Either display messages from $erros here in address.php or
     //  signup.php
 
+    if(!isset($_POST['test'])) {
+    //Store what is needed in the session
+    $_SESSION['firstname']  = $_POST['firstname'];
+    $_SESSION["lastname"]   = $_POST['lastname'];
+    $_SESSION["email"]      = $_POST['email'];
+    $_SESSION['errors'] = $errors;
+    redirect_to("signup.php");
+  }
+
     //Unit-testing only:
     if(isset($_POST['test'])){
       echo "Errors from process_first_form():";
       echo "<pre>";
       echo print_r($errors);
       echo "</pre>";
-    }
-    else {
-        //redirect_to("signup.php");
     }
   }
 }
@@ -134,5 +144,41 @@ function create_new_user() {
     return 1;
   }
 }
+
+/*Processes the content of the login form.*/
+function process_login_form() {
+  global $errors;
+
+  $required_fields = array("email", "password");
+  validate_presences($required_fields);
+
+  $fields_with_max_lengths = array("email" => 50, "password" => 20);
+  validate_max_lengths($fields_with_max_lengths);
+
+  if(empty($errors)){
+    $_POST['login_details'] = 1;
+  } else {
+    $_POST['login_details'] = 0;
+  }
+}
+
+/*Confronts input parameters with records, returns 1 if a match is found, 0
+* otherwise*/
+function attempt_login($email, $password) {
+  //select user row from database
+  //if row is not empty then compare the hashed passwords
+  //return the admin object or false
+  $user = query_select_user_by_email($email);
+
+  if($user && (password_verify($password, $user['password']))) {
+    //user found in database, and password matches
+    return $user;
+  } else {
+    //email does not match any user (boolean short-circuit),
+    //or if it does the passwords does not match
+    return 0;
+  }
+}
+
 
 ?>

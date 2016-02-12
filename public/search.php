@@ -1,5 +1,11 @@
 <?php
+
   include("../includes/layouts/header_buyer.php");
+
+//Dependencies
+
+require_once("../includes/session.php");
+
 ?>
 
 <div class="container text-center">
@@ -9,6 +15,7 @@
       Search
   </button></p>
 </div>
+
 
 <?php
   include("../includes/layouts/footer.php");

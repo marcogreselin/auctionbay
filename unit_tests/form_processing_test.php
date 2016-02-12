@@ -23,6 +23,7 @@ function clear_POST() {
   }
 }
 
+//@TEST
 function first_form_test_failure() {
   //this must be added within the body of every function
   //using the $errors array from the validation_functions.php module
@@ -42,6 +43,7 @@ function first_form_test_failure() {
   assert(!empty($errors), "Expected \$errors to not be empty");
 }
 
+//@TEST
 function first_form_test_success() {
   global $errors;
 
@@ -58,6 +60,7 @@ function first_form_test_success() {
   assert(empty($erros), "Expected \$errors to be empty");
 }
 
+//@TEST
 function second_form_test_failure() {
   global $errors;
 
@@ -76,6 +79,7 @@ function second_form_test_failure() {
   assert(!empty($errors), "Expected \$errors to not be empty");
 }
 
+//@TEST
 function second_form_test_success() {
   global $errors;
 
@@ -96,6 +100,7 @@ function second_form_test_success() {
   //assert($_SESSION contains all the fields expected);
 }
 
+//@TEST
 function create_new_user_success() {
   global $connection;
 
@@ -116,6 +121,7 @@ function create_new_user_success() {
   assert(create_new_user());
 }
 
+//@TEST
 function create_new_user_failure() {
   global $connection;
 
@@ -134,6 +140,46 @@ function create_new_user_failure() {
   $_POST['phonenumber'] = "non-numeric-input";
 
   assert(!create_new_user());
+}
+
+//@TEST
+function process_login_form_failure() {
+
+  $_POST['email'] = "";
+  $_POST['password'] = "thispasswordiswaytoolong";
+
+  process_login_form();
+  assert(!$_POST['login_details']);
+}
+
+//@TEST
+function process_login_form_success() {
+
+  $_POST['email'] = "email";
+  $_POST['password'] = "password";
+
+  process_login_form();
+  assert($_POST['login_details']);
+}
+
+//@TEST
+function attempt_login_success() {
+  global $connection;
+
+  $email = "niccolo.terreri.15@ucl.ac.uk";
+  $password = "pw";
+
+  assert(attempt_login($email, $password));
+}
+
+//@TEST
+function attempt_login_failure() {
+  global $connection;
+
+  $email = "niccolo.terreri.15@ucl.ac.uk";
+  $password = "wrongpassword";
+
+  assert(!attempt_login($email, $password));
 }
 
 //test for failure first post
@@ -160,7 +206,19 @@ clear_errors();
 create_new_user_success();
 create_new_user_failure();
 
+//process_login_form()
+process_login_form_failure();
+clear_errors();
+process_login_form_success();
+clear_errors();
 
-echo "<h3>All tests completed</h3>";
+//attempt_login()
+attempt_login_success();
+attempt_login_failure();
+
+$test_outcome = "<h3>All tests completed";
+$test_outcome .= "</h3>";
+
+echo $test_outcome;
 
 ?>

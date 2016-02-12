@@ -9,6 +9,7 @@ require("../includes/dbconnection.php");
 require("../includes/session.php");
 require("../includes/queries.php");
 
+//@TEST
 function query_insert_user_test_failure() {
   global $connection;
 
@@ -29,6 +30,7 @@ function query_insert_user_test_failure() {
   assert(!query_insert_user());
 }
 
+//@TEST
 function query_insert_user_test_success() {
   //good connection
   global $connection;
@@ -50,12 +52,14 @@ function query_insert_user_test_success() {
   assert(query_insert_user());
 }
 
+//@TEST
 function query_select_last_user_success() {
   global $connection;
 
   assert(query_select_last_user()['firstName'] == "testname");
 }
 
+//@TEST
 function query_insert_address_failure() {
   global $connection;
 
@@ -69,6 +73,7 @@ function query_insert_address_failure() {
   assert(!query_insert_address());
 }
 
+//@TEST
 function query_insert_address_success() {
   global $connection;
 
@@ -82,6 +87,65 @@ function query_insert_address_success() {
   assert(query_insert_address());
 }
 
+//@TEST
+function query_email_exists_failure() {
+  global $connection;
+
+  $_SESSION['email'] = "thisisnotanemail";
+
+  assert(!query_email_exists());
+}
+
+//@TEST
+function query_email_exists_success() {
+  global $connection;
+
+  $_SESSION['email'] = "testemail";
+
+  assert(query_email_exists());
+};
+
+//@TEST
+function query_count_occurrences_success() {
+  global $connection;
+
+  $value = "testemail";
+  $column = "email";
+  $table = "user";
+
+  assert(query_count_occurrences($value, $column, $table));
+}
+
+//@TEST
+function query_count_occurrences_failure() {
+  global $connection;
+
+  $value = 22;
+  $column = "email";
+  $table = "user";
+
+  assert(!query_count_occurrences($value, $column, $table));
+}
+
+//@TEST
+function query_select_user_by_email_failure() {
+  global $connection;
+
+  $email = "notused";
+  //$role = "notanumber";
+  assert(!query_select_user_by_email($email));
+}
+
+//@TEST
+function query_select_user_by_email_success() {
+  global $connection;
+
+  $email = "niccolo.terreri.15@ucl.ac.uk";
+  //$role = 0;
+
+  assert(query_select_user_by_email($email));
+}
+
 //query_insert_user()
 query_insert_user_test_failure();
 query_insert_user_test_success();
@@ -92,6 +156,15 @@ query_select_last_user_success();
 //query_insert_address()
 query_insert_address_failure();
 query_insert_address_success();
+
+//query_email_exists()
+query_select_user_by_email_failure();
+query_select_user_by_email_success();
+
+//query_count_occurrences()
+query_count_occurrences_success();
+query_count_occurrences_failure();
+
 
 echo "<h3>All tests completed</h3>";
 

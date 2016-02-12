@@ -1,7 +1,22 @@
 <?php
-//  Cookies
+//  Dependencies
+require_once("../includes/session.php");
+require_once("../includes/validation_functions.php");
+require_once("../includes/output.php");
 
+//  Cookies
  setcookie("test",45, time()+60*60*24*7);
+
+ //if user is logged in, log them out:
+ //TODO (see login.php)
+
+//SESSION is used to communicate errors between signup.php and address.php
+if(isset($_SESSION['errors']))
+  $errors = $_SESSION['errors'];
+
+$firstname = repeat_input("firstname");
+$lastname = repeat_input("lastname");
+$email = repeat_input("email");
 ?>
 
 <!DOCTYPE html>
@@ -59,11 +74,23 @@
         </div>
         <div class="col-sm-8 pull-left login-box">
             <p>
-                <div class="alert alert-danger">
-                    <button class="close fui-cross" data-dismiss="alert"></button>
-                    <h4>Opps!</h4>
-                    <p>The email address has been used, please use another email address.</p>
-                </div>
+              <?php
+                //  if(isset($_SESSION['errors']) && !empty($_SESSION['errors'])) {
+                //    print_r($_SESSION['errors']);
+                //  }
+
+                if(isset($errors) && !empty($errors)) {
+                  echo
+                      "<div class=\"alert alert-danger\">
+                          <button class=\"close fui-cross\" data-dismiss=\"alert\"></button>
+                          <h4>Oops!</h4>";
+                          output_errors();
+                  echo "</div>";
+
+                  clear_errors();
+                }
+
+                ?>
             </p>
         </div>
     </div>
@@ -78,35 +105,50 @@
         <div class="form-group form-group-hg">
             <label class="control-label col-sm-4" for="firstname"><h4>First Name:</h4></label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="firstname" value="" id="firstname" placeholder="Your first name">
+                <input type="text" class="form-control"
+                name="firstname"
+                <?php echo "value='{$firstname}'"; ?>
+                id="firstname" placeholder="Your first name">
             </div>
         </div>
 
         <div class="form-group form-group-hg">
             <label class="control-label col-sm-4" for="lastname"><h4>Last Name:</h4></label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="lastname" value="" id="lastname" placeholder="Your last name">
+                <input type="text" class="form-control"
+                name="lastname"
+                <?php echo "value='{$lastname}'"; ?>
+                id="lastname" placeholder="Your last name">
             </div>
         </div>
 
         <div class="form-group form-group-hg">
             <label class="control-label col-sm-4" for="email"><h4>Email:</h4></label>
             <div class="col-sm-8">
-                <input type="email" class="form-control" name="email" value="" id="email" placeholder="Enter email">
+                <input type="email" class="form-control"
+                name="email"
+                <?php echo "value='{$email}'"; ?>
+                id="email" placeholder="Enter email">
             </div>
         </div>
 
         <div class="form-group form-group-hg">
             <label class="control-label col-sm-4" for="pwd"><h4>Password:</h4></label>
             <div class="col-sm-8">
-                <input type="password" class="form-control" name="password" value="" id="pwd" placeholder="Enter password">
+                <input type="password" class="form-control"
+                name="password"
+                value=""
+                id="pwd" placeholder="Enter password">
             </div>
         </div>
 
         <div class="form-group form-group-hg">
             <label class="control-label col-sm-4" for="pwdagain"><h4>Password again:</h4></label>
             <div class="col-sm-8">
-                <input type="password" class="form-control" name="passwordagain" value="" id="pwdagain" placeholder="Enter password again">
+                <input type="password" class="form-control"
+                name="passwordagain"
+                value=""
+                id="pwdagain" placeholder="Enter password again">
             </div>
         </div>
 
@@ -120,7 +162,7 @@
                                        type="radio"
                                        id="role-checkbox-buyer"
                                        name="role-check"
-                                       value="0"/>
+                                       value="1"/>
                                 <label class="role-check-label" for="role-checkbox-buyer">
                                     Buyer
                                 </label>
@@ -136,7 +178,7 @@
                                        type="radio"
                                        id="role-checkbox-seller"
                                        name="role-check"
-                                       value="1"/>
+                                       value="2"/>
                                 <label class="role-check-label" for="role-checkbox-seller">
                                     Seller
                                 </label>
@@ -151,7 +193,8 @@
         <!-- Submitting form will post the data to address.php to be used -->
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-4 text-center">
-                <input class="btn btn-hg btn-primary btn-block" type="submit" name="submit" value="Continue to enter you address">
+                <input class="btn btn-hg btn-primary btn-block"
+                type="submit" name="submit" value="Continue to enter you address">
             </div>
         </div>
     </form>
@@ -167,3 +210,6 @@
 
 </body>
 </html>
+<?php
+//clear session when done rendering page
+clear_session(); ?>
