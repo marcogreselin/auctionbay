@@ -380,4 +380,19 @@ html, body {
 .feedback-list li {
 	list-style-type: none;
 }
+.auction_img{
+	max-height: 300px;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+.auction-left{
+
+  min-height: 50vh; /* These two lines are counted as one :-)       */
+
+/*  display: flex;
+*/  align-items: center;
+}
 

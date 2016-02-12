@@ -62,6 +62,34 @@
 		</div>
 		</div>
 	</div>
+	<p>
+
+	<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Select a Category
+    <span class="caret"></span>
+  </button>
+ <ul class="dropdown-menu">
+		  <li>
+		    <a href="#">Cat I</a>
+		  </li>
+		  <li>
+		    <a href="#">Cat II</a>
+		  </li>
+		  <li>
+		    <a href="#">Cat III</a>
+		  </li>
+		  <li>
+		    <a href="#">Cat IV</a>
+		  </li>
+		  <li>
+		    <a href="#">Cat V</a>
+		  </li>
+		</ul>
+</div>
+		<i class="dropdown-arrow"></i>
+		
+	</p>
 	<button onclick="location.href='index.php'" class="btn btn-hg btn-primary create-button">
 	  Create Auction
 	</button>
