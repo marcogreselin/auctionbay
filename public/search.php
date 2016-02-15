@@ -17,7 +17,7 @@ require_once("../includes/form_processing.php");
     method="get">
     <p><input type="text" name="token" class="form-control input-hg search-box"
       placeholder="What do you want to search?"></p>
-    <p><input class="btn btn-hg btn-primary" type="submit" 
+    <p><input class="btn btn-hg btn-primary" type="submit"
       value="Search"></p>
   </form>
 

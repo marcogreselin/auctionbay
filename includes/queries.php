@@ -154,5 +154,26 @@ function query_select_user_by_email($email) {
   }
 }
 
+/*Returns an associative array containing auction matching search token*/
+function query_select_auction_search($token) {
+  global $connection;
+
+  //prep input
+  $token = mysqli_real_escape_string($connection, $token);
+
+  //prep query
+  $query  = "SELECT auctionId, title, description ";
+  $query .= "FROM auction ";
+  $query .= "WHERE title LIKE '%{$token}%' OR ";
+  $query .= "       description LIKE '%{$token}%' ";
+  $query .= "LIMIT 50;";
+
+  $result_set = mysqli_query($connection, $query);
+
+  if($result_set)
+    $result_set = mysqli_fetch_all($result_set);
+
+  return $result_set;
+}
 
 ?>

@@ -1,12 +1,26 @@
 <?php
 //Dependencies
-
+require_once("../includes/navigation.php");
 require_once("../includes/session.php");
+require_once("../includes/dbconnection.php");
+require_once("../includes/queries.php");
+require_once("../includes/form_processing.php");
 
 setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
 if(!is_buyer() && !is_seller()) {
   redirect_to("index.php");
+}
+
+//used to check if results receives GET parameter value
+if(isset($_GET['token'])) {
+  echo "Temporary result display: <br/>";
+  $result_set = (query_select_auction_search(process_search_form()));
+  
+  echo "<pre>";
+  print_r($result_set);
+  echo "</pre>";
+
 }
 ?>
 

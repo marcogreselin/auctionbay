@@ -190,7 +190,11 @@ function process_search_form_failure() {
 
 //@TEST
 function process_search_form_success() {
-  $_GET['token'] = "valid token";
+  //this will generate a notice, and produce a parsing error when a string with
+  //spaces is entered (e.g. "valid token"). This seems to be related to the
+  //fact that GET is not supposed to be edited manually, and running this test
+  //may cause google to ask you to verify you're not a robot (see http://stackoverflow.com/questions/16086589/how-to-overcome-php-notice-use-of-undefined-constant)
+  $_GET['token'] = "valid";
 
   assert(process_search_form());
 }

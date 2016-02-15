@@ -183,7 +183,8 @@ function attempt_login($email, $password) {
 function process_search_form() {
   $value = "";
 
-  if(validate_presences(array($value))) //if input is not blank/absent
+  if(isset($_GET['token']) &&
+      validate_presences_general(array(0 => "token"), $_GET)) //if input is not blank/absent
   //if(isset($_GET["token"]))
     $value = rawurlencode(trim($_GET["token"])); // escape characters
 

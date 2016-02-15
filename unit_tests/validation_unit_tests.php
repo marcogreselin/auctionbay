@@ -5,12 +5,6 @@ require_once("../includes/dbconnection.php");
 
 $errors = array();
 
-function clear_errors() {
-  global $errors;
-
-  $errors = array();
-}
-
 //@TEST
 function validate_phone_failure1() {
   $_POST['phone'] = "abcd";
@@ -47,6 +41,43 @@ function validate_email_failure() {
   assert(empty($errors));
 }
 
+//@TEST
+function validate_presences_general_success() {
+  global $errors;
+  clear_errors();
+
+  $_POST['presence1'] = "presence1";
+  $_POST['presence2'] = "presence2";
+
+  assert(validate_presences_general(array('presence1', 'presence2'), $_POST));
+
+  clear_errors();
+
+  $array = array();
+  $array['presence1'] = "presence1";
+  $array['presence2'] = "presence2";
+
+  assert(validate_presences_general(array('presence1', 'presence2'), $array));
+}
+
+function validate_presences_general_failure() {
+  global $errors;
+  clear_errors();
+
+  $_POST['presence1'] = "";
+  $_POST['presence2'] = "presence2";
+
+  assert(!validate_presences_general(array('presence1', 'presence2'), $_POST));
+
+  clear_errors();
+
+  $array = array();
+  $array['presence1'] = "presence1";
+//  $array['presence2'] = "presence2";
+
+  assert(!validate_presences_general(array('presence1', 'presence2'), $array));
+}
+
 //validate_phone()
 validate_phone_failure1();
 validate_phone_failure2();
@@ -55,6 +86,10 @@ validate_phone_success();
 //validate_email()
 validate_email_success();
 validate_email_failure();
+
+//validate_presences_general()
+validate_presences_general_success();
+validate_presences_general_failure();
 
 echo "<h3>All tests completed</h3>";
 ?>

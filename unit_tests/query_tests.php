@@ -146,16 +146,51 @@ function query_select_user_by_email_success() {
   assert(query_select_user_by_email($email));
 }
 
+//@TEST
+function query_select_auction_search_failure() {
+  $token = "5454652ab"; //hopefully doesn't match anything
+  assert(!query_select_auction_search($token));
+
+}
+
+//@TEST
+function query_select_auction_search_success() {
+  $token = "title";
+  assert(query_select_auction_search($token));
+
+  $token = "itl";
+  assert(query_select_auction_search($token));
+
+  $token = "TITLE";
+  assert(query_select_auction_search($token));
+
+  $token = "tItLe";
+  assert(query_select_auction_search($token));
+
+  $token = "descr";
+  assert(query_select_auction_search($token));
+
+  //warning: does it match on empty?
+  //should be caught by form processing
+  $token = "";
+  assert(query_select_auction_search($token));
+
+  $token = " ";
+  assert(query_select_auction_search($token));
+}
+
+
+
 //query_insert_user()
-query_insert_user_test_failure();
-query_insert_user_test_success();
+//query_insert_user_test_failure();
+//query_insert_user_test_success();
 
 //query_select_last_user()
 query_select_last_user_success();
 
 //query_insert_address()
-query_insert_address_failure();
-query_insert_address_success();
+//query_insert_address_failure();
+//query_insert_address_success();
 
 //query_email_exists()
 query_select_user_by_email_failure();
@@ -165,6 +200,9 @@ query_select_user_by_email_success();
 query_count_occurrences_success();
 query_count_occurrences_failure();
 
+//query_select_auction_search()
+query_select_auction_search_failure();
+query_select_auction_search_success();
 
 echo "<h3>All tests completed</h3>";
 
