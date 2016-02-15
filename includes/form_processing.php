@@ -180,5 +180,16 @@ function attempt_login($email, $password) {
   }
 }
 
+function process_search_form() {
+  $value = "";
+
+  if(validate_presences(array($value))) //if input is not blank/absent
+  //if(isset($_GET["token"]))
+    $value = rawurlencode(trim($_GET["token"])); // escape characters
+
+  return $value; //returns either 0 or the encoded input token
+}
+
+
 
 ?>

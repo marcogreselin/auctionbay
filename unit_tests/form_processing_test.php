@@ -11,11 +11,6 @@ require("../includes/dbconnection.php");
 require("../includes/session.php");
 //require("../includes/queries.php");
 
-function clear_errors() {
-  global $errors;
-
-  $errors = array();
-}
 
 function clear_POST() {
   foreach ($_POST as $key => $value) {
@@ -115,7 +110,7 @@ function create_new_user_success() {
   $_POST['city'] = "city";
   $_POST['county'] = "county";
   $_POST['postcode'] = "postcode";
-  $_POST['county'] = "county";
+  $_POST['country'] = "country";
   $_POST['phonenumber'] = 1234;
 
   assert(create_new_user());
@@ -182,6 +177,24 @@ function attempt_login_failure() {
   assert(!attempt_login($email, $password));
 }
 
+//@TEST
+function process_search_form_failure() {
+  $_GET['token'] = "";
+
+  assert(!process_search_form());
+
+  unset($_GET['token']);
+
+  assert(!process_search_form());
+}
+
+//@TEST
+function process_search_form_success() {
+  $_GET['token'] = "valid token";
+
+  assert(process_search_form());
+}
+
 //test for failure first post
 first_form_test_failure();
 //$errors = array();
@@ -215,6 +228,10 @@ clear_errors();
 //attempt_login()
 attempt_login_success();
 attempt_login_failure();
+
+//process_search_form()
+process_search_form_success();
+process_search_form_failure();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";
