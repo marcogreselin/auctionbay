@@ -179,11 +179,15 @@ function attempt_login_failure() {
 
 //@TEST
 function process_search_form_failure() {
+  unset($_GET['token']);
+
+  assert(!process_search_form());
+
   $_GET['token'] = "";
 
   assert(!process_search_form());
 
-  unset($_GET['token']);
+  $_GET['token'] = "     ";
 
   assert(!process_search_form());
 }

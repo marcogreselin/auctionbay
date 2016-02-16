@@ -12,15 +12,20 @@ if(!is_buyer() && !is_seller()) {
   redirect_to("index.php");
 }
 
-//used to check if results receives GET parameter value
-if(isset($_GET['token'])) {
+$_GET['token'] = process_search_form();
+
+//if GET parameter is not blank after processing
+if(($_GET['token'])) {
+
   echo "Temporary result display: <br/>";
-  $result_set = (query_select_auction_search(process_search_form()));
-  
+  $result_set = (query_select_auction_search(trim($_GET['token'])));
+
   echo "<pre>";
   print_r($result_set);
   echo "</pre>";
 
+} else {
+  redirect_to("search.php");
 }
 ?>
 
