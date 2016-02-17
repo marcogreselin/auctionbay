@@ -180,6 +180,8 @@ function attempt_login($email, $password) {
   }
 }
 
+/*Returns either the search input token trimmed and encoded or an empty string
+in case the input token was blank or absent*/
 function process_search_form() {
   $value = "";
 
@@ -189,6 +191,18 @@ function process_search_form() {
     $value = rawurlencode(trim($_GET["token"])); // escape characters
   }
   return $value; //returns either 0 or the encoded input token
+}
+
+/*Performs the relevant query against the database to get the current auction
+* price, returns the price of the auction when the auction is a legitimate row
+* of the auction table in the database, its behaviour is otherwise undefined */
+function get_price($auction) {
+  $result = query_select_current_price($auction['auctionId']);
+
+  if(!$result)
+    return $auction['startingPrice'];//an integer
+  else
+    return $result; //an integer
 }
 
 

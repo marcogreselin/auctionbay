@@ -203,6 +203,28 @@ function process_search_form_success() {
   assert(process_search_form());
 }
 
+//@TEST
+function get_price_success() {
+  global $connection;
+
+  $result_set = (query_select_auction_search("long"));
+
+  foreach ($result_set as $auction) {
+    assert((get_price($auction) == 101));
+  }
+}
+
+//@TEST
+function get_price_failure() {
+  global $connection;
+
+  $result_set = (query_select_auction_search("different"));
+
+  foreach ($result_set as $auction) {
+    assert((get_price($auction) == 10));
+  }
+}
+
 //test for failure first post
 first_form_test_failure();
 //$errors = array();
@@ -240,6 +262,10 @@ attempt_login_failure();
 //process_search_form()
 process_search_form_success();
 process_search_form_failure();
+
+//get_price()
+get_price_success();
+get_price_failure();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";

@@ -179,7 +179,20 @@ function query_select_auction_search_success() {
   assert(query_select_auction_search($token));
 }
 
+//@TEST
+function query_select_current_price_success() {
+  $auctionId = 5;
 
+  assert(query_select_current_price($auctionId) == 101);
+//  echo query_select_current_price($auctionId) . "<br/>";
+}
+
+//@TEST
+function query_select_current_price_failure() {
+  $auctionId = 2;
+
+  assert(!query_select_current_price($auctionId));
+}
 
 //query_insert_user()
 //query_insert_user_test_failure();
@@ -203,6 +216,10 @@ query_count_occurrences_failure();
 //query_select_auction_search()
 query_select_auction_search_failure();
 query_select_auction_search_success();
+
+//query_select_current_price()
+query_select_current_price_success();
+query_select_current_price_failure();
 
 echo "<h3>All tests completed</h3>";
 

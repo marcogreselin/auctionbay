@@ -15,18 +15,18 @@ if(!is_buyer() && !is_seller()) {
 $_GET['token'] = process_search_form();
 
 //if GET parameter is not blank after processing
-if(($_GET['token'])) {
-
-  echo "Temporary result display: <br/>";
-  $result_set = (query_select_auction_search(trim($_GET['token'])));
-
-  echo "<pre>";
-  print_r($result_set);
-  echo "</pre>";
-
-} else {
-  redirect_to("search.php");
-}
+// if(($_GET['token'])) {
+//
+//   echo "Temporary result display: <br/>";
+//   $result_set = (query_select_auction_search(trim($_GET['token'])));
+//
+//   echo "<pre>";
+//   print_r($result_set);
+//   echo "</pre>";
+//
+// } else {
+//   redirect_to("search.php");
+// }
 ?>
 
 <!DOCTYPE html>
@@ -184,7 +184,79 @@ if(($_GET['token'])) {
 
             <div class="col-sm-8">
                 <table class="search-page-table table-striped">
-                    <tr>
+                  <?php
+                  //check if token GET parameter is set
+                  if(isset($_GET['token'])) {
+                    //process search form
+                    $search_token = process_search_form();
+                    //if processed search token is not empty
+                    if($search_token) {
+                      //query database and print each matching auction
+                      $result_set = (query_select_auction_search($search_token));
+
+                      foreach ($result_set as $auction) {
+                        $current_price = get_price($auction);
+                        $output = "
+                        <td>
+                              <a href=\"#\"><img src=\"img/user-interface.svg\"
+                                              title=\"Insert title\"
+                                              class=\"search-result-table\"></a>
+                          </td>
+                          <td>
+                              <div class=\"row\">
+                                  <ul class=\"search-result-list\">
+                                      <li>
+                                          <div class=\"col-sm-6\">
+                                              <a href=\"#\">
+                                              <h6>{$auction['title']}</h6>
+                                              </a>
+                                          </div>
+                                          <div class=\"col-sm-6\">
+                                              <div><h6>{$current_price}</h6></div>
+                                          </div>
+                                      </li>
+                                      <li>
+                                          <div class=\"container-item-description\">
+                                              {$auction['description']}
+                                          </div>
+                                      </li>
+                                      <li>
+                                          <div class=\"container-item-description\">
+                                              <div class=\"row\">
+                                                  <div class=\"col-sm-6\">
+                                                      <input class=\"btn-bid
+                                                        btn-lg btn-primary
+                                                        btn-wide\" type=\"submit\"
+                                                        name=\"btn-bid\"
+                                                        value=\"Bid\">
+                                                  </div>
+
+                                                  <div class=\"col-sm-6\">
+                                                      <input class=\"btn-follow
+                                                      btn-lg btn-primary btn-wide\"
+                                                      type=\"submit\"
+                                                       name=\"btn-follow\"
+                                                       value=\"Follow\">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </li>
+                                  </ul>
+                          </td>
+                      </tr>";
+
+                      echo $output;
+                      }
+                    } else { //inner if
+                        redirect_to("search.php");
+                    }
+                  } else {//outer if
+                    redirect_to("search.php");
+                  }
+                  ?>
+
+                      <!--
+                      <tr>
                         <td>
                             <a href="#"><img src="img/user-interface.svg" title="Insert title"
                                              class="search-result-table"></a>
@@ -231,154 +303,8 @@ if(($_GET['token'])) {
                                     </li>
                                 </ul>
                         </td>
-                    </tr>
+                    </tr>-->
 
-                    <tr>
-                        <td>
-                            <a href="#"><img src="img/user-interface.svg" title="Insert title"
-                                             class="search-result-table"></a>
-                        </td>
-                        <td>
-                            <div class="row">
-                                <ul class="search-result-list">
-                                    <li>
-                                        <div class="col-sm-6">
-                                            <a href="#"><h6>Item name</h6></a>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div><h6>Price</h6></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim
-                                            movet
-                                            munere. Detracto rationibus instructior his an, ludus malorum docendi an
-                                            ius.
-                                            Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui
-                                            omnes
-                                            quando accusata, habeo viderer ea duo, brute instructior per ad. Illud
-                                            exerci at
-                                            duo, ne z
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
-                                                           name="btn-bid" value="Bid">
-                                                </div>
-
-                                                <div class="col-sm-6">
-                                                    <input class="btn-follow btn-lg btn-primary btn-wide"
-                                                           type="submit"
-                                                           name="btn-follow" value="Follow">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <a href="#"><img src="img/user-interface.svg" title="Insert title"
-                                             class="search-result-table"></a>
-                        </td>
-                        <td>
-                            <div class="row">
-                                <ul class="search-result-list">
-                                    <li>
-                                        <div class="col-sm-6">
-                                            <a href="#"><h6>Item name</h6></a>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div><h6>Price</h6></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim
-                                            movet
-                                            munere. Detracto rationibus instructior his an, ludus malorum docendi an
-                                            ius.
-                                            Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui
-                                            omnes
-                                            quando accusata, habeo viderer ea duo, brute instructior per ad. Illud
-                                            exerci at
-                                            duo, ne z
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
-                                                           name="btn-bid" value="Bid">
-                                                </div>
-
-                                                <div class="col-sm-6">
-                                                    <input class="btn-follow btn-lg btn-primary btn-wide"
-                                                           type="submit"
-                                                           name="btn-follow" value="Follow">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <a href="#"><img src="img/user-interface.svg" title="Insert title"
-                                             class="search-result-table"></a>
-                        </td>
-                        <td>
-                            <div class="row">
-                                <ul class="search-result-list">
-                                    <li>
-                                        <div class="col-sm-6">
-                                            <a href="#"><h6>Item name</h6></a>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div><h6>Price</h6></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim
-                                            movet
-                                            munere. Detracto rationibus instructior his an, ludus malorum docendi an
-                                            ius.
-                                            Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui
-                                            omnes
-                                            quando accusata, habeo viderer ea duo, brute instructior per ad. Illud
-                                            exerci at
-                                            duo, ne z
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
-                                                           name="btn-bid" value="Bid">
-                                                </div>
-
-                                                <div class="col-sm-6">
-                                                    <input class="btn-follow btn-lg btn-primary btn-wide"
-                                                           type="submit"
-                                                           name="btn-follow" value="Follow">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                        </td>
-                    </tr>
                 </table>
                 </div>
         </div>

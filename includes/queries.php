@@ -162,7 +162,7 @@ function query_select_auction_search($token) {
   $token = mysqli_real_escape_string($connection, $token);
 
   //prep query
-  $query  = "SELECT auctionId, title, description ";
+  $query  = "SELECT auctionId, title, description, startingPrice ";
   $query .= "FROM auction ";
   $query .= "WHERE title LIKE '%{$token}%' OR ";
   $query .= "       description LIKE '%{$token}%' ";
@@ -171,9 +171,35 @@ function query_select_auction_search($token) {
   $result_set = mysqli_query($connection, $query);
 
   if($result_set)
-    $result_set = mysqli_fetch_all($result_set);
+    $result_set = mysqli_fetch_all($result_set, MYSQLI_ASSOC);
 
   return $result_set;
+}
+
+/*Returns the current price (the value of the highest bid, i.e. the second
+* highest bid + 1) or 0 if no bids have been made*/
+function query_select_current_price($auctionId) {
+  global $connection;
+
+  //no need to prep input as input comes from another query
+  $auctionId = mysqli_real_escape_string($connection, $auctionId);
+
+  //prep queries:
+  $subquery_select_max_bid_for_auction  = "SELECT MAX(bidAmount) ";
+  $subquery_select_max_bid_for_auction .= "FROM bid WHERE auction_id={$auctionId}";
+
+  $subquery_select_from_bids  = "SELECT bidId FROM bid WHERE ";
+  $subquery_select_from_bids .= "bidAmount=({$subquery_select_max_bid_for_auction})";
+
+  $query = "SELECT value FROM current_price WHERE bid_id=({$subquery_select_from_bids})";
+
+  //do query:
+  $result = mysqli_query($connection, $query);
+
+  if($result)
+    $result = mysqli_fetch_row($result)[0];
+
+  return $result;
 }
 
 ?>
