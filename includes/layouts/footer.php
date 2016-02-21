@@ -14,7 +14,7 @@
           return false;
       });
 
-      // jQuery UI Datepicker JS init
+      // jQuery UI Datepicker JS init used create_auction.php
       var datepickerSelector = '#datepicker-01';
       $(datepickerSelector).datepicker({
         showOtherMonths: true,
