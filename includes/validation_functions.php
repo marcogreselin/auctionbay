@@ -16,13 +16,31 @@ function has_presence($value) {
 	return isset($value) && $value !== "";
 }
 
-//  Modified from original to include boolean return value
+/* Modified from original to include boolean return value, assumes array to
+* check for presences is $_POST*/
 function validate_presences($required_fields) {
   global $errors;
   $result = 1;
 
   foreach($required_fields as $field) {
     $value = trim($_POST[$field]);
+  	if (!has_presence($value)) {
+  		$errors[$field] = fieldname_as_text($field) . " can't be blank";
+      $result = 0;
+  	}
+  }
+
+  return $result;
+}
+
+/*Generic function based on validate_presences($required_fields), generalizes to
+* allow any array to be set as the array to check for presences*/
+function validate_presences_general($required_fields, $array) {
+  global $errors;
+  $result = 1;
+
+  foreach($required_fields as $field) {
+    $value = trim($array[$field]);
   	if (!has_presence($value)) {
   		$errors[$field] = fieldname_as_text($field) . " can't be blank";
       $result = 0;

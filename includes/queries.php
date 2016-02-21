@@ -10,16 +10,16 @@ function query_insert_user() {
   $lastname   = mysqli_real_escape_string($connection, $_SESSION['lastname']);
   $email      = mysqli_real_escape_string($connection, $_SESSION['email']);
   $role       = mysqli_real_escape_string($connection, $_SESSION['role']);
-  $username   = "";
+  //$username   = "";
   //$date = date('Y-m-d');
 
   $password   = password_hash($_SESSION['password'], PASSWORD_BCRYPT);
 
   //construct query
   $query  = "INSERT INTO user ";
-  $query .= "(role, email, username, password, firstname, lastName) ";
+  $query .= "(role, email, password, firstName, lastName) ";
   $query .= "VALUES ";
-  $query .= "({$role}, '{$email}', '{$username}', '{$password}', ";
+  $query .= "({$role}, '{$email}', '{$password}', ";
   $query .= "'{$firstname}', '{$lastname}');";
 
   //execute query
@@ -95,7 +95,7 @@ function query_select_last_user() {
   return mysqli_fetch_assoc($result_set);
 }
 
-/*@UNUSED <strike>@NEEDS: to also check the type of account</strike>
+/*<strike>@NEEDS: to also check the type of account</strike>
 * Should be used to verify that the user registering has not previously
 * registered*/
 function query_email_exists(/*$account_type*/) {
@@ -154,5 +154,52 @@ function query_select_user_by_email($email) {
   }
 }
 
+/*Returns an associative array containing auction matching search token*/
+function query_select_auction_search($token) {
+  global $connection;
+
+  //prep input
+  $token = mysqli_real_escape_string($connection, $token);
+
+  //prep query
+  $query  = "SELECT auctionId, title, description, startingPrice ";
+  $query .= "FROM auction ";
+  $query .= "WHERE title LIKE '%{$token}%' OR ";
+  $query .= "       description LIKE '%{$token}%' ";
+  $query .= "LIMIT 50;";
+
+  $result_set = mysqli_query($connection, $query);
+
+  if($result_set)
+    $result_set = mysqli_fetch_all($result_set, MYSQLI_ASSOC);
+
+  return $result_set;
+}
+
+/*Returns the current price (the value of the highest bid, i.e. the second
+* highest bid + 1) or 0 if no bids have been made*/
+function query_select_current_price($auctionId) {
+  global $connection;
+
+  //no need to prep input as input comes from another query
+  $auctionId = mysqli_real_escape_string($connection, $auctionId);
+
+  //prep queries:
+  $subquery_select_max_bid_for_auction  = "SELECT MAX(bidAmount) ";
+  $subquery_select_max_bid_for_auction .= "FROM bid WHERE auction_id={$auctionId}";
+
+  $subquery_select_from_bids  = "SELECT bidId FROM bid WHERE ";
+  $subquery_select_from_bids .= "bidAmount=({$subquery_select_max_bid_for_auction})";
+
+  $query = "SELECT value FROM current_price WHERE bid_id=({$subquery_select_from_bids})";
+
+  //do query:
+  $result = mysqli_query($connection, $query);
+
+  if($result)
+    $result = mysqli_fetch_row($result)[0];
+
+  return $result;
+}
 
 ?>

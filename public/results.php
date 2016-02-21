@@ -1,12 +1,32 @@
 <?php
 //Dependencies
-
+require_once("../includes/navigation.php");
 require_once("../includes/session.php");
+require_once("../includes/dbconnection.php");
+require_once("../includes/queries.php");
+require_once("../includes/form_processing.php");
 
 setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
-// if(!is_buyer() && !is_seller()) {
-//   redirect_to("index.php");
+
+if(!is_buyer() && !is_seller()) {
+  redirect_to("index.php");
+}
+
+$_GET['token'] = process_search_form();
+
+//if GET parameter is not blank after processing
+// if(($_GET['token'])) {
+//
+//   echo "Temporary result display: <br/>";
+//   $result_set = (query_select_auction_search(trim($_GET['token'])));
+//
+//   echo "<pre>";
+//   print_r($result_set);
+//   echo "</pre>";
+//
+// } else {
+//   redirect_to("search.php");
 // }
 ?>
 
@@ -14,7 +34,7 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Search Page</title>
+    <title>Results</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Loading Bootstrap -->
@@ -36,7 +56,7 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
 
     <!-- Loading Glyphicons -->
-<!--    <link href="css/glyphicons/css/bootstrap.min.css" rel="stylesheet"/>-->
+    <!--    <link href="css/glyphicons/css/bootstrap.min.css" rel="stylesheet"/>-->
 
 
     <link rel="shortcut icon" href="img/favicon.ico">
@@ -63,18 +83,15 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
     <div class="collapse navbar-collapse" id="navbar-collapse-01">
         <ul class="nav navbar-nav">
-</ul>
-</div><!-- /.navbar-collapse -->
+        </ul>
+    </div><!-- /.navbar-collapse -->
 </nav><!-- /navbar -->
 
 
-
-
 <div class="container-search-page" id="wrapper">
-    <div class="row">
-    <div id="sticker">
-    <div class="search-page-header"><h5>Show results for</h5></div>
 
+        <div class="search-page-header"><h5>Show results for</h5></div>
+    <div class="row">
         <div class="col-sm-3">
             <div class="search-side-panel">
                 <ul class="nav nav-list divider-vertical">
@@ -138,211 +155,162 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
                 <?php
                 /*
-                FIXME: The dependency for the stars will affect the css for the general themes
                 */
                 ?>
 
                 <div class="star-ctr center" data-steps="2">
-                    <fieldset class="rating">
-                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                    <fieldset class="rating rating-search-result">
+                        <input type="radio" id="star5" name="rating" value="5"/><label for="star5" title="Rocks!">5
+                            stars</label>
+                        <input type="radio" id="star4" name="rating" value="4"/><label for="star4"
+                                                                                       title="Pretty good">4
+                            stars</label>
+                        <input type="radio" id="star3" name="rating" value="3"/><label for="star3" title="Meh">3
+                            stars</label>
+                        <input type="radio" id="star2" name="rating" value="2"/><label for="star2"
+                                                                                       title="Kinda bad">2
+                            stars</label>
+                        <input type="radio" id="star1" name="rating" value="1"/><label for="star1"
+                                                                                       star</label>
                     </fieldset>
                     <div class="col-sm-8 col-sm-offset-2">
-                        <input class="btn-filter btn-hg btn-primary btn-wide pull-left" type="submit" name="btn-filter" value="Filter">
-                    </div>
+                        <input class="btn-filter btn-hg btn-primary btn-wide pull-left" type="submit"
+                               name="btn-filter"
+                               value="Filter">
                     </div>
                 </div>
             </div>
+            </div>
+
+
+            <div class="col-sm-8">
+                <table class="search-page-table table-striped">
+                  <?php
+                  //check if token GET parameter is set
+                  if(isset($_GET['token'])) {
+                    //process search form
+                    $search_token = process_search_form();
+                    //if processed search token is not empty
+                    if($search_token) {
+                      //query database and print each matching auction
+                      $result_set = (query_select_auction_search($search_token));
+
+                      foreach ($result_set as $auction) {
+                        $current_price = get_price($auction);
+                        $output = "
+                        <td>
+                              <a href=\"#\"><img src=\"img/user-interface.svg\"
+                                              title=\"Insert title\"
+                                              class=\"search-result-table\"></a>
+                          </td>
+                          <td>
+                              <div class=\"row\">
+                                  <ul class=\"search-result-list\">
+                                      <li>
+                                          <div class=\"col-sm-6\">
+                                              <a href=\"#\">
+                                              <h6>{$auction['title']}</h6>
+                                              </a>
+                                          </div>
+                                          <div class=\"col-sm-6\">
+                                              <div><h6>{$current_price}</h6></div>
+                                          </div>
+                                      </li>
+                                      <li>
+                                          <div class=\"container-item-description\">
+                                              {$auction['description']}
+                                          </div>
+                                      </li>
+                                      <li>
+                                          <div class=\"container-item-description\">
+                                              <div class=\"row\">
+                                                  <div class=\"col-sm-6\">
+                                                      <input class=\"btn-bid
+                                                        btn-lg btn-primary
+                                                        btn-wide\" type=\"submit\"
+                                                        name=\"btn-bid\"
+                                                        value=\"Bid\">
+                                                  </div>
+
+                                                  <div class=\"col-sm-6\">
+                                                      <input class=\"btn-follow
+                                                      btn-lg btn-primary btn-wide\"
+                                                      type=\"submit\"
+                                                       name=\"btn-follow\"
+                                                       value=\"Follow\">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </li>
+                                  </ul>
+                          </td>
+                      </tr>";
+
+                      echo $output;
+                      }
+                    } else { //inner if
+                        redirect_to("search.php");
+                    }
+                  } else {//outer if
+                    redirect_to("search.php");
+                  }
+                  ?>
+
+                      <!--
+                      <tr>
+                        <td>
+                            <a href="#"><img src="img/user-interface.svg" title="Insert title"
+                                             class="search-result-table"></a>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <ul class="search-result-list">
+                                    <li>
+                                        <div class="col-sm-6">
+                                            <a href="#"><h6>Item name</h6></a>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div><h6>Price</h6></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="container-item-description">
+                                            Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim
+                                            movet
+                                            munere. Detracto rationibus instructior his an, ludus malorum docendi an
+                                            ius.
+                                            Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui
+                                            omnes
+                                            quando accusata, habeo viderer ea duo, brute instructior per ad. Illud
+                                            exerci at
+                                            duo, ne z
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="container-item-description">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
+                                                           name="btn-bid" value="Bid">
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <input class="btn-follow btn-lg btn-primary btn-wide"
+                                                           type="submit"
+                                                           name="btn-follow" value="Follow">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                        </td>
+                    </tr>-->
+
+                </table>
+                </div>
         </div>
-
-
-        <div class="mainContent col-sm-9">
-            <table class="search-page-table table-striped">
-                <col width="200px">
-                <col width="auto">
-                <col width="auto">
-                <col width="50px">
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <ul class="search-result-list">
-                                <li>
-                                    <div class="col-sm-6">
-                                        <a href="#"><h6>Item name</h6></a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div><h6>Price</h6></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container-item-description">
-                                        Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
-                                        munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
-                                        Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
-                                        quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
-                                        duo, ne z
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container-item-description">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
-                                                       name="btn-bid" value="Bid">
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <input class="btn-follow btn-lg btn-primary btn-wide" type="submit"
-                                                       name="btn-follow" value="Follow">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <ul class="search-result-list">
-                                <li>
-                                    <div class="col-sm-6">
-                                        <a href="#"><h6>Item name</h6></a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div><h6>Price</h6></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container-item-description">
-                                        Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
-                                        munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
-                                        Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
-                                        quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
-                                        duo, ne z
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container-item-description">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
-                                                       name="btn-bid" value="Bid">
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <input class="btn-follow btn-lg btn-primary btn-wide" type="submit"
-                                                       name="btn-follow" value="Follow">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <ul class="search-result-list">
-                                <li>
-                                    <div class="col-sm-6">
-                                        <a href="#"><h6>Item name</h6></a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div><h6>Price</h6></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container-item-description">
-                                        Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
-                                        munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
-                                        Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
-                                        quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
-                                        duo, ne z
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container-item-description">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
-                                                       name="btn-bid" value="Bid">
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <input class="btn-follow btn-lg btn-primary btn-wide" type="submit"
-                                                       name="btn-follow" value="Follow">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <a href="#"><img src="img/user-interface.svg" title="Insert title" class="search-result-table"></a>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <ul class="search-result-list">
-                                <li>
-                                    <div class="col-sm-6">
-                                        <a href="#"><h6>Item name</h6></a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div><h6>Price</h6></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container-item-description">
-                                        Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
-                                        munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
-                                        Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
-                                        quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
-                                        duo, ne z
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container-item-description">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
-                                                       name="btn-bid" value="Bid">
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <input class="btn-follow btn-lg btn-primary btn-wide" type="submit"
-                                                       name="btn-follow" value="Follow">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div> <!-- /row -->
-</div> <!-- /container -->
-
-
+    </div>
+</div>
 <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
 <script src="js/vendor/jquery.min.js"></script>
 
@@ -395,10 +363,10 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
 <!-- Still yet to implement-->
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         var s = $("#sticker");
         var pos = s.position();
-        $(window).scroll(function() {
+        $(window).scroll(function () {
             var windowpos = $(window).scrollTop();
             if (windowpos >= pos.top) {
                 s.addClass("stick");

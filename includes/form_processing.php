@@ -16,42 +16,42 @@ function process_first_form() {
   "passwordagain",
   //"role-check"
 );
-  validate_presences($required_fields);
+validate_presences($required_fields);
 
-  //  Limits provided should correspond to the limits set in the sql database
-  $fields_with_max_lengths = array("firstname" => 20,
-  "lastname" => 20,
-  "email" => 50,
-  "password" => 20);
-  validate_max_lengths($fields_with_max_lengths);
+//  Limits provided should correspond to the limits set in the sql database
+$fields_with_max_lengths = array("firstname" => 20,
+"lastname" => 20,
+"email" => 50,
+"password" => 20);
+validate_max_lengths($fields_with_max_lengths);
 
-  // Check that password == passwordagain
-  matches($_POST['password'], $_POST['passwordagain']);
+// Check that password == passwordagain
+matches($_POST['password'], $_POST['passwordagain']);
 
-  // check that email has not already been used
-  validate_email($_POST['email']);
+// check that email has not already been used
+validate_email($_POST['email']);
 
-  if(empty($errors)) {
-    // Success outcome:
-    // Store values entered and wait for user to submit current form
+if(empty($errors)) {
+  // Success outcome:
+  // Store values entered and wait for user to submit current form
 
-    //  This uses the current session, session should be
-    //  destroyed once the registration process ends :NT
-    $_SESSION['firstname']  = $_POST['firstname'];
-    $_SESSION["lastname"]   = $_POST['lastname'];
-    $_SESSION["email"]      = $_POST['email'];
-    $_SESSION["password"]   = $_POST['password'];
-    $_SESSION["role"]       = $_POST['role-check'];
-    $_SESSION['user_details'] = 1; //confirm successful outcome in session
+  //  This uses the current session, session should be
+  //  destroyed once the registration process ends :NT
+  $_SESSION['firstname']  = $_POST['firstname'];
+  $_SESSION["lastname"]   = $_POST['lastname'];
+  $_SESSION["email"]      = $_POST['email'];
+  $_SESSION["password"]   = $_POST['password'];
+  $_SESSION["role"]       = $_POST['role-check'];
+  $_SESSION['user_details'] = 1; //confirm successful outcome in session
 
 
-  } else {
-    // Failure outcome: one or more elements in $errors
+} else {
+  // Failure outcome: one or more elements in $errors
 
-    //  Either display messages from $erros here in address.php or
-    //  signup.php
+  //  Either display messages from $erros here in address.php or
+  //  signup.php
 
-    if(!isset($_POST['test'])) {
+  if(!isset($_POST['test'])) {
     //Store what is needed in the session
     $_SESSION['firstname']  = $_POST['firstname'];
     $_SESSION["lastname"]   = $_POST['lastname'];
@@ -60,14 +60,14 @@ function process_first_form() {
     redirect_to("signup.php");
   }
 
-    //Unit-testing only:
-    if(isset($_POST['test'])){
-      echo "Errors from process_first_form():";
-      echo "<pre>";
-      echo print_r($errors);
-      echo "</pre>";
-    }
+  //Unit-testing only:
+  if(isset($_POST['test'])){
+    echo "Errors from process_first_form():";
+    echo "<pre>";
+    echo print_r($errors);
+    echo "</pre>";
   }
+}
 }
 
 /*  Processes the content of the second form, not needed outside of address.php*/
@@ -126,7 +126,7 @@ function process_second_form() {
       echo "</pre>";
     }
     else {
-        //redirect_to("signup.php");
+      //redirect_to("signup.php");
     }
   }
 }
@@ -179,6 +179,32 @@ function attempt_login($email, $password) {
     return 0;
   }
 }
+
+/*Returns either the search input token trimmed and encoded or an empty string
+in case the input token was blank or absent*/
+function process_search_form() {
+  $value = "";
+
+  if(isset($_GET['token']) &&
+  validate_presences_general(array(0 => "token"), $_GET)){ //if input is not blank/absent
+    //if(isset($_GET["token"]))
+    $value = rawurlencode(trim($_GET["token"])); // escape characters
+  }
+  return $value; //returns either 0 or the encoded input token
+}
+
+/*Performs the relevant query against the database to get the current auction
+* price, returns the price of the auction when the auction is a legitimate row
+* of the auction table in the database, its behaviour is otherwise undefined */
+function get_price($auction) {
+  $result = query_select_current_price($auction['auctionId']);
+
+  if(!$result)
+    return $auction['startingPrice'];//an integer
+  else
+    return $result; //an integer
+}
+
 
 
 ?>

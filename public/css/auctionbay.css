@@ -375,6 +375,10 @@ html, body {
 	left:2px;
 }
 
+.rating-search-result > label {
+	width: 40px !important;
+}
+
 /** feedback.css **/
 
 .feedback-list li {
@@ -396,3 +400,39 @@ html, body {
 */  align-items: center;
 }
 
+.container-feedback-comment {
+	padding-right: 4em;
+	padding-bottom: 2em;
+	padding-top: 2em;
+}
+
+.textarea-comment {
+	padding-top: 10em;
+	width: 100%;
+	height: 10em !important;
+}
+
+.btn-submit-comment {
+	margin-top: 2em;
+	border: none;
+}
+
+.feedback-star-rating {
+	align: center !important;
+	padding-top: 2em;
+	padding-bottom: 2em;
+}
+
+.input-comment {
+	padding-top: 2em;
+	padding-bottom: 1em !important;
+}
+
+.rating-feedback-result > label {
+	width: 10px !important;
+}
+
+/** Adjusts the spacing of the feedback stars **/
+.rating-leave-feedback > label {
+	width: 40px !important;
+}

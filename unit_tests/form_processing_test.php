@@ -11,11 +11,6 @@ require("../includes/dbconnection.php");
 require("../includes/session.php");
 //require("../includes/queries.php");
 
-function clear_errors() {
-  global $errors;
-
-  $errors = array();
-}
 
 function clear_POST() {
   foreach ($_POST as $key => $value) {
@@ -115,7 +110,7 @@ function create_new_user_success() {
   $_POST['city'] = "city";
   $_POST['county'] = "county";
   $_POST['postcode'] = "postcode";
-  $_POST['county'] = "county";
+  $_POST['country'] = "country";
   $_POST['phonenumber'] = 1234;
 
   assert(create_new_user());
@@ -182,6 +177,54 @@ function attempt_login_failure() {
   assert(!attempt_login($email, $password));
 }
 
+//@TEST
+function process_search_form_failure() {
+  unset($_GET['token']);
+
+  assert(!process_search_form());
+
+  $_GET['token'] = "";
+
+  assert(!process_search_form());
+
+  $_GET['token'] = "     ";
+
+  assert(!process_search_form());
+}
+
+//@TEST
+function process_search_form_success() {
+  //this will generate a notice, and produce a parsing error when a string with
+  //spaces is entered (e.g. "valid token"). This seems to be related to the
+  //fact that GET is not supposed to be edited manually, and running this test
+  //may cause google to ask you to verify you're not a robot (see http://stackoverflow.com/questions/16086589/how-to-overcome-php-notice-use-of-undefined-constant)
+  $_GET['token'] = "valid";
+
+  assert(process_search_form());
+}
+
+//@TEST
+function get_price_success() {
+  global $connection;
+
+  $result_set = (query_select_auction_search("long"));
+
+  foreach ($result_set as $auction) {
+    assert((get_price($auction) == 101));
+  }
+}
+
+//@TEST
+function get_price_failure() {
+  global $connection;
+
+  $result_set = (query_select_auction_search("different"));
+
+  foreach ($result_set as $auction) {
+    assert((get_price($auction) == 10));
+  }
+}
+
 //test for failure first post
 first_form_test_failure();
 //$errors = array();
@@ -215,6 +258,14 @@ clear_errors();
 //attempt_login()
 attempt_login_success();
 attempt_login_failure();
+
+//process_search_form()
+process_search_form_success();
+process_search_form_failure();
+
+//get_price()
+get_price_success();
+get_price_failure();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";
