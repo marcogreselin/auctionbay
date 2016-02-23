@@ -39,7 +39,7 @@
           <li><a href="search.php">Search</a></li>
         </ul>
         <p class="navbar-text navbar-right">
-          <a class="navbar-link" href="index.php">Logout</a>
+          <a class="navbar-link" href="logout.php">Logout</a>
         </p>
         <form class="navbar-form navbar-right" action="searchpage.php" role="search">
           <div class="form-group">

@@ -1,5 +1,5 @@
 <?php
-  include("../includes/layouts/header_buyer.php");
+  include("../includes/layouts/header.php");
 ?>
 
 <div class="container">
