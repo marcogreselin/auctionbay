@@ -9,7 +9,6 @@ require_once('../includes/form_processing.php');
 require_once("../includes/output.php");
 
 //  Cookies:
-setcookie("test",45, time()+60*60*24*7);
 
 //  Process form from signup.php:
 if(isset($_POST['submit'])) {
@@ -25,7 +24,7 @@ if(isset($_POST['submit'])) {
   if(isset($_SESSION['user_details']) && isset($_SESSION['address_details'])) {
 
     if(create_new_user()) {
-      redirect_to("cookies.php");
+      redirect_to("index.php");
       //TODO destroy the session after registration is complete
     } else {
       //DEBUG

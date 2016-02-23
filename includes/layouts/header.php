@@ -12,5 +12,5 @@ if(is_buyer()) {
     include("header_seller.php");
   } else {
     redirect_to("index.php");
-  }
+ }
 ?>
