@@ -73,7 +73,9 @@ include("../includes/layouts/header.php");
   <div class="row">
     <div class="col-sm-3">
       <div class="search-side-panel">
-        <!--<form class="" action="results.php?" method="get">-->
+        <!-- php-based GET form submission, used jQuery instead because of front
+        end components. :NT
+          <form class="" action="results.php?" method="get"> -->
           <ul class="nav nav-list divider-vertical">
             <li class="nav-header">
               <input class="form-control input-hg search-box" type="text"
@@ -92,7 +94,7 @@ include("../includes/layouts/header.php");
               <option value="FUR">Furniture</option>
               <option value="ACS">Accessories</option>
             </select></li>
-
+            <!--  subcategories commented out
             <li class="list-subcategory">
               <a href="#fakelink">
                 Computing & Internet
@@ -128,7 +130,7 @@ include("../includes/layouts/header.php");
                 Design Pattern Programming
               </a>
             </li>
-
+          -->
             <li class="divider"></li>
 
             <li class="nav-header">Price</li>
@@ -217,8 +219,8 @@ include("../includes/layouts/header.php");
                                           {$auction['description']}
                                       </div>
                                   </li>
-                                  <li>
-                                      <div class=\"container-item-description\">
+                            <!--   <li>
+                                    <div class=\"container-item-description\">
                                           <div class=\"row\">
                                               <div class=\"col-sm-6\">
                                                   <input class=\"btn-bid
@@ -237,7 +239,7 @@ include("../includes/layouts/header.php");
                                               </div>
                                           </div>
                                       </div>
-                                  </li>
+                                  </li> -->
                               </ul>
                       </td>
                   </tr>";
