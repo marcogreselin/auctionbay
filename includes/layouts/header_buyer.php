@@ -28,7 +28,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-default navbar-lg" role="navigation">
       <div class="navbar-header">
-        <a class="navbar-brand"><div class="logo-small"></div>AuctionBay</a>
+        <a class="navbar-brand" href="index.php"><div class="logo-small"></div>AuctionBay</a>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
           <span class="sr-only">Toggle navigation</span>
         </button>
@@ -39,12 +39,12 @@
           <li><a href="search.php">Search</a></li>
         </ul>
         <p class="navbar-text navbar-right">
-          <a class="navbar-link" href="index.php">Logout</a>
+          <a class="navbar-link" href="logout.php">Logout</a>
         </p>
-        <form class="navbar-form navbar-right" action="searchpage.php" role="search">
+        <form class="navbar-form navbar-right" action="results.php?" method="get">
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+              <input class="form-control" id="navbarInput-01" type="text" name="token" placeholder="Search">
               <span class="input-group-btn">
                 <button type="submit" class="btn"><span class="fui-search"></span></button>
               </span>

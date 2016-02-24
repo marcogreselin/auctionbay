@@ -6,7 +6,6 @@ require_once("../includes/dbconnection.php");
 require_once("../includes/queries.php");
 require_once("../includes/form_processing.php");
 
-setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
 if(!is_buyer() && !is_seller()) {
   redirect_to("index.php");
@@ -63,64 +62,9 @@ if(isset($_GET['bottom']) && isset($_GET['top']) &&
 // } else {
 //   redirect_to("search.php");
 // }
+include("../includes/layouts/header.php");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Results</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Loading Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Loading Flat UI -->
-    <link href="css/flat-ui.css" rel="stylesheet">
-
-    <!-- Loading AB CSS -->
-    <link href="css/auctionbay.css" rel="stylesheet">
-
-    <!-- Loading Font Awesome Icons -->
-    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-
-    <!-- Select 2 -->
-    <link href="css/select-two/css/select2.min.css" rel="stylesheet"/>
-    <script src="css/select-two/js/select2.min.js"></script>
-
-
-    <!-- Loading Glyphicons -->
-    <!--    <link href="css/glyphicons/css/bootstrap.min.css" rel="stylesheet"/>-->
-
-
-    <link rel="shortcut icon" href="img/favicon.ico">
-
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-
-    <script src="js/vendor/html5shiv.js"></script>
-    <script src="js/vendor/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-
-<body>
-<!-- Navbar -->
-<nav class="navbar navbar-default navbar-lg" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand">
-            <div class="logo-small"></div>
-            AuctionBay</a>
-    </div>
-    <p class="navbar-text navbar-right">Return to the <a class="navbar-link" href="index.php">Home Page</a></p>
-
-    <div class="collapse navbar-collapse" id="navbar-collapse-01">
-        <ul class="nav navbar-nav">
-        </ul>
-    </div><!-- /.navbar-collapse -->
-</nav><!-- /navbar -->
 
 
 <div class="container-search-page" id="wrapper">

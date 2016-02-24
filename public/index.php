@@ -8,7 +8,7 @@
   if(is_buyer()) {
     redirect_to("buyer_account.php");
   } elseif(is_seller()) {
-    redirect_to("cookies.php"); //TODO
+    redirect_to("seller_account.php"); //TODO
   } else {
     redirect_to("login.php");
   }

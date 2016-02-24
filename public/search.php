@@ -1,6 +1,6 @@
 <?php
 
-  include("../includes/layouts/header_buyer.php");
+  include("../includes/layouts/header.php");
 
 //Dependencies
 
@@ -13,7 +13,7 @@ require_once("../includes/form_processing.php");
 
 <div class="container text-center">
   <div class="login-headline">Search!</div>
-  <form action="results.php?"<?php //$_GET['token'] = process_search_form(); ?>
+  <form action="results.php?"
     method="get">
     <p><input type="text" name="token" class="form-control input-hg search-box"
       placeholder="What do you want to search?"></p>

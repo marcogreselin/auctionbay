@@ -1,6 +1,11 @@
 <?php
-  include("../includes/layouts/header_buyer.php");
-
+  require_once("../includes/session.php");
+  require_once("../includes/navigation.php");
+  if(is_buyer()) {
+      include("../includes/layouts/header.php");
+    } else {
+      redirect_to("index.php");
+    }
 ?>
 
 <div class="container">
