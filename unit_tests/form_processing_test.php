@@ -210,7 +210,8 @@ function get_price_success() {
   $result_set = (query_select_auction_search("long"));
 
   foreach ($result_set as $auction) {
-    assert((get_price($auction) == 101));
+    //assert((get_price($auction) == 101));
+    assert((get_price($auction['auctionId'], $auction['startingPrice']) == 101));
   }
 }
 
@@ -221,7 +222,8 @@ function get_price_failure() {
   $result_set = (query_select_auction_search("different"));
 
   foreach ($result_set as $auction) {
-    assert((get_price($auction) == 10));
+    //assert((get_price($auction) == 10));
+    assert((get_price($auction['auctionId'], $auction['startingPrice']) == 10));
   }
 }
 

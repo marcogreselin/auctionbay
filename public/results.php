@@ -20,7 +20,8 @@ if(isset($_GET['token'])) {
     //query database and modify result set with further queries
     $auction_set = (query_select_auction_search($search_token));
     for($i=0; $i<sizeof($auction_set); $i++) {
-      $current_price = get_price($auction_set[$i]);
+      $current_price = get_price($auction_set[$i]['auctionId'],
+                                  $auction_set[$i]['startingPrice']);
       $auction_set[$i]['currentPrice'] = $current_price;
 
       //TODO

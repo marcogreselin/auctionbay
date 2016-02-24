@@ -196,14 +196,21 @@ function process_search_form() {
 /*Performs the relevant query against the database to get the current auction
 * price, returns the price of the auction when the auction is a legitimate row
 * of the auction table in the database, its behaviour is otherwise undefined */
-function get_price($auction) {
-  $result = query_select_current_price($auction['auctionId']);
+function get_price($auctionId, $auctionStartingPrice) {
+  $result = query_select_current_price($auctionId);
 
+  if(!$result)
+    return $auctionStartingPrice;//an integer
+  else
+    return $result; //an integer
+}
+/* old version: function get_price($auction) {
+  $result = query_select_current_price($auction['auctionId']);
   if(!$result)
     return $auction['startingPrice'];//an integer
   else
     return $result; //an integer
-}
+}*/
 
 /*Filters the parameter set of auctions by the price and rating parameters,
 * returns a subset of this set*/
