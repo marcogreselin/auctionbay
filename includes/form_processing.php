@@ -205,6 +205,19 @@ function get_price($auction) {
     return $result; //an integer
 }
 
+/*Filters the parameter set of auctions by the price and rating parameters,
+* returns a subset of this set*/
+function process_filter_form($auction_set, $price_min, $price_max, $rating) {
 
+  foreach($auction_set as $auctionKey => $auctionElement) {
+      if(($auctionElement['currentPrice'] < $price_min) ||
+      ($auctionElement['currentPrice'] > $price_max))
+        unset($auction_set[$auctionKey]);
+      elseif($auctionElement['rating'] < $rating)
+        unset($auction_set[$auctionKey]);
+  }
+
+  return empty($auction_set) ? null : $auction_set;
+}
 
 ?>
