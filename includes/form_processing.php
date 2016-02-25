@@ -223,6 +223,9 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating) {
       elseif($auctionElement['rating'] < $rating)
         unset($auction_set[$auctionKey]);
   }
+    return empty($auction_set) ? null : $auction_set;
+
+}
 
  function addAuction(){
   global $connection;
@@ -232,9 +235,10 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating) {
   $endDate = $_POST["endDate"];
   $reservePrice = $_POST["reservePrice"];
   $startingPrice = $_POST["startingPrice"];
-  $category_Id =1;
+  $category_Id =$_POST["category"];
   $seller=$_SESSION['userId'];
   $imageName = $_FILES['image']['name'];
+
 
 
   $query = "INSERT INTO auction (title, description, seller, startingPrice, reservePrice,
@@ -250,9 +254,17 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating) {
 
 }
 
+function queryCatArray(){
+  global $connection;
 
+  $query = "SELECT * FROM category ORDER BY categoryId ASC;";
+ 
+  return  mysqli_query($connection,$query);
 
-  return empty($auction_set) ? null : $auction_set;
 }
+
+
+
+
 
 ?>

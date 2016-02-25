@@ -11,6 +11,8 @@
 if(is_buyer()){
 	redirect_to("search.php");
 }
+
+
   
   if(isset($_POST["submitAuction"])){
 
@@ -112,34 +114,35 @@ if(is_buyer()){
 		</div>
 		</div>
 	</div>
-	<p>
+	
+		<div class="row">
+		<div class="col-md-6">
+  		<p>Category:</p>
 
-	<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Select a Category
-    <span class="caret"></span>
-  </button>
- <ul class="dropdown-menu">
-		  <li>
-		    <a href="#">Cat I</a>
-		  </li>
-		  <li>
-		    <a href="#">Cat II</a>
-		  </li>
-		  <li>
-		    <a href="#">Cat III</a>
-		  </li>
-		  <li>
-		    <a href="#">Cat IV</a>
-		  </li>
-		  <li>
-		    <a href="#">Cat V</a>
-		  </li>
-		</ul>
+
+  <select class="form-control" id="sel1" name="category">
+
+  		    <?php  
+$catArray = queryCatArray();
+while($row = mysqli_fetch_assoc($catArray)){
+	
+  echo "<option value=\"";
+  echo $row["categoryId"];
+  echo "\">";
+  echo $row["name"];
+  echo "</option>";
+
+}
+?>
+
+  </select>
+  </div>
 </div>
-		<i class="dropdown-arrow"></i>
+   
+
+
 		
-	</p>
+	
 	<button name="submitAuction" class="btn btn-hg btn-primary create-button">
 	  Create Auction
 	</button>
