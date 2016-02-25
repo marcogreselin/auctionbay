@@ -19,7 +19,7 @@
       $(datepickerSelector).datepicker({
         showOtherMonths: true,
         selectOtherMonths: true,
-        dateFormat: "d MM, yy",
+        dateFormat: "yy-mm-dd",
         yearRange: '-0:+0'
       }).prev('.btn').on('click', function (e) {
         e && e.preventDefault();

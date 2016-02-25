@@ -205,6 +205,32 @@ function get_price($auction) {
     return $result; //an integer
 }
 
+ function addAuction(){
+  global $connection;
+
+  $title = $_POST["title"];
+  $body = $_POST["body"];
+  $endDate = $_POST["endDate"];
+  $reservePrice = $_POST["reservePrice"];
+  $startingPrice = $_POST["startingPrice"];
+  $category_Id =1;
+  $seller=$_SESSION['userId'];
+  $imageName = $_FILES['image']['name'];
+
+
+  $query = "INSERT INTO auction (title, description, seller, startingPrice, reservePrice,
+            expirationDate, category_Id, views, imageName) 
+            VALUES ('{$title}', '{$body}','{$seller}','{$startingPrice}','{$reservePrice}',
+            '{$endDate}','{$category_Id}',0,'{$imageName}');";
+  $result = mysqli_query($connection,$query);
+  if($result){
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
 
 
 ?>

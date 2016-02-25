@@ -37,6 +37,33 @@
 
 
   <div class="col-md-10">
+    <div class="alert alert-warning" role="alert">
+
+    <button type="button" class="close fui-cross" data-dismiss="alert"></button>
+    <h4>Leave Feedback!</h4>
+    
+    <table class="table" id="table-account-feedback">
+      <col width="200px">
+
+      <tr>
+
+        <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
+        <td>First Row, second column</td>
+        <td>First Row, third column</td>
+      </tr>
+
+      <tr>
+
+        <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
+        <td>First Row, second column</td>
+        <td>First Row, third column</td>
+      </tr>
+      
+    </table>
+
+
+
+  </div>
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
   Alex Vally<br>

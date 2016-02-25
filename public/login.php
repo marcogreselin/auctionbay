@@ -28,6 +28,7 @@ if(isset($_POST['submit'])) {
       clear_session();
       //$_SESSION['logged_in'] = 1;
       $_SESSION['role'] = $user['role'];
+      $_SESSION['userId'] = $user['userId'];
 
       redirect_to("buyer_account.php");
     } else {

@@ -1,12 +1,62 @@
-<?php
-  include("../includes/layouts/header.php");
-?>
 
+<?php
+
+	//  Dependencies
+	require_once('../includes/dbconnection.php');
+	require_once('../includes/session.php');
+	require_once('../includes/navigation.php');
+	require_once('../includes/validation_functions.php');
+	require_once('../includes/form_processing.php');
+	require_once("../includes/output.php");
+if(is_buyer()){
+	redirect_to("search.php");
+}
+  
+  if(isset($_POST["submitAuction"])){
+
+  	if(addAuction()){
+  		redirect_to("index.php");
+  	} else {
+  		$_POST["error"];
+  	}
+  	
+  } 
+// from http://www.tutorialspoint.com/php/php_file_uploading.htm
+     if(isset($_FILES['image'])){
+      $errors= array();
+      $file_name = $_FILES['image']['name'];
+      $file_size =$_FILES['image']['size'];
+      $file_tmp =$_FILES['image']['tmp_name'];
+      $file_type=$_FILES['image']['type'];
+      $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+      
+      $expensions= array("jpeg","jpg","png");
+      
+      // if(in_array($file_ext,$expensions)=== false){
+      //    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+      // }
+      
+      // if($file_size > 2097152){
+      //    $errors[]='File size must be excately 2 MB';
+      // }
+      
+      // if(empty($errors)==true){
+         move_uploaded_file($file_tmp,"img/auctions/".$file_name);
+         // echo "Success";
+      // }else{
+      //    print_r($errors);
+      // }
+   }
+?>
+<?php 
+	include("../includes/layouts/header.php");
+
+?>
 <div class="container">
 	<h1>Create an Auction</h1>
-
-	<p><input type="text" class="form-control input-hg auction-form" placeholder="Enter the Title" /></p>
-	<p><textarea class="form-control" rows="15" id="comment" placeholder="Enter the Body"></textarea></p>
+<form action="create_auction.php" method="post" enctype="multipart/form-data">
+	<p><input name="title" type="text" class="form-control input-hg auction-form" placeholder="Enter the Title" /></p>
+	<p><textarea name="body" class="form-control" rows="15" id="comment" placeholder="Enter the Body"></textarea></p>
 	<div class="row">
 		<div class="col-md-6">
 			<p>Select an image:</p>
@@ -20,7 +70,7 @@
 			      <span class="input-group-btn btn-file">					    	
 			        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
 			        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-			        <input type="file" name="...">
+			        <input name="image" type="file">
 			        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>					    	
 			      </span>					    
 			    </div>
@@ -34,7 +84,7 @@
 			    <span class="input-group-btn">
 			      <button class="btn" type="button"><span class="fui-calendar"></span></button>
 			    </span>
-			    <input type="text" class="form-control" value="14 March, 2015" id="datepicker-01" />
+			    <input name="endDate" type="text" class="form-control" value="2016-02-24" id="datepicker-01" />
 			  </div>
 			</div>
 		</div>
@@ -47,7 +97,7 @@
 		<div class="form-group">
 		  <div class="input-group">
 		    <span class="input-group-addon">&pound;</span>
-		    <input type="text" class="form-control" placeholder="" />
+		    <input name="startingPrice" type="text" class="form-control" placeholder="" />
 		  </div>  
 		</div>
 		</div>
@@ -57,7 +107,7 @@
 		<div class="form-group">
 		  <div class="input-group">
 		    <span class="input-group-addon">&pound;</span>
-		    <input type="text" class="form-control" placeholder="" />
+		    <input name="reservePrice" type="text" class="form-control" placeholder="" />
 		  </div>  
 		</div>
 		</div>
@@ -90,10 +140,12 @@
 		<i class="dropdown-arrow"></i>
 		
 	</p>
-	<button onclick="location.href='index.php'" class="btn btn-hg btn-primary create-button">
+	<button name="submitAuction" class="btn btn-hg btn-primary create-button">
 	  Create Auction
 	</button>
-	<span class="countdown"></span>
+
+</form>
+		<span class="countdown"></span>
 </div>
 
 

@@ -1,0 +1,361 @@
+<Events><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-01T10:02:33Z"/><EventRecordID>283154640</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/1/2016 10:02:33 AM</Data><Data>2/1/2016 10:02:33 AM</Data><Data>ee2a14c31f434a07b6a6e9d81e1ef9ec</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130987945455294514</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>4912</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>128.86.177.160</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>7</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-01T10:30:58Z"/><EventRecordID>284859140</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/1/2016 10:30:58 AM</Data><Data>2/1/2016 10:30:58 AM</Data><Data>feab3cab89b144c9a35709cdf17ca201</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-2-130987953924123276</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>4912</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>217.111.143.210</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>25</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-01T10:33:25Z"/><EventRecordID>285006328</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/1/2016 10:33:25 AM</Data><Data>2/1/2016 10:33:25 AM</Data><Data>f1db8552ac0341068967ae6398c2ebfa</Data><Data>11</Data><Data>10</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-2-130987953924123276</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>4912</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>217.111.143.210</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>25</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-01T10:38:16Z"/><EventRecordID>285297125</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/1/2016 10:38:16 AM</Data><Data>2/1/2016 10:38:16 AM</Data><Data>511393707903489db83d69d5acce8999</Data><Data>13</Data><Data>12</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-2-130987953924123276</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>4912</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/favicon.ico</Data><Data>/favicon.ico</Data><Data>167.220.196.222</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>26</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-01T10:41:24Z"/><EventRecordID>285485218</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/1/2016 10:41:24 AM</Data><Data>2/1/2016 10:41:24 AM</Data><Data>01dec436a7d2409dae79b304079edb95</Data><Data>21</Data><Data>20</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-2-130987953924123276</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>4912</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/favicon.ico</Data><Data>/favicon.ico</Data><Data>167.220.196.222</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>7</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-01T11:07:21Z"/><EventRecordID>287042140</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/1/2016 11:07:21 AM</Data><Data>2/1/2016 11:07:21 AM</Data><Data>2e5b7e4d6ac7407890a194e108d248b0</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130987984370943430</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>16168</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>167.220.196.222</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-01T19:40:45Z"/><EventRecordID>317845343</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/1/2016 7:40:45 PM</Data><Data>2/1/2016 7:40:45 PM</Data><Data>07952dbf4f3b4241b9c956c7dd0b5888</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130988292410177255</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>15512</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>128.86.177.160</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-02T08:17:15Z"/><EventRecordID>363233859</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/2/2016 8:17:15 AM</Data><Data>2/2/2016 8:17:15 AM</Data><Data>2c44e46c389a4f8e9fc16ae108b12d48</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130988746310540211</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>12836</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>86.181.44.161</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>7</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-02T09:24:09Z"/><EventRecordID>367248281</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/2/2016 9:24:09 AM</Data><Data>2/2/2016 9:24:09 AM</Data><Data>ec067cef781646fb9df84eed45bea266</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130988786455905177</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>3328</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>86.181.44.161</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-02T09:36:39Z"/><EventRecordID>367997968</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/2/2016 9:36:39 AM</Data><Data>2/2/2016 9:36:39 AM</Data><Data>2ebbef39435344c99cc977f4596294f7</Data><Data>3</Data><Data>2</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130988786455905177</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>3328</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>5.148.156.165</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>11</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-02T09:50:59Z"/><EventRecordID>368857437</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/2/2016 9:50:59 AM</Data><Data>2/2/2016 9:50:59 AM</Data><Data>d744c2311d884e2e944b60740261ecef</Data><Data>4</Data><Data>3</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130988786455905177</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>3328</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/favicon.ico</Data><Data>/favicon.ico</Data><Data>5.148.156.165</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>47</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-02T10:48:40Z"/><EventRecordID>372319031</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/2/2016 10:48:40 AM</Data><Data>2/2/2016 10:48:40 AM</Data><Data>76fb03ddf37c4c598c54e5944daf4756</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130988837169588814</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>16168</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>5.148.156.165</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-04T09:21:36Z"/><EventRecordID>539870218</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/4/2016 9:21:35 AM</Data><Data>2/4/2016 9:21:35 AM</Data><Data>a72134769e0f448f8f583e86caf12ce3</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130990512811398375</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>10912</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>144.82.220.61</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>7</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-04T09:32:49Z"/><EventRecordID>540543640</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/4/2016 9:32:49 AM</Data><Data>2/4/2016 9:32:49 AM</Data><Data>221ab0ae282343728a456853bb1ff936</Data><Data>3</Data><Data>2</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130990512811398375</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>10912</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>217.111.143.210</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>21</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-08T11:05:08Z"/><EventRecordID>891671687</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/8/2016 11:05:07 AM</Data><Data>2/8/2016 11:05:07 AM</Data><Data>a7e0b951bf2346f5b9e2ed6baac16e40</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130994030943630872</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>10124</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>144.82.213.64</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-08T11:55:43Z"/><EventRecordID>894707234</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/8/2016 11:55:43 AM</Data><Data>2/8/2016 11:55:43 AM</Data><Data>a0f8f01b09b8452499d12a966c95a95c</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130994060270728455</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>3248</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/img/favicon.png</Data><Data>/img/favicon.png</Data><Data>217.111.143.210</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>9</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-08T12:05:52Z"/><EventRecordID>895316156</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/8/2016 12:05:51 PM</Data><Data>2/8/2016 12:05:51 PM</Data><Data>c7b8a8594051487b92db5d621cd4dbd7</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130994067369084515</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>2648</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>144.82.213.64</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>13</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-09T14:45:45Z"/><EventRecordID>991306281</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/9/2016 2:45:45 PM</Data><Data>2/9/2016 2:45:45 PM</Data><Data>d1ef1a6ac4bf4053a9de879a743d7566</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130995027273955791</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>13944</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>128.86.177.160</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>10</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-09T17:32:11Z"/><EventRecordID>1001291140</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/9/2016 5:32:11 PM</Data><Data>2/9/2016 5:32:11 PM</Data><Data>6984ac6db51f4c45a7f494c5ddb62028</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130995127247417769</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>5248</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>144.82.226.5</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>7</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-09T19:18:59Z"/><EventRecordID>1007699015</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/9/2016 7:18:59 PM</Data><Data>2/9/2016 7:18:59 PM</Data><Data>c94c72cf904c4c3e8c59ed16d35828c9</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130995191331522349</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>6136</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>176.251.162.151</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-09T20:22:32Z"/><EventRecordID>1011511921</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/9/2016 8:22:32 PM</Data><Data>2/9/2016 8:22:32 PM</Data><Data>e3b0d0db82454888b20532df42bae640</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130995229513807164</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>7640</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/img/supported_charities.jpg</Data><Data>/img/supported_charities.jpg</Data><Data>144.82.226.5</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-09T21:29:41Z"/><EventRecordID>1015540609</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/9/2016 9:29:40 PM</Data><Data>2/9/2016 9:29:40 PM</Data><Data>241fc323148d439db609282051f17fba</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130995269751368797</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>25040</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>144.82.226.5</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-10T10:02:49Z"/><EventRecordID>1060727828</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/10/2016 10:02:49 AM</Data><Data>2/10/2016 10:02:49 AM</Data><Data>396ac55c503642b690b6fae9dbcdb687</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130995721635636394</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>1892</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>217.111.143.210</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>7</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-10T15:41:48Z"/><EventRecordID>1081065937</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/10/2016 3:41:48 PM</Data><Data>2/10/2016 3:41:48 PM</Data><Data>a2446c61693f450a87edcff4dffdbf43</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130995925078067477</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>4316</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/img/supported_charities.jpg</Data><Data>/img/supported_charities.jpg</Data><Data>144.82.240.99</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>7</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-10T18:02:12Z"/><EventRecordID>1089490062</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/10/2016 6:02:12 PM</Data><Data>2/10/2016 6:02:12 PM</Data><Data>9cf55c0a7de8456088971d4b1c717890</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130996009271945201</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>24952</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>128.86.177.160</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-10T18:06:31Z"/><EventRecordID>1089749000</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/10/2016 6:06:31 PM</Data><Data>2/10/2016 6:06:31 PM</Data><Data>453cbcb2555042eba85fd1a0e6e0f681</Data><Data>4</Data><Data>3</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130996009271945201</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>24952</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>104.45.18.178</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>15</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-10T18:07:38Z"/><EventRecordID>1089816125</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/10/2016 6:07:38 PM</Data><Data>2/10/2016 6:07:38 PM</Data><Data>a5f9bef5ebb642abb5b55b26782b2042</Data><Data>7</Data><Data>6</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130996009271945201</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>24952</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>104.209.188.207</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>16</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-11T01:49:45Z"/><EventRecordID>1117542312</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/11/2016 1:49:45 AM</Data><Data>2/11/2016 1:49:45 AM</Data><Data>2bb9c34236fa47eab7fcfd449cdfe860</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130996289853164864</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>6324</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/img/favicon.png</Data><Data>/img/favicon.png</Data><Data>89.234.68.81</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>7</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-12T11:16:10Z"/><EventRecordID>1237923453</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/12/2016 11:16:10 AM</Data><Data>2/12/2016 11:16:10 AM</Data><Data>7ff585d157a34111be015bdf42940a68</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130997493555898256</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>14496</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>128.86.177.160</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>11</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-12T11:17:16Z"/><EventRecordID>1237989515</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/12/2016 11:17:16 AM</Data><Data>2/12/2016 11:17:16 AM</Data><Data>af712e6a4af0423e973900046e576625</Data><Data>6</Data><Data>5</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130997493555898256</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>14496</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>167.220.196.131</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>12</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-12T11:20:16Z"/><EventRecordID>1238169562</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/12/2016 11:20:16 AM</Data><Data>2/12/2016 11:20:16 AM</Data><Data>726975f5eec04153b9120a26d3aac94e</Data><Data>9</Data><Data>8</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130997493555898256</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>14496</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>134.170.149.3</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>15</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-12T12:21:44Z"/><EventRecordID>1241856890</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/12/2016 12:21:44 PM</Data><Data>2/12/2016 12:21:44 PM</Data><Data>1548123c236547c1bfbba9258aeadb49</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130997532984430453</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>11504</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>131.107.160.125</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>9</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-12T13:23:19Z"/><EventRecordID>1245552328</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/12/2016 1:23:19 PM</Data><Data>2/12/2016 1:23:19 PM</Data><Data>c5598351734243a6950a7c53bdc2f19c</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130997569940769834</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>10884</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>82.6.30.148</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-13T11:16:07Z"/><EventRecordID>1324317406</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/13/2016 11:16:07 AM</Data><Data>2/13/2016 11:16:07 AM</Data><Data>3b87719fd7ac44df9ea1df5902516eb7</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130998357666069441</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>10136</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/data/expOneSummaryData.json</Data><Data>/data/expOneSummaryData.json</Data><Data>2.28.53.201</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-13T20:56:27Z"/><EventRecordID>1359136671</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/13/2016 8:56:27 PM</Data><Data>2/13/2016 8:56:27 PM</Data><Data>3c554e408dbb47ee9fdb6e29ec2e262a</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130998705816518105</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>18072</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/browserconfig.xml</Data><Data>/browserconfig.xml</Data><Data>95.144.105.14</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>7</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event><Event><System><Provider Name="ASP.NET 4.0.30319.0"/><EventID>1309</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2016-02-14T13:04:35Z"/><EventRecordID>1417222421</EventRecordID><Channel>Application</Channel><Computer>RD000D3AB25AB1</Computer><Security/></System><EventData><Data>3005</Data><Data>An unhandled exception has occurred.</Data><Data>2/14/2016 1:04:35 PM</Data><Data>2/14/2016 1:04:35 PM</Data><Data>a68ec825d74f4ef7ad911e6aef28e9b0</Data><Data>2</Data><Data>1</Data><Data>0</Data><Data>/LM/W3SVC/1581529970/ROOT-1-130999286686344286</Data><Data>Full</Data><Data>/</Data><Data>D:\home\site\wwwroot\</Data><Data>RD000D3AB25AB1</Data><Data></Data><Data>22468</Data><Data>w3wp.exe</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>HttpException</Data><Data>Server cannot set status after HTTP headers have been sent.
+   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+
+</Data><Data>http://bandtothepoletest.azurewebsites.net/</Data><Data>/</Data><Data>144.82.182.45</Data><Data></Data><Data>False</Data><Data></Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>8</Data><Data>IIS APPPOOL\bandtothepoletest</Data><Data>False</Data><Data>   at System.Web.HttpResponse.set_StatusCode(Int32 value)
+   at Devbridge.BasicAuthentication.BasicAuthenticationModule.IssueAuthenticationChallenge(Object source, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</Data></EventData></Event></Events>
