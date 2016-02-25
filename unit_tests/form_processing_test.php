@@ -210,7 +210,8 @@ function get_price_success() {
   $result_set = (query_select_auction_search("long"));
 
   foreach ($result_set as $auction) {
-    assert((get_price($auction) == 101));
+    //assert((get_price($auction) == 101));
+    assert((get_price($auction['auctionId'], $auction['startingPrice']) == 101));
   }
 }
 
@@ -221,8 +222,64 @@ function get_price_failure() {
   $result_set = (query_select_auction_search("different"));
 
   foreach ($result_set as $auction) {
-    assert((get_price($auction) == 10));
+    //assert((get_price($auction) == 10));
+    assert((get_price($auction['auctionId'], $auction['startingPrice']) == 10));
   }
+}
+
+//@TEST
+function process_filter_form_not_empty() {
+  $auction_set = array();
+
+  $short = array('auctionId' => 2, "title" => "title",
+      "description" => "description", "currentPrice" => 10, "rating" => 1);
+  $short_spaces = array('auctionId' => 3, "title" => "title with spaces",
+      "description" => "description with spaces", "currentPrice" => 10,
+      "rating" => 2);
+  $different = array('auctionId' => 4, "title" => "different",
+      "description" => "same description", "currentPrice" => 10, "rating" => 3);
+  $costly = array('auctionId' => 5, "title" => "auction with long description",
+      "description" => "very long description", "currentPrice" => 100,
+      "rating" => 4);
+
+  array_push($auction_set, $short, $short_spaces, $different, $costly);
+
+  $result = process_filter_form($auction_set, 50, 200, -1);
+
+  assert(array_values($result) === array($costly));
+
+  echo "Auctions list after filtering: ";
+  echo "<pre>";
+  print_r($result);
+  echo "</pre>";
+}
+
+//@TEST
+function process_filter_form_empty() {
+  $auction_set = array();
+
+  $short = array('auctionId' => 2, "title" => "title",
+      "description" => "description", "currentPrice" => 10, "rating" => 1);
+  $short_spaces = array('auctionId' => 3, "title" => "title with spaces",
+      "description" => "description with spaces", "currentPrice" => 10,
+      "rating" => 2);
+  $different = array('auctionId' => 4, "title" => "different",
+      "description" => "same description", "currentPrice" => 10, "rating" => 3);
+  $costly = array('auctionId' => 5, "title" => "auction with long description",
+      "description" => "very long description", "currentPrice" => 100,
+      "rating" => 4);
+
+  array_push($auction_set, $short, $short_spaces, $different, $costly);
+
+  $result = process_filter_form($auction_set, 50, 200, 5);
+
+  assert(empty($result));
+
+  echo "Auctions list after filtering: ";
+  echo "<pre>";
+  echo "Should print null: ";
+  print_r($result);
+  echo "</pre>";
 }
 
 //test for failure first post
@@ -266,6 +323,10 @@ process_search_form_failure();
 //get_price()
 get_price_success();
 get_price_failure();
+
+//process_filter_form()
+process_filter_form_not_empty();
+process_filter_form_empty();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";

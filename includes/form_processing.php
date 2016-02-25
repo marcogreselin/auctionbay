@@ -196,14 +196,33 @@ function process_search_form() {
 /*Performs the relevant query against the database to get the current auction
 * price, returns the price of the auction when the auction is a legitimate row
 * of the auction table in the database, its behaviour is otherwise undefined */
-function get_price($auction) {
-  $result = query_select_current_price($auction['auctionId']);
+function get_price($auctionId, $auctionStartingPrice) {
+  $result = query_select_current_price($auctionId);
 
+  if(!$result)
+    return $auctionStartingPrice;//an integer
+  else
+    return $result; //an integer
+}
+/* old version: function get_price($auction) {
+  $result = query_select_current_price($auction['auctionId']);
   if(!$result)
     return $auction['startingPrice'];//an integer
   else
     return $result; //an integer
-}
+}*/
+
+/*Filters the parameter set of auctions by the price and rating parameters,
+* returns a subset of this set*/
+function process_filter_form($auction_set, $price_min, $price_max, $rating) {
+
+  foreach($auction_set as $auctionKey => $auctionElement) {
+      if(($auctionElement['currentPrice'] < $price_min) ||
+      ($auctionElement['currentPrice'] > $price_max))
+        unset($auction_set[$auctionKey]);
+      elseif($auctionElement['rating'] < $rating)
+        unset($auction_set[$auctionKey]);
+  }
 
  function addAuction(){
   global $connection;
@@ -232,5 +251,8 @@ function get_price($auction) {
 }
 
 
+
+  return empty($auction_set) ? null : $auction_set;
+}
 
 ?>

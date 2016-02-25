@@ -11,7 +11,44 @@ if(!is_buyer() && !is_seller()) {
   redirect_to("index.php");
 }
 
-$_GET['token'] = process_search_form();
+if(isset($_GET['token'])) {
+  //process search form
+  $search_token = process_search_form();
+  //if processed search token is not empty
+  if($search_token) {
+
+    //query database and modify result set with further queries
+    $auction_set = (query_select_auction_search($search_token));
+    for($i=0; $i<sizeof($auction_set); $i++) {
+      $current_price = get_price($auction_set[$i]['auctionId'],
+                                  $auction_set[$i]['startingPrice']);
+      $auction_set[$i]['currentPrice'] = $current_price;
+
+      //TODO
+      $auction_set[$i]['rating'] = 4;
+      //TODO: also, this happens with every new get request, with a fresh query
+      //for the token being made on the database, whereas no new query should
+      //occurr for filtering purposes
+
+      unset($auction_set[$i]['startingPrice']);
+
+    }
+    //print_r($auction_set);
+  }
+} else {
+  redirect_to("search.php");
+}
+
+if(isset($_GET['bottom']) && isset($_GET['top']) &&
+  isset($_GET['rating'])) {
+  $auction_set = process_filter_form($auction_set,
+                                    urldecode($_GET['bottom']),
+                                    urldecode($_GET['top']),
+                                    urldecode($_GET['rating']));
+
+}
+
+// $_GET['token'] = process_search_form();
 
 //if GET parameter is not blank after processing
 // if(($_GET['token'])) {
@@ -33,170 +70,186 @@ include("../includes/layouts/header.php");
 
 <div class="container-search-page" id="wrapper">
 
-        <div class="search-page-header"><h5>Show results for</h5></div>
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="search-side-panel">
-                <ul class="nav nav-list divider-vertical">
-                    <li class="nav-header"><select
-                            class="category-select form-control select select-primary select-sm mbl">
-                            <option value="">Category...</option>
-                            <option value="BOK">Book</option>
-                            <option value="FAS">Fashion</option>
-                            <option value="FOO">Food</option>
-                            <option value="FUR">Furniture</option>
-                            <option value="ACS">Accessories</option>
-                        </select></li>
+  <div class="search-page-header"><h5>Show results for</h5></div>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="search-side-panel">
+        <!-- php-based GET form submission, used jQuery instead because of front
+        end components. :NT
+          <form class="" action="results.php?" method="get"> -->
+          <ul class="nav nav-list divider-vertical">
+            <li class="nav-header">
+              <input class="form-control input-hg search-box" type="text"
+              name="token" id="token" value="<?php
+                                                  if(isset($_GET['token']))
+                                                    { echo $_GET['token']; }
+                                                    ?>">
+            </li>
+            <li class="divider"></li>
+            <li class="nav-header"><select
+              class="category-select form-control select select-primary select-sm mbl">
+              <option value="">Category...</option>
+              <option value="BOK">Book</option>
+              <option value="FAS">Fashion</option>
+              <option value="FOO">Food</option>
+              <option value="FUR">Furniture</option>
+              <option value="ACS">Accessories</option>
+            </select></li>
+            <!--  subcategories commented out
+            <li class="list-subcategory">
+              <a href="#fakelink">
+                Computing & Internet
+              </a>
+            </li>
 
-                    <li class="list-subcategory">
-                        <a href="#fakelink">
-                            Computing & Internet
-                        </a>
-                    </li>
+            <li class="list-subcategory">
+              <a href="#fakelink">
+                UML Programming
+              </a>
+            </li>
 
-                    <li class="list-subcategory">
-                        <a href="#fakelink">
-                            UML Programming
-                        </a>
-                    </li>
+            <li class="list-subcategory">
+              <a href="#fakelink">
+                Design Pattern Programming
+              </a>
+            </li>
 
-                    <li class="list-subcategory">
-                        <a href="#fakelink">
-                            Design Pattern Programming
-                        </a>
-                    </li>
+            <li class="list-subcategory">
+              <a href="#fakelink">
+                Programming Languages & Tools
+              </a>
+            </li>
 
-                    <li class="list-subcategory">
-                        <a href="#fakelink">
-                            Programming Languages & Tools
-                        </a>
-                    </li>
+            <li class="list-subcategory">
+              <a href="#fakelink">
+                Computing & Internet Programming
+              </a>
+            </li>
 
-                    <li class="list-subcategory">
-                        <a href="#fakelink">
-                            Computing & Internet Programming
-                        </a>
-                    </li>
+            <li class="list-subcategory">
+              <a href="#fakelink">
+                Design Pattern Programming
+              </a>
+            </li>
+          -->
+            <li class="divider"></li>
 
-                    <li class="list-subcategory">
-                        <a href="#fakelink">
-                            Design Pattern Programming
-                        </a>
-                    </li>
-
-                    <li class="divider"></li>
-
-                    <li class="nav-header">Price</li>
-                    <div id="slider3">
-                        <span class="ui-slider-value first"></span>
-                        <span class="ui-slider-value last"></span>
-                    </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="nav-header">Avg. Customer Reviews</li>
-                </ul>
-
-                <?php
-                /*
-                */
-                ?>
-
-                <div class="star-ctr center" data-steps="2">
-                    <fieldset class="rating rating-search-result">
-                        <input type="radio" id="star5" name="rating" value="5"/><label for="star5" title="Rocks!">5
-                            stars</label>
-                        <input type="radio" id="star4" name="rating" value="4"/><label for="star4"
-                                                                                       title="Pretty good">4
-                            stars</label>
-                        <input type="radio" id="star3" name="rating" value="3"/><label for="star3" title="Meh">3
-                            stars</label>
-                        <input type="radio" id="star2" name="rating" value="2"/><label for="star2"
-                                                                                       title="Kinda bad">2
-                            stars</label>
-                        <input type="radio" id="star1" name="rating" value="1"/><label for="star1"
-                                                                                       star</label>
-                    </fieldset>
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <input class="btn-filter btn-hg btn-primary btn-wide pull-left" type="submit"
-                               name="btn-filter"
-                               value="Filter">
-                    </div>
-                </div>
+            <li class="nav-header">Price</li>
+            <div id="slider3">
+              <span class="ui-slider-value first"></span>
+              <span class="ui-slider-value last"></span>
+              <script>
+              // $('#slider3').slider({
+              //   change: function(event, ui) {
+              //     $.ajax({
+              //       type: "GET",
+              //       url: "results.php?",
+              //       data:
+              //     })
+              //   }
+              // });​
+              </script>
             </div>
-            </div>
+          </li>
+          <li class="divider"></li>
+          <li class="nav-header">Avg. Customer Reviews</li>
+        </ul>
 
+        <div class="star-ctr center" data-steps="2">
+          <fieldset class="rating rating-search-result">
+            <input class="jqSelectRating" type="radio" id="star5" name="rating"
+            value="5"/><label for="star5" title="Rocks!">5
+              stars</label>
+              <input class="jqSelectRating" type="radio" id="star4" name="rating"
+              value="4"/><label for="star4"
+              title="Pretty good">4
+              stars</label>
+              <input class="jqSelectRating" type="radio" id="star3" name="rating"
+              value="3"/><label for="star3" title="Meh">3
+                stars</label>
+                <input class="jqSelectRating" type="radio" id="star2" name="rating"
+                value="2"/><label for="star2"
+                title="Kinda bad">2
+                stars</label>
+                <input class="jqSelectRating" type="radio" id="star1" name="rating"
+                value="1"/><label for="star1"
+                title="Awful">1
+                star</label>
+              </fieldset>
+              <div class="col-sm-8 col-sm-offset-2">
+                <input class="btn-filter btn-hg btn-primary btn-wide pull-left"
+                type="submit" name="btn-filter" value="Filter" onclick="filter();">
+              </div>
+            </div>
+          <!--</form>-->
+        </div>
+      </div>
 
             <div class="col-sm-8">
                 <table class="search-page-table table-striped">
                   <?php
-                  //check if token GET parameter is set
-                  if(isset($_GET['token'])) {
-                    //process search form
-                    $search_token = process_search_form();
-                    //if processed search token is not empty
-                    if($search_token) {
-                      //query database and print each matching auction
-                      $result_set = (query_select_auction_search($search_token));
 
-                      foreach ($result_set as $auction) {
-                        $current_price = get_price($auction);
-                        $output = "
-                        <td>
-                              <a href=\"#\"><img src=\"img/user-interface.svg\"
-                                              title=\"Insert title\"
-                                              class=\"search-result-table\"></a>
-                          </td>
-                          <td>
-                              <div class=\"row\">
-                                  <ul class=\"search-result-list\">
-                                      <li>
-                                          <div class=\"col-sm-6\">
-                                              <a href=\"#\">
-                                              <h6>{$auction['title']}</h6>
-                                              </a>
-                                          </div>
-                                          <div class=\"col-sm-6\">
-                                              <div><h6>{$current_price}</h6></div>
-                                          </div>
-                                      </li>
-                                      <li>
-                                          <div class=\"container-item-description\">
-                                              {$auction['description']}
-                                          </div>
-                                      </li>
-                                      <li>
-                                          <div class=\"container-item-description\">
-                                              <div class=\"row\">
-                                                  <div class=\"col-sm-6\">
-                                                      <input class=\"btn-bid
-                                                        btn-lg btn-primary
-                                                        btn-wide\" type=\"submit\"
-                                                        name=\"btn-bid\"
-                                                        value=\"Bid\">
-                                                  </div>
+                //if (filtered if requested) result set is not empty:
+                if($auction_set) {
 
-                                                  <div class=\"col-sm-6\">
-                                                      <input class=\"btn-follow
-                                                      btn-lg btn-primary btn-wide\"
-                                                      type=\"submit\"
-                                                       name=\"btn-follow\"
-                                                       value=\"Follow\">
-                                                  </div>
+                  foreach ($auction_set as $auction) {
+                    $output = "
+                    <td>
+                          <a href=\"#\"><img src=\"img/user-interface.svg\"
+                                          title=\"Insert title\"
+                                          class=\"search-result-table\"></a>
+                      </td>
+                      <td>
+                          <div class=\"row\">
+                              <ul class=\"search-result-list\">
+                                  <li>
+                                      <div class=\"col-sm-6\">
+                                          <a href=\"#\">
+                                          <h6 class=\"jqAuctionTitle\">
+                                          {$auction['title']}</h6>
+                                          </a>
+                                      </div>
+                                      <div class=\"col-sm-6\">
+                                          <div><h6 class=\"jqAuctionPrice\">
+                                          Current Price:
+                                            £{$auction['currentPrice']}</h6></div>
+                                      </div>
+                                  </li>
+                                  <li>
+                                      <div class=\"container-item-description\">
+                                          {$auction['description']}
+                                      </div>
+                                  </li>
+                            <!--   <li>
+                                    <div class=\"container-item-description\">
+                                          <div class=\"row\">
+                                              <div class=\"col-sm-6\">
+                                                  <input class=\"btn-bid
+                                                    btn-lg btn-primary
+                                                    btn-wide\" type=\"submit\"
+                                                    name=\"btn-bid\"
+                                                    value=\"Bid\">
+                                              </div>
+
+                                              <div class=\"col-sm-6\">
+                                                  <input class=\"btn-follow
+                                                  btn-lg btn-primary btn-wide\"
+                                                  type=\"submit\"
+                                                   name=\"btn-follow\"
+                                                   value=\"Follow\">
                                               </div>
                                           </div>
-                                      </li>
-                                  </ul>
-                          </td>
-                      </tr>";
+                                      </div>
+                                  </li> -->
+                              </ul>
+                      </td>
+                  </tr>";
 
-                      echo $output;
-                      }
-                    } else { //inner if
-                        redirect_to("search.php");
-                    }
-                  } else {//outer if
-                    redirect_to("search.php");
+                  echo $output;
                   }
+                } //else {
+                //     redirect_to("search.php");
+                // }
                   ?>
 
                       <!--
@@ -318,6 +371,73 @@ include("../includes/layouts/header.php");
             }
         });
     });
+</script>
+<script type="text/javascript">
+  /*adds click listener to stars to change their class, so that their value can
+  * later be retrieved to be used as GET data*/
+  $('.jqSelectRating').click(function handler () {
+    $('.jqSelectedRatingChoice').attr('class', 'jqSelectRating');
+    $(this).attr('class', 'jqSelectedRatingChoice');
+  });
+</script>
+
+<script type="text/javascript">
+function filter() {
+  var rating, price, token;
+
+  if($('.jqSelectedRatingChoice').length == 0)
+  rating = -1;
+  else
+  rating = $('.jqSelectedRatingChoice').val();
+
+  price = $( "#slider3" ).slider( "values" );
+  token = $('#token').val();
+
+  /*//debug:
+  alert("Rating: " + rating + "\n" +
+  "Slider bottom: " + price[0] + "\n" +
+  "Slider top: " + price[1] + "\n" +
+  "Token: " + token);*/
+
+
+  var reload_url = "results.php?";
+  reload_url +="token=" + token;
+  reload_url += "&bottom=" + price[0];
+  reload_url += "&top=" + price[1];
+  reload_url += "&rating=" + rating;
+
+  window.location = reload_url;
+
+  /*a better solution would be to send some request to the server (to some
+  * generate_auction_list.php page for example), which is also responsible for the
+  * generation of the html code that displays the auctions resulting from the
+  * search, this page could use the data in the $_GET or $_POST superglobal to
+  * filter the results of the initial query: if the token does not change, then
+  * this page should receive a record of the items resulting from the database
+  * query (stored perhaps in the $_SESSION), and then selectively filter this data
+  * without further database queries. This request could also be carried out
+  * asynchronously (ajax), the JQuery in this page could use the html response
+  * from generate_auction_list.php to manipulate the DOM and substitute the
+  * initial search results with the filtered results it received. This would make
+  * for a better user experience as it would not require a page refresh, and since
+  * the page would not have been refreshed, the user would still see their
+  * selection in terms of stars rating and price without these having to be set
+  * through php or JS logic after the reload. :NT*/
+  //   $.ajax({
+  //    type:'GET',
+  //    url:'generate_auction_list.php',
+  //    data: {
+  //      rating: rating,
+  //      bottom: price[0],
+  //      top: price[1],
+  //      token: token
+  //    },
+  //    success: function (jqXHR, statusText) {
+  //      console.log(status);
+  //      console.log(jqXHR);
+  //    }
+  //  });
+}
 </script>
 
 
