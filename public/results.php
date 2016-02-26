@@ -54,21 +54,7 @@ if(isset($_GET['bottom']) && isset($_GET['top']) &&
 
 }
 
-// $_GET['token'] = process_search_form();
 
-//if GET parameter is not blank after processing
-// if(($_GET['token'])) {
-//
-//   echo "Temporary result display: <br/>";
-//   $result_set = (query_select_auction_search(trim($_GET['token'])));
-//
-//   echo "<pre>";
-//   print_r($result_set);
-//   echo "</pre>";
-//
-// } else {
-//   redirect_to("search.php");
-// }
 include("../includes/layouts/header.php");
 ?>
 
@@ -107,13 +93,6 @@ include("../includes/layouts/header.php");
 
                 }
                 ?>
-
-              <!-- <option value="">Category...</option>
-              <option value="BOK">Book</option>
-              <option value="FAS">Fashion</option>
-              <option value="FOO">Food</option>
-              <option value="FUR">Furniture</option>
-              <option value="ACS">Accessories</option> -->
             </select></li>
             <!--  subcategories commented out
             <li class="list-subcategory">
@@ -158,17 +137,6 @@ include("../includes/layouts/header.php");
             <div id="slider3">
               <span class="ui-slider-value first"></span>
               <span class="ui-slider-value last"></span>
-              <script>
-              // $('#slider3').slider({
-              //   change: function(event, ui) {
-              //     $.ajax({
-              //       type: "GET",
-              //       url: "results.php?",
-              //       data:
-              //     })
-              //   }
-              // });​
-              </script>
             </div>
           </li>
           <li class="divider"></li>
@@ -224,7 +192,8 @@ include("../includes/layouts/header.php");
                               <ul class=\"search-result-list\">
                                   <li>
                                       <div class=\"col-sm-6\">
-                                          <a href=\"#\">
+                                          <a href=\"
+                                            auction.php?auctionId={$auction['auctionId']}\">
                                           <h6 class=\"jqAuctionTitle\">
                                           {$auction['title']}</h6>
                                           </a>
@@ -462,7 +431,5 @@ function filter() {
   //  });
 }
 </script>
-
-
 </body>
 </html>
