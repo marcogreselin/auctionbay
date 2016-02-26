@@ -232,21 +232,23 @@ function process_filter_form_not_empty() {
   $auction_set = array();
 
   $short = array('auctionId' => 2, "title" => "title",
-      "description" => "description", "currentPrice" => 10, "rating" => 1);
+      "description" => "description", "currentPrice" => 10, "rating" => 1,
+      "category_id" => 5);
   $short_spaces = array('auctionId' => 3, "title" => "title with spaces",
       "description" => "description with spaces", "currentPrice" => 10,
-      "rating" => 2);
+      "rating" => 2, "category_id" => 5);
   $different = array('auctionId' => 4, "title" => "different",
-      "description" => "same description", "currentPrice" => 10, "rating" => 3);
+      "description" => "same description", "currentPrice" => 10, "rating" => 3,
+      "category_id" => 5);
   $costly = array('auctionId' => 5, "title" => "auction with long description",
       "description" => "very long description", "currentPrice" => 100,
-      "rating" => 4);
+      "rating" => 4, "category_id" => 5);
 
   array_push($auction_set, $short, $short_spaces, $different, $costly);
 
-  $result = process_filter_form($auction_set, 50, 200, -1);
+  $result = process_filter_form($auction_set, 50, 200, -1, 5);
 
-  assert(array_values($result) === array($costly));
+  assert((array_values($result) === array($costly)));
 
   echo "Auctions list after filtering: ";
   echo "<pre>";
@@ -259,19 +261,24 @@ function process_filter_form_empty() {
   $auction_set = array();
 
   $short = array('auctionId' => 2, "title" => "title",
-      "description" => "description", "currentPrice" => 10, "rating" => 1);
+      "description" => "description", "currentPrice" => 10, "rating" => 1,
+      "category_id" => 5);
   $short_spaces = array('auctionId' => 3, "title" => "title with spaces",
       "description" => "description with spaces", "currentPrice" => 10,
-      "rating" => 2);
+      "rating" => 2, "category_id" => 5);
   $different = array('auctionId' => 4, "title" => "different",
-      "description" => "same description", "currentPrice" => 10, "rating" => 3);
+      "description" => "same description", "currentPrice" => 10, "rating" => 3,
+      "category_id" => 5);
   $costly = array('auctionId' => 5, "title" => "auction with long description",
       "description" => "very long description", "currentPrice" => 100,
-      "rating" => 4);
+      "rating" => 4, "category_id" => 5);
+  $wrong_category = array('auctionId' => 5, "title" => "auction with long description",
+      "description" => "very long description", "currentPrice" => 100,
+      "rating" => 4, "category_id" => 1000);
 
   array_push($auction_set, $short, $short_spaces, $different, $costly);
 
-  $result = process_filter_form($auction_set, 50, 200, 5);
+  $result = process_filter_form($auction_set, 50, 200, 5, 5);
 
   assert(empty($result));
 
@@ -281,6 +288,8 @@ function process_filter_form_empty() {
   print_r($result);
   echo "</pre>";
 }
+
+
 
 //test for failure first post
 first_form_test_failure();

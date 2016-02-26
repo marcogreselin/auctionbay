@@ -13,7 +13,7 @@ if(is_buyer()){
 }
 
 
-  
+
   if(isset($_POST["submitAuction"])){
 
   	if(addAuction()){
@@ -21,8 +21,8 @@ if(is_buyer()){
   	} else {
   		$_POST["error"];
   	}
-  	
-  } 
+
+  }
 // from http://www.tutorialspoint.com/php/php_file_uploading.htm
      if(isset($_FILES['image'])){
       $errors= array();
@@ -31,17 +31,17 @@ if(is_buyer()){
       $file_tmp =$_FILES['image']['tmp_name'];
       $file_type=$_FILES['image']['type'];
       $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
-      
+
       $expensions= array("jpeg","jpg","png");
-      
+
       // if(in_array($file_ext,$expensions)=== false){
       //    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
       // }
-      
+
       // if($file_size > 2097152){
       //    $errors[]='File size must be excately 2 MB';
       // }
-      
+
       // if(empty($errors)==true){
          move_uploaded_file($file_tmp,"img/auctions/".$file_name);
          // echo "Success";
@@ -50,7 +50,7 @@ if(is_buyer()){
       // }
    }
 ?>
-<?php 
+<?php
 	include("../includes/layouts/header.php");
 
 ?>
@@ -69,12 +69,12 @@ if(is_buyer()){
 			        <span class="fui-clip fileinput-exists"></span>
 			        <span class="fileinput-filename"></span>
 			      </div>
-			      <span class="input-group-btn btn-file">					    	
+			      <span class="input-group-btn btn-file">
 			        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
 			        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
 			        <input name="image" type="file">
-			        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>					    	
-			      </span>					    
+			        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>
+			      </span>
 			    </div>
 			  </div>
 			</div>
@@ -91,7 +91,7 @@ if(is_buyer()){
 			</div>
 		</div>
 
-		
+
 	</div>
 	<div class="row">
 		<div class="col-md-6">
@@ -100,7 +100,7 @@ if(is_buyer()){
 		  <div class="input-group">
 		    <span class="input-group-addon">&pound;</span>
 		    <input name="startingPrice" type="text" class="form-control" placeholder="" />
-		  </div>  
+		  </div>
 		</div>
 		</div>
 
@@ -110,11 +110,11 @@ if(is_buyer()){
 		  <div class="input-group">
 		    <span class="input-group-addon">&pound;</span>
 		    <input name="reservePrice" type="text" class="form-control" placeholder="" />
-		  </div>  
+		  </div>
 		</div>
 		</div>
 	</div>
-	
+
 		<div class="row">
 		<div class="col-md-6">
   		<p>Category:</p>
@@ -122,10 +122,10 @@ if(is_buyer()){
 
   <select class="form-control" id="sel1" name="category">
 
-  		    <?php  
+  		    <?php
 $catArray = queryCatArray();
 while($row = mysqli_fetch_assoc($catArray)){
-	
+
   echo "<option value=\"";
   echo $row["categoryId"];
   echo "\">";
@@ -138,11 +138,11 @@ while($row = mysqli_fetch_assoc($catArray)){
   </select>
   </div>
 </div>
-   
 
 
-		
-	
+
+
+
 	<button name="submitAuction" class="btn btn-hg btn-primary create-button">
 	  Create Auction
 	</button>

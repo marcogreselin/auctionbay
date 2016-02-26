@@ -162,11 +162,11 @@ function query_select_auction_search($token) {
   $token = mysqli_real_escape_string($connection, $token);
 
   //prep query
-  $query  = "SELECT auctionId, title, description, startingPrice ";
+  $query  = "SELECT auctionId, title, description, startingPrice, category_id ";
   $query .= "FROM auction ";
   $query .= "WHERE title LIKE '%{$token}%' OR ";
   $query .= "       description LIKE '%{$token}%' ";
-  $query .= "LIMIT 50;";
+//  $query .= "LIMIT 50;"; //limit?
 
   $result_set = mysqli_query($connection, $query);
 
