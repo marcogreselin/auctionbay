@@ -266,7 +266,7 @@ function queryCatArray(){
 function queryAuctionData($auctionId){
   global $connection;
 
-  $query = "SELECT auction.title, description, views, imageName, firstName, lastName, FLOOR(AVG(stars)) AS stars FROM auction ";
+  $query = "SELECT auction.title, description, views, imageName, firstName, lastName,expirationDate, FLOOR(AVG(stars)) AS stars FROM auction ";
   $query .= "JOIN user ON auction.seller = user.userid ";
   $query .= "JOIN feedback ON feedback.user_Id = user.userId ";
   $query .= "WHERE auctionId=" . $auctionId;
@@ -297,7 +297,35 @@ function favoriteAuction(){
   return  mysqli_query($connection,$query);
 }
 
+function timeRemaining($expiryTime){
+  $start_date = new DateTime();
+  return $start_date->diff(new DateTime($expiryTime));
 
+}
+
+function isFavorite(){
+  global $connection;
+  $userId = $_SESSION["userId"];
+  $auctionId = $_GET["auctionId"];
+  $query = "SELECT * FROM follower WHERE auction_id =".$auctionId." AND user_id = ".$userId;
+  $result =  mysqli_num_rows(mysqli_query($connection,$query));
+  if( $result==0){
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function unfavoriteAuction(){
+  global $connection;
+  $userId = $_SESSION["userId"];
+  $auctionId = $_GET["auctionId"];
+
+  $query = "DELETE FROM follower WHERE `user_id`='".$userId."';";
+  
+ 
+  mysqli_query($connection,$query);
+}
 
 
 ?>
