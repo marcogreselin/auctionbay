@@ -19,9 +19,10 @@ if(isset($_GET['token'])) {
 
     //query database and modify result set with further queries
     $auction_set = (query_select_auction_search($search_token));
-    for($i=0; $i<sizeof($auction_set); $i++) {
+    for($i = 0; $i < sizeof($auction_set); $i++) {
       $current_price = get_price($auction_set[$i]['auctionId'],
                                   $auction_set[$i]['startingPrice']);
+
       $auction_set[$i]['currentPrice'] = $current_price;
 
       //TODO
@@ -30,6 +31,8 @@ if(isset($_GET['token'])) {
       //for the token being made on the database, whereas no new query should
       //occurr for filtering purposes
 
+      //once the current price is known, there is no further need for a
+      //startingPrice field on the retrieved associative array
       unset($auction_set[$i]['startingPrice']);
 
     }
@@ -39,30 +42,19 @@ if(isset($_GET['token'])) {
   redirect_to("search.php");
 }
 
+//process filtering if set as part of the get request, this modifies the
+//auction_set
 if(isset($_GET['bottom']) && isset($_GET['top']) &&
-  isset($_GET['rating'])) {
+  isset($_GET['rating']) && isset($_GET['category'])) {
   $auction_set = process_filter_form($auction_set,
                                     urldecode($_GET['bottom']),
                                     urldecode($_GET['top']),
-                                    urldecode($_GET['rating']));
+                                    urldecode($_GET['rating']),
+                                    urldecode($_GET['category']));
 
 }
 
-// $_GET['token'] = process_search_form();
 
-//if GET parameter is not blank after processing
-// if(($_GET['token'])) {
-//
-//   echo "Temporary result display: <br/>";
-//   $result_set = (query_select_auction_search(trim($_GET['token'])));
-//
-//   echo "<pre>";
-//   print_r($result_set);
-//   echo "</pre>";
-//
-// } else {
-//   redirect_to("search.php");
-// }
 include("../includes/layouts/header.php");
 ?>
 
@@ -89,11 +81,18 @@ include("../includes/layouts/header.php");
             <li class="nav-header"><select
               class="category-select form-control select select-primary select-sm mbl">
               <option value="">Category...</option>
-              <option value="BOK">Book</option>
-              <option value="FAS">Fashion</option>
-              <option value="FOO">Food</option>
-              <option value="FUR">Furniture</option>
-              <option value="ACS">Accessories</option>
+              <?php
+                $catArray = queryCatArray();
+                while($row = mysqli_fetch_assoc($catArray)){
+
+                  echo "<option value=\"";
+                  echo $row["categoryId"];
+                  echo "\">";
+                  echo $row["name"];
+                  echo "</option>";
+
+                }
+                ?>
             </select></li>
             <!--  subcategories commented out
             <li class="list-subcategory">
@@ -138,17 +137,6 @@ include("../includes/layouts/header.php");
             <div id="slider3">
               <span class="ui-slider-value first"></span>
               <span class="ui-slider-value last"></span>
-              <script>
-              // $('#slider3').slider({
-              //   change: function(event, ui) {
-              //     $.ajax({
-              //       type: "GET",
-              //       url: "results.php?",
-              //       data:
-              //     })
-              //   }
-              // });​
-              </script>
             </div>
           </li>
           <li class="divider"></li>
@@ -204,7 +192,8 @@ include("../includes/layouts/header.php");
                               <ul class=\"search-result-list\">
                                   <li>
                                       <div class=\"col-sm-6\">
-                                          <a href=\"#\">
+                                          <a href=\"
+                                            auction.php?auctionId={$auction['auctionId']}\">
                                           <h6 class=\"jqAuctionTitle\">
                                           {$auction['title']}</h6>
                                           </a>
@@ -383,7 +372,7 @@ include("../includes/layouts/header.php");
 
 <script type="text/javascript">
 function filter() {
-  var rating, price, token;
+  var rating, price, token, category;
 
   if($('.jqSelectedRatingChoice').length == 0)
   rating = -1;
@@ -392,6 +381,8 @@ function filter() {
 
   price = $( "#slider3" ).slider( "values" );
   token = $('#token').val();
+
+  category = $( '.category-select' ).find('option:selected').val();
 
   /*//debug:
   alert("Rating: " + rating + "\n" +
@@ -405,6 +396,7 @@ function filter() {
   reload_url += "&bottom=" + price[0];
   reload_url += "&top=" + price[1];
   reload_url += "&rating=" + rating;
+  reload_url += "&category=" + category;
 
   window.location = reload_url;
 
@@ -439,7 +431,5 @@ function filter() {
   //  });
 }
 </script>
-
-
 </body>
 </html>

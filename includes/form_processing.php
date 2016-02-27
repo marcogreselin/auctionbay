@@ -9,65 +9,60 @@ address.php*/
 function process_first_form() {
   global $errors;
 
-  $required_fields = array("firstname",
-  "lastname",
-  "email",
-  "password",
-  "passwordagain",
-  //"role-check"
-);
-validate_presences($required_fields);
+  $required_fields = array("firstname", "lastname", "email", "password",
+                            "passwordagain"/*, "role-check"*/);
+  validate_presences($required_fields);
 
 //  Limits provided should correspond to the limits set in the sql database
-$fields_with_max_lengths = array("firstname" => 20,
-"lastname" => 20,
-"email" => 50,
-"password" => 20);
-validate_max_lengths($fields_with_max_lengths);
+  $fields_with_max_lengths = array("firstname" => 20, "lastname" => 20,
+                                  "email" => 50, "password" => 20);
+
+  validate_max_lengths($fields_with_max_lengths);
 
 // Check that password == passwordagain
-matches($_POST['password'], $_POST['passwordagain']);
+  matches($_POST['password'], $_POST['passwordagain']);
 
 // check that email has not already been used
-validate_email($_POST['email']);
+  validate_email($_POST['email']);
 
-if(empty($errors)) {
+  if(empty($errors)) {
   // Success outcome:
   // Store values entered and wait for user to submit current form
 
   //  This uses the current session, session should be
   //  destroyed once the registration process ends :NT
-  $_SESSION['firstname']  = $_POST['firstname'];
-  $_SESSION["lastname"]   = $_POST['lastname'];
-  $_SESSION["email"]      = $_POST['email'];
-  $_SESSION["password"]   = $_POST['password'];
-  $_SESSION["role"]       = $_POST['role-check'];
-  $_SESSION['user_details'] = 1; //confirm successful outcome in session
+    $_SESSION['firstname']  = $_POST['firstname'];
+    $_SESSION["lastname"]   = $_POST['lastname'];
+    $_SESSION["email"]      = $_POST['email'];
+    $_SESSION["password"]   = $_POST['password'];
+    $_SESSION["role"]       = $_POST['role-check'];
+    $_SESSION['user_details'] = 1; //confirm successful outcome in session
 
 
-} else {
+  } else {
   // Failure outcome: one or more elements in $errors
 
   //  Either display messages from $erros here in address.php or
   //  signup.php
 
-  if(!isset($_POST['test'])) {
+  //Unit-testing only, should be removed and placed into unit tests
+    if(!isset($_POST['test'])) {
     //Store what is needed in the session
-    $_SESSION['firstname']  = $_POST['firstname'];
-    $_SESSION["lastname"]   = $_POST['lastname'];
-    $_SESSION["email"]      = $_POST['email'];
-    $_SESSION['errors'] = $errors;
-    redirect_to("signup.php");
-  }
+      $_SESSION['firstname']  = $_POST['firstname'];
+      $_SESSION["lastname"]   = $_POST['lastname'];
+      $_SESSION["email"]      = $_POST['email'];
+      $_SESSION['errors'] = $errors;
+      redirect_to("signup.php");
+    }
 
   //Unit-testing only:
-  if(isset($_POST['test'])){
-    echo "Errors from process_first_form():";
-    echo "<pre>";
-    echo print_r($errors);
-    echo "</pre>";
+    if(isset($_POST['test'])){
+      echo "Errors from process_first_form():";
+      echo "<pre>";
+      echo print_r($errors);
+      echo "</pre>";
+    }
   }
-}
 }
 
 /*  Processes the content of the second form, not needed outside of address.php*/
@@ -212,22 +207,27 @@ function get_price($auctionId, $auctionStartingPrice) {
     return $result; //an integer
 }*/
 
-/*Filters the parameter set of auctions by the price and rating parameters,
-* returns a subset of this set*/
-function process_filter_form($auction_set, $price_min, $price_max, $rating) {
+/*Filters the parameter set of auctions by the price, rating and category id
+* parameters, returns a subset of this set*/
+function process_filter_form($auction_set, $price_min, $price_max, $rating,
+                              $category_id) {
 
   foreach($auction_set as $auctionKey => $auctionElement) {
       if(($auctionElement['currentPrice'] < $price_min) ||
       ($auctionElement['currentPrice'] > $price_max))
         unset($auction_set[$auctionKey]);
-      elseif($auctionElement['rating'] < $rating)
+
+      if($auctionElement['rating'] < $rating)
+        unset($auction_set[$auctionKey]);
+
+      if($auctionElement['category_id'] != $category_id)
         unset($auction_set[$auctionKey]);
   }
+  
     return empty($auction_set) ? null : $auction_set;
-
 }
 
- function addAuction(){
+function addAuction() {
   global $connection;
 
   $title = $_POST["title"];
@@ -242,7 +242,7 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating) {
 
 
   $query = "INSERT INTO auction (title, description, seller, startingPrice, reservePrice,
-            expirationDate, category_Id, views, imageName) 
+            expirationDate, category_Id, views, imageName)
             VALUES ('{$title}', '{$body}','{$seller}','{$startingPrice}','{$reservePrice}',
             '{$endDate}','{$category_Id}',0,'{$imageName}');";
   $result = mysqli_query($connection,$query);
@@ -258,7 +258,7 @@ function queryCatArray(){
   global $connection;
 
   $query = "SELECT * FROM category ORDER BY categoryId ASC;";
- 
+
   return  mysqli_query($connection,$query);
 
 }

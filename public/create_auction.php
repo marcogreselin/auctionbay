@@ -13,7 +13,7 @@
 	}
 
 
-  
+
   if(isset($_POST["submitAuction"])){
 
   	if(addAuction()){
@@ -21,8 +21,8 @@
   	} else {
   		$_POST["error"];
   	}
-  	
-  } 
+
+  }
 // from http://www.tutorialspoint.com/php/php_file_uploading.htm
      if(isset($_FILES['image'])){
       $errors= array();
@@ -31,17 +31,17 @@
       $file_tmp =$_FILES['image']['tmp_name'];
       $file_type=$_FILES['image']['type'];
       $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
-      
+
       $expensions= array("jpeg","jpg","png");
-      
+
       // if(in_array($file_ext,$expensions)=== false){
       //    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
       // }
-      
+
       // if($file_size > 2097152){
       //    $errors[]='File size must be excately 2 MB';
       // }
-      
+
       // if(empty($errors)==true){
          move_uploaded_file($file_tmp,"img/auctions/".$file_name);
          // echo "Success";
@@ -50,7 +50,7 @@
       // }
    }
 ?>
-<?php 
+<?php
 	include("../includes/layouts/header.php");
 
 ?>
@@ -69,12 +69,12 @@
 			        <span class="fui-clip fileinput-exists"></span>
 			        <span class="fileinput-filename"></span>
 			      </div>
-			      <span class="input-group-btn btn-file">					    	
+			      <span class="input-group-btn btn-file">
 			        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
 			        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
 			        <input name="image" type="file">
-			        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>					    	
-			      </span>					    
+			        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>
+			      </span>
 			    </div>
 			  </div>
 			</div>
@@ -91,7 +91,7 @@
 			</div>
 		</div>
 
-		
+
 	</div>
 	<div class="row">
 		<div class="col-md-6">
@@ -100,7 +100,7 @@
 		  <div class="input-group">
 		    <span class="input-group-addon">&pound;</span>
 		    <input name="startingPrice" type="text" class="form-control" placeholder="" />
-		  </div>  
+		  </div>
 		</div>
 		</div>
 
@@ -110,11 +110,11 @@
 		  <div class="input-group">
 		    <span class="input-group-addon">&pound;</span>
 		    <input name="reservePrice" type="text" class="form-control" placeholder="" />
-		  </div>  
+		  </div>
 		</div>
 		</div>
 	</div>
-	
+
 		<div class="row">
 		<div class="col-md-6">
   		<p>Category:</p>
@@ -122,27 +122,28 @@
 
   <select class="category-select form-control select select-primary select-sm mbl" id="sel1" name="category">
 
-	<?php  
-	$catArray = queryCatArray();
-	while($row = mysqli_fetch_assoc($catArray)){
-		
-	  echo "<option value=\"";
-	  echo $row["categoryId"];
-	  echo "\">";
-	  echo $row["name"];
-	  echo "</option>";
 
-	}
-	?>
+  		    <?php
+$catArray = queryCatArray();
+while($row = mysqli_fetch_assoc($catArray)){
+
+  echo "<option value=\"";
+  echo $row["categoryId"];
+  echo "\">";
+  echo $row["name"];
+  echo "</option>";
+
+}
+?>
 
   </select>
   </div>
 </div>
-   
 
 
-		
-	
+
+
+
 	<button name="submitAuction" class="btn btn-hg btn-primary create-button">
 	  Create Auction
 	</button>
