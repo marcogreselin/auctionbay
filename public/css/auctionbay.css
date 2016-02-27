@@ -439,3 +439,9 @@ html, body {
 .rating-leave-feedback > label {
 	width: 40px !important;
 }
+.auction-price{
+	margin-top: 30px;
+    margin-bottom: 30px;
+	font-size: 120%;
+	text-align: center;
+}

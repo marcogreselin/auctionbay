@@ -263,6 +263,39 @@ function queryCatArray(){
 
 }
 
+function queryAuctionData($auctionId){
+  global $connection;
+
+  $query = "SELECT auction.title, description, views, imageName, firstName, lastName, FLOOR(AVG(stars)) AS stars FROM auction ";
+  $query .= "JOIN user ON auction.seller = user.userid ";
+  $query .= "JOIN feedback ON feedback.user_Id = user.userId ";
+  $query .= "WHERE auctionId=" . $auctionId;
+  $query .= " GROUP BY userId;";
+
+ 
+  return  mysqli_fetch_assoc(mysqli_query($connection,$query));
+
+}
+
+function addVisit($auctionId){
+  global $connection;
+
+  $query = "UPDATE auction SET views = views + 1 WHERE auctionId = " . $auctionId;
+  
+ 
+  return  mysqli_query($connection,$query);
+
+}
+function favoriteAuction(){
+  global $connection;
+  $userId = $_SESSION["userId"];
+  $auctionId = $_GET["auctionId"];
+
+  $query = "INSERT INTO follower (`auction_id`, `user_id`) VALUES ('".$auctionId."','".$userId."')";
+  
+ 
+  return  mysqli_query($connection,$query);
+}
 
 
 

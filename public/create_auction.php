@@ -8,9 +8,9 @@
 	require_once('../includes/validation_functions.php');
 	require_once('../includes/form_processing.php');
 	require_once("../includes/output.php");
-if(is_buyer()){
-	redirect_to("search.php");
-}
+	if(is_buyer()){
+		redirect_to("search.php");
+	}
 
 
   
@@ -120,20 +120,20 @@ if(is_buyer()){
   		<p>Category:</p>
 
 
-  <select class="form-control" id="sel1" name="category">
+  <select class="category-select form-control select select-primary select-sm mbl" id="sel1" name="category">
 
-  		    <?php  
-$catArray = queryCatArray();
-while($row = mysqli_fetch_assoc($catArray)){
-	
-  echo "<option value=\"";
-  echo $row["categoryId"];
-  echo "\">";
-  echo $row["name"];
-  echo "</option>";
+	<?php  
+	$catArray = queryCatArray();
+	while($row = mysqli_fetch_assoc($catArray)){
+		
+	  echo "<option value=\"";
+	  echo $row["categoryId"];
+	  echo "\">";
+	  echo $row["name"];
+	  echo "</option>";
 
-}
-?>
+	}
+	?>
 
   </select>
   </div>

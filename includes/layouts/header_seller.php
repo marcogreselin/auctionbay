@@ -9,7 +9,7 @@ require_once("../includes/form_processing.php");
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>My Account</title>
+    <title>AuctionBay</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Loading Bootstrap -->
