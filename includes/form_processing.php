@@ -327,5 +327,79 @@ function unfavoriteAuction(){
   mysqli_query($connection,$query);
 }
 
+/** Leave feedback after clicking the leave feedback picture in the buyer_account or seller_account*/
+function leaveFeedback() {
+  global $connection;
 
+  $stars = (int)$_POST['stars'];
+  $comment = $_POST['comment'];
+  $title = $_POST['title'];
+  $auction_id = $_POST['auction_id'];
+  $user_id = $_POST['user_id'];
+  $date = new DateTime('now');
+
+  // construct query
+  $query = "INSERT INTO feedback (auction_id, user_id, stars, comment, title) VALUES ({$auction_id}, {$user_id}, {$stars}, '{$comment}', '{$title}')";
+
+  $feedbackResult = mysqli_query($connection, $query);
+
+
+  // Test if there was a query error, if no error, redirect to the index.php page
+  if (!$feedbackResult) {
+    die("Database query failed. " . mysqli_error($connection));
+  } else {
+    redirect_to('index.php');
+  }
+}
+
+
+/** Search from the database the user's firstname to be displayed on the screen for leave_feedback.php*/
+function searchFeedbackUser($userId) {
+  global $connection;
+
+  $query = "SELECT * FROM user WHERE userId = $userId";
+
+  $userFeedbackResult = mysqli_query($connection, $query);
+
+  if (!$userFeedbackResult) {
+    die("Database query failed. " . mysqli_error($connection));
+  } else {
+    $userFeedback = mysqli_fetch_assoc($userFeedbackResult);
+  }
+  return $userFeedback['firstName'];
+}
+
+
+/** Query the information from a combination of different tables */
+function getFeedbackInformation($userId) {
+  global $connection;
+
+// query to retrieve the current all the relevant feedback information
+  $query = "SELECT *
+FROM feedback
+JOIN auction ON auction.auctionId = feedback.auction_id
+JOIN user ON user.userid = feedback.user_id
+WHERE user.userId = $userId";
+
+  $feedbackMainResult = mysqli_query($connection, $query);
+
+// Test if there was a query error
+  if (!$feedbackMainResult) {
+    die("Database query failed");
+  }
+
+  return $feedbackMainResult;
+}
+
+/** Returns the number of stars in the feedback.php depending on the number of stars queried from the database */
+function returnStarRating($starNumber) {
+  $finalOutput = null;
+  for ($x = 1; $x <= $starNumber; $x++) {
+    $output = '<fieldset class="rating rating-feedback-result"><input type="text" id="star1" name="rating" value="1"/><label for="star1"
+                                                                                       title="">
+                            star</label></fieldset>';
+    $finalOutput .= $output;
+  }
+  return $finalOutput;
+}
 ?>
