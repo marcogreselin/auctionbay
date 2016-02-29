@@ -220,10 +220,10 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
       if($auctionElement['rating'] < $rating)
         unset($auction_set[$auctionKey]);
 
-      if($auctionElement['category_id'] != $category_id)
+      if($category_id && ($auctionElement['category_id'] != $category_id))
         unset($auction_set[$auctionKey]);
   }
-  
+
     return empty($auction_set) ? null : $auction_set;
 }
 

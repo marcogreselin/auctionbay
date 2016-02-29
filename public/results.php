@@ -382,6 +382,7 @@ function filter() {
   price = $( "#slider3" ).slider( "values" );
   token = $('#token').val();
 
+
   category = $( '.category-select' ).find('option:selected').val();
 
   /*//debug:
