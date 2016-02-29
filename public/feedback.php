@@ -1,5 +1,23 @@
 <?php
+// Cookies
 setcookie("test", 45, time() + 60 * 60 * 24 * 7);
+
+define("buyer", 1);
+define("seller", 2);
+?>
+
+
+<?php
+require_once('../includes/dbconnection.php');
+require_once("../includes/session.php");
+require_once('../includes/navigation.php');
+require_once('../includes/form_processing.php');
+
+$userId = $_GET['user_id'];
+$auctionId = $_GET['auction_id'];
+
+$feedbackMainResult = getFeedbackInformation($userId);
+
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +62,7 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
 
 <body>
+<!-- /* For querying the data and showing the result from the database and show it on the screen */-->
 <!-- Navbar -->
 <nav class="navbar navbar-default navbar-lg" role="navigation">
     <div class="navbar-header">
@@ -60,10 +79,15 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 </nav><!-- /navbar -->
 
 <div class="container">
-    <h1>Feedback for <?php echo "User1"; ?></h1>
 
 
-    <h4>User type: <?php echo "seller" ?></h4>
+    <?php
+        $feedback = mysqli_fetch_assoc($feedbackMainResult);
+        ?>
+
+    <h1>Feedback for <?php echo $feedback["firstName"]; ?></h1>
+    <h4>User type: <?php echo $feedback["role"]; ?></h4>
+
 
 
     <table class="feedback-table table table-striped">
@@ -72,7 +96,6 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
         <col width="300px">
         <col width="200px">
         <col width="400px">
-
 
         <thead>
         <tr>
@@ -86,139 +109,50 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 
 
         <tbody>
-        <tr>
+        <?php
+        while($feedback = mysqli_fetch_assoc($feedbackMainResult)) {
+                $output1 = "<tr>
+            <td>               <a href=\"#\"><img src=\"img/user-interface.svg\" title=\"Insert title\" class=\"feedback-table\"></a>
+                </td>
             <td>
-                <a href="#"><img src="img/user-interface.svg" title="Insert title" class="feedback-table"></a>
-            </td>
-            <td>
-                <a href="#"><h6>Item name</h6></a>
-            </td>
-            <td>
-                <div class="feedback-star" data-steps="2">
-                    <fieldset class="rating">
-                        <input type="radio" id="star5" name="rating" value="5"/><label for="star5"
-                                                                                       title="Rocks!">5
-                            stars</label>
-                        <input type="radio" id="star4" name="rating" value="4"/><label for="star4"
-                                                                                       title="Pretty good">4
-                            stars</label>
-                        <input type="radio" id="star3" name="rating" value="3"/><label for="star3"
-                                                                                       title="Meh">3
-                            stars</label>
-                        <input type="radio" id="star2" name="rating" value="2"/><label for="star2"
-                                                                                       title="Kinda bad">2
-                            stars</label>
-                        <input type="radio" id="star1" name="rating" value="1"/><label for="star1"
-                                                                                       title="Sucks big time">1
-                            star</label>
-                    </fieldset>
+            <div class=\"container-feedback-item-title\">
+                <a href=\"#\"><h7>{$feedback['title']}</h7></a>
                 </div>
             </td>
             <td>
-                Date
-            </td>
+            <div class=\"feedback-result-rating\">";
 
+            // Get the number of stars fom the database first and pass it into the function called returnStarRating to echo the number of stars accordingly.
+            $starNumber = $feedback['stars'];
+            $output2 = returnStarRating($starNumber);
+
+            $output3="
+            </div>
+            </td>
             <td>
-                <div class="container-feedback-comment">
-                    Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
-                    munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
-                    Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
-                    quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
-                    duo, ne z
+                <div class=\"container-feedback-date\">
+                    {$feedback['date']}
                 </div>
             </td>
-        </tr>
 
-
-        <tr>
             <td>
-                <a href="#"><img src="img/user-interface.svg" title="Insert title" class="feedback-table"></a>
-            </td>
-            <td>
-                <a href="#"><h6>Item name</h6></a>
-            </td>
-            <td>
-                <div class="feedback-star" data-steps="2">
-                    <fieldset class="rating">
-                        <input type="radio" id="star5" name="rating" value="5"/><label for="star5"
-                                                                                       title="Rocks!">5
-                            stars</label>
-                        <input type="radio" id="star4" name="rating" value="4"/><label for="star4"
-                                                                                       title="Pretty good">4
-                            stars</label>
-                        <input type="radio" id="star3" name="rating" value="3"/><label for="star3"
-                                                                                       title="Meh">3
-                            stars</label>
-                        <input type="radio" id="star2" name="rating" value="2"/><label for="star2"
-                                                                                       title="Kinda bad">2
-                            stars</label>
-                        <input type="radio" id="star1" name="rating" value="1"/><label for="star1"
-                                                                                       title="Sucks big time">1
-                            star</label>
-                    </fieldset>
+                <div class=\"container-feedback-comment\">
+                     {$feedback['comment']}
                 </div>
             </td>
-            <td>
-                Date
-            </td>
-
-            <td>
-                <div class="container-feedback-comment">
-                    Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
-                    munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
-                    Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
-                    quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
-                    duo, ne z
-                </div>
-            </td>
-        </tr>
+                </tr>";
 
 
-        <tr>
-            <td>
-                <a href="#"><img src="img/user-interface.svg" title="Insert title" class="feedback-table"></a>
-            </td>
-            <td>
-                <a href="#"><h6>Item name</h6></a>
-            </td>
-            <td>
-                <div class="feedback-result-star" data-steps="2">
-                    <fieldset class="rating feedback-star-rating">
-                        <input type="radio" id="star5" name="rating" value="5"/><label for="star5"
-                                                                                       title="Rocks!">5
-                            stars</label>
-                        <input type="radio" id="star4" name="rating" value="4"/><label for="star4"
-                                                                                       title="Pretty good">4
-                            stars</label>
-                        <input type="radio" id="star3" name="rating" value="3"/><label for="star3"
-                                                                                       title="Meh">3
-                            stars</label>
-                        <input type="radio" id="star2" name="rating" value="2"/><label for="star2"
-                                                                                       title="Kinda bad">2
-                            stars</label>
-                        <input type="radio" id="star1" name="rating" value="1"/><label for="star1"
-                                                                                       title="Sucks big time">1
-                            star</label>
-                    </fieldset>
-                </div>
-            </td>
-            <td>
-                Date
-            </td>
+            $output = $output1 . $output2 . $output3;
+            echo $output;
+            }
 
-            <td>
-                <div class="container-feedback-comment">
-                    Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim movet
-                    munere. Detracto rationibus instructior his an, ludus malorum docendi an ius.
-                    Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui omnes
-                    quando accusata, habeo viderer ea duo, brute instructior per ad. Illud exerci at
-                    duo, ne z
-                </div>
-            </td>
-        </tr>
+            ?>
+
         </tbody>
     </table>
 </div>
+
 
 
 <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
@@ -234,8 +168,5 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 <!--<script src="css/glyphicons/js/bootstrap.min.js"></script>-->
 
 
-
 </body>
 </html>
-
-

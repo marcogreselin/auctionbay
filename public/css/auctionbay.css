@@ -197,8 +197,6 @@ img.search-result-table {
 
 .search-page-table {
 	padding-right: 20px !important;
-
-
 }
 
 
@@ -382,6 +380,18 @@ html, body {
 	width: 40px !important;
 }
 
+.rating-search-result {
+	content: '★ ';
+	float:left;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+
+
+
+
 /** feedback.css **/
 
 .feedback-list li {
@@ -403,7 +413,24 @@ html, body {
 */  align-items: center;
 }
 
+.feedback-result-rating {
+	padding-top: 2em;
+}
+
+.container-feedback-item-title {
+	padding-right: 4em;
+	padding-bottom: 2em;
+	padding-top: 2em;
+}
+
+
 .container-feedback-comment {
+	padding-right: 4em;
+	padding-bottom: 2em;
+	padding-top: 2em;
+}
+
+.container-feedback-date {
 	padding-right: 4em;
 	padding-bottom: 2em;
 	padding-top: 2em;
@@ -431,14 +458,21 @@ html, body {
 	padding-bottom: 1em !important;
 }
 
+/** Adjusts the spacing of the feedback result stars **/
 .rating-feedback-result > label {
-	width: 10px !important;
+	width: 30px !important;
 }
+
 
 /** Adjusts the spacing of the feedback stars **/
 .rating-leave-feedback > label {
 	width: 40px !important;
 }
+
+.rating-feedback-result {
+	color: gold !important;
+}
+
 .auction-price{
 	margin-top: 30px;
     margin-bottom: 30px;

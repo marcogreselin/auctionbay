@@ -6,6 +6,7 @@
     } else {
       redirect_to("index.php");
     }
+
 ?>
 
 <div class="container">
@@ -36,24 +37,24 @@
 
     <button type="button" class="close fui-cross" data-dismiss="alert"></button>
     <h4>Leave Feedback!</h4>
-    
+
     <table class="table" id="table-account-feedback">
       <col width="200px">
 
       <tr>
 
-        <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
+        <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
         <td>First Row, second column</td>
         <td>First Row, third column</td>
       </tr>
 
       <tr>
 
-        <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
+        <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
         <td>First Row, second column</td>
         <td>First Row, third column</td>
       </tr>
-      
+
     </table>
 
 
@@ -64,10 +65,10 @@
 
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
-  Alex Vally<br>
-  54, Marylebone Street<br>
-  W1H 675 London<br>
-  email: alex@vally.com</p>
+  <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?> <!--Alex Vally<br> -->
+  <?php echo $_SESSION['number'] . ", " . $_SESSION['street'] . "<br>"; ?><!--54, Marylebone Street<br>-->
+  <?php echo $_SESSION['zip'] . " " . $_SESSION['city'] ."<br/>"; ?><!--W1H 675 London<br>-->
+  email: <?php echo " " . $_SESSION['email'] . "<p>"; ?> <!--alex@vally.com</p>-->
 
   <a name="auctions"><h3>My Recent Auctions</h3></a>
   <table class="table table-striped">
@@ -100,11 +101,10 @@
     </tr>
   </table>
 
-  
+
 </div>
 </div>
 
 <?php
   include("../includes/layouts/footer.php");
 ?>
-
