@@ -30,6 +30,9 @@
       $(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
     </script>
 
-
+<!-- Select-two javascript for getting the select to work -->
+<script type="text/javascript">
+    $('select').select2();
+</script>
   </body>
 </html>

@@ -8,9 +8,9 @@
 	require_once('../includes/validation_functions.php');
 	require_once('../includes/form_processing.php');
 	require_once("../includes/output.php");
-if(is_buyer()){
-	redirect_to("search.php");
-}
+	if(is_buyer()){
+		redirect_to("search.php");
+	}
 
 
 
@@ -120,7 +120,8 @@ if(is_buyer()){
   		<p>Category:</p>
 
 
-  <select class="form-control" id="sel1" name="category">
+  <select class="category-select form-control select select-primary select-sm mbl" id="sel1" name="category">
+
 
   		    <?php
 $catArray = queryCatArray();

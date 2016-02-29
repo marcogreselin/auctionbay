@@ -2,68 +2,32 @@
 setcookie("test", 45, time() + 60 * 60 * 24 * 7);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Leave_Feedback</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+require_once('../includes/dbconnection.php');
+require_once('../includes/session.php');
+require_once('../includes/navigation.php');
+require_once('../includes/form_processing.php');
+?>
 
-    <!-- Loading Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Loading Flat UI -->
-    <link href="css/flat-ui.css" rel="stylesheet">
-
-    <!-- Loading AB CSS -->
-    <link href="css/auctionbay.css" rel="stylesheet">
-
-    <!-- Loading Font Awesome Icons -->
-    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-
-    <!-- Select 2 -->
-    <link href="css/select-two/css/select2.min.css" rel="stylesheet"/>
-    <script src="css/select-two/js/select2.min.js"></script>
+<?php
+$user_id = $_GET['user_id'];
 
 
-    <!-- Loading Glyphicons -->
-    <!--    <link href="css/glyphicons/css/bootstrap.min.css" rel="stylesheet"/>-->
+if (isset($_POST["submitFeedback"])) {
+    // leave_feedback.php comes from the buyer_account.php or seller_account.php
+    leaveFeedback();
+}
+?>
 
-
-    <link rel="shortcut icon" href="img/favicon.ico">
-
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-
-    <script src="js/vendor/html5shiv.js"></script>
-    <script src="js/vendor/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-
-<body>
-<!-- Navbar -->
-<nav class="navbar navbar-default navbar-lg" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand">
-            <div class="logo-small"></div>
-            AuctionBay</a>
-    </div>
-    <p class="navbar-text navbar-right">Return to the <a class="navbar-link" href="index.php">Home Page</a></p>
-
-    <div class="collapse navbar-collapse" id="navbar-collapse-01">
-        <ul class="nav navbar-nav">
-        </ul>
-    </div><!-- /.navbar-collapse -->
-</nav><!-- /navbar -->
+<?php
+require_once('../includes/layouts/header.php')
+?>
 
 <div class="container">
 
-        <h1>Leave Feedback for: <?php echo "Jeffrey Yong"; ?></h1>
+        <h1>Leave Feedback for: <?php echo searchFeedbackUser($user_id) ?></h1>
     <div class="jumbotron">
-        <form class="feedback-form" action="" method="post">
+        <form class="feedback-form" action="leave_feedback.php" method="post">
             <div class="form-group form-group-lg">
 
                 <div class="row">
@@ -76,35 +40,39 @@ setcookie("test", 45, time() + 60 * 60 * 24 * 7);
                 <div class="col-sm-6">
                     <div class="feedback-star-rating" data-steps="2">
                         <fieldset class="rating rating-leave-feedback">
-                            <input type="radio" id="star5" name="rating" value="5"/><label for="star5" title="Rocks!">5
+
+                            <input type="radio" id="star5" name="stars" value="5"/><label for="star5" title="Rocks!">5
                                 stars</label>
-                            <input type="radio" id="star4" name="rating" value="4"/><label for="star4"
+                            <input type="radio" id="star4" name="stars" value="4"/><label for="star4"
                                                                                            title="Pretty good">4
                                 stars</label>
-                            <input type="radio" id="star3" name="rating" value="3"/><label for="star3" title="Meh">3
+                            <input type="radio" id="star3" name="stars" value="3"/><label for="star3" title="Meh">3
                                 stars</label>
-                            <input type="radio" id="star2" name="rating" value="2"/><label for="star2"
+                            <input type="radio" id="star2" name="stars" value="2"/><label for="star2"
                                                                                            title="Kinda bad">2
                                 stars</label>
-                            <input type="radio" id="star1" name="rating" value="1"/><label for="star1"
+                            <input type="radio" id="star1" name="stars" value="1"/><label for="star1"
                                                                                            title="Sucks big time">1
                                 star</label>
                         </fieldset>
                     </div>
                 </div>
-                </div>
+
 
                 <div class="input-comment">
-                    <input class="form-control input-comment-title" id="input-title" placeholder="Please give a title"
+                    <input class="form-control input-comment-title" id="input-comment-title" name="title" placeholder="Please give a title"
                            maxlength="140">
                 </div>
 
-                <textarea class="form-control textarea-comment" id="textarea-comment" placeholder="What do you think?"
+                <textarea class="form-control textarea-comment" id="textarea-comment" name="comment" placeholder="What do you think?"
                           maxlength="500"></textarea>
                 <div id="textarea-characters-remaining"></div>
 
                 <input class="btn-submit-comment btn-hg btn-primary btn-block"
-                       type="submit" name="submit" value="Submit your comment">
+                       type="submit" name="submitFeedback" value="Submit your feedback">
+                 <input class="previous-auctionId" type="hidden" name="auction_id" value="<?=htmlentities($_GET['auction_id'])?>" />
+                 <input class="previous-userId" type="hidden" name="user_id" value="<?=htmlentities($_GET['user_id'])?>" />
+
             </div>
         </form>
     </div>
