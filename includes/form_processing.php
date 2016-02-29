@@ -265,12 +265,24 @@ function queryCatArray(){
 
 function queryAuctionData($auctionId){
   global $connection;
+  $auctionId = $_GET["auctionId"];
 
-  $query = "SELECT auction.title, description, views, imageName, firstName, lastName,expirationDate, FLOOR(AVG(stars)) AS stars FROM auction ";
+  $query = "SELECT auction.title, description, views, imageName, firstName, lastName,expirationDate,"; 
+  $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
+  $query .= "FLOOR(AVG(stars)) AS stars , j.user_Id AS currentWinner ";
+
+  $query .= "FROM auction ";
   $query .= "JOIN user ON auction.seller = user.userid ";
   $query .= "JOIN feedback ON feedback.user_Id = user.userId ";
-  $query .= "WHERE auctionId=" . $auctionId;
-  $query .= " GROUP BY userId;";
+  $query .= "LEFT JOIN ( ";
+    $query .= "SELECT bidamount AS amount, user_id , auction_id ";
+    $query .= "FROM bid ";
+    $query .= "WHERE auction_Id=".$auctionId." ";
+    $query .= "ORDER BY amount DESC ";
+    $query .= "LIMIT 1 ";
+  $query .= ") AS j ON j.auction_id = auction.auctionid ";
+  $query .= "WHERE auctionId=".$auctionId." ";
+  $query .= "GROUP BY userId;";
 
  
   return  mysqli_fetch_assoc(mysqli_query($connection,$query));
@@ -325,6 +337,20 @@ function unfavoriteAuction(){
   
  
   mysqli_query($connection,$query);
+}
+
+function bid($auctionData){
+  global $connection;
+  $userId = $_SESSION["userId"];
+  $auctionId = $_GET["auctionId"];
+  $query="INSERT INTO `auction_site`.`bid` (`auction_id`, `user_id`, `bidAmount`) VALUES ('".$auctionId."', '".$userId."', '".$_POST["newBidAmount"]."');";
+
+  if($_POST["newBidAmount"]>$auctionData["price"]){
+    mysqli_query($connection,$query);
+    return true;
+  } else {
+    return false;
+  }
 }
 
 

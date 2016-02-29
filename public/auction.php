@@ -19,7 +19,10 @@ session_start();
 
   $isFavorite = isFavorite();
 
-
+  if(isset($_POST["bidButton"])){
+  	bid($auctionData);
+    $auctionData = queryAuctionData($_GET["auctionId"]);
+  }
 
 
 ?>
@@ -38,7 +41,7 @@ session_start();
 			<p class="text-center">
 			<?php if(!$isFavorite){
 			  echo '<button class="btn btn-hg btn-warning" name="favoriteButton">';
-			  echo "Favorite!";
+			  echo "Follow!";
 			  echo "</button>";
 			} else {
 			  echo '<button class="btn btn-hg btn-primary" name="unfavoriteButton">';
@@ -49,16 +52,23 @@ session_start();
 			?>
 			</p>
 			<p>
-				<div class="auction-price">Current Price:<br>&pound;75.6</div>
+				<div class="auction-price">Current Price:<br>&pound;<?php echo $auctionData["price"] ?>
+				<?php 
+					if($_SESSION["userId"]==$auctionData["currentWinner"]){
+						echo '<br><div id="this-you">This is you!</div>';
+					
+					} 
+				?>
+				</div>
 			</p>
 
 			<p><div class="form-group">
 			  <div class="input-group">
 			    <span class="input-group-addon">&pound;</span>
-			    <input type="text" class="form-control" placeholder="" />
+			    <input type="text" class="form-control" method="POST" name="newBidAmount" placeholder="" />
 			  </div>  
 			</div></p>
-			<p class="text-center"><button class="btn btn-hg btn-primary" name="favoriteButton">
+			<p class="text-center"><button class="btn btn-hg btn-primary" name="bidButton">
 			  Bid!
 			</button></p>
 		</div>
@@ -68,7 +78,24 @@ session_start();
 		</div>
 	</form>
 	</div>
-	<p><?php echo $auctionData["description"] ?></p>
+	<p>
+		<div>
+
+		  <!-- Nav tabs -->
+		  <ul class="nav nav-tabs" id="admin-tab" role="tablist">
+		    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+		    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Admin</a></li>
+		  </ul>
+
+		  <!-- Tab panes -->
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="home"><?php echo $auctionData["description"] ?></div>
+		    <div role="tabpanel" class="tab-pane" id="profile">Views: <?php echo $auctionData["views"] ?></div>
+
+		  </div>
+
+		</div>
+	</p>
 </div>
 <?php
   include("../includes/layouts/footer.php");
