@@ -1,11 +1,11 @@
 <?php
-session_start();
-  include("../includes/layouts/header_buyer.php");
+  include("../includes/layouts/header.php");
   require_once("../includes/form_processing.php");
   require_once("../includes/dbconnection.php");
+    addVisit($_GET["auctionId"]);
 
   $auctionData = queryAuctionData($_GET["auctionId"]);
-  addVisit($_GET["auctionId"]);
+
 
 
 

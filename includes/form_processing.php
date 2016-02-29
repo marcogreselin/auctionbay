@@ -274,11 +274,11 @@ function queryAuctionData($auctionId){
 
   $query = "SELECT auction.title, description, views, imageName, firstName, lastName,expirationDate,"; 
   $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
-  $query .= "FLOOR(AVG(stars)) AS stars , j.user_Id AS currentWinner ";
+  $query .= "IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars , j.user_Id AS currentWinner ";
 
   $query .= "FROM auction ";
   $query .= "JOIN user ON auction.seller = user.userid ";
-  $query .= "JOIN feedback ON feedback.user_Id = user.userId ";
+  $query .= "LEFT JOIN feedback ON feedback.user_Id = user.userId ";
   $query .= "LEFT JOIN ( ";
     $query .= "SELECT bidamount AS amount, user_id , auction_id ";
     $query .= "FROM bid ";

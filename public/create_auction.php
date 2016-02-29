@@ -17,13 +17,7 @@
   if(isset($_POST["submitAuction"])){
 
   	if(addAuction()){
-  		redirect_to("index.php");
-  	} else {
-  		$_POST["error"];
-  	}
-
-  }
-// from http://www.tutorialspoint.com/php/php_file_uploading.htm
+  		// from http://www.tutorialspoint.com/php/php_file_uploading.htm
      if(isset($_FILES['image'])){
       $errors= array();
       $file_name = $_FILES['image']['name'];
@@ -49,6 +43,13 @@
       //    print_r($errors);
       // }
    }
+  		redirect_to("index.php");
+  	} else {
+  		$_POST["error"];
+  	}
+
+  }
+
 ?>
 <?php
 	include("../includes/layouts/header.php");
