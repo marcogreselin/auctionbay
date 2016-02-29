@@ -62,23 +62,26 @@ include("../includes/layouts/header.php");
 
 <div class="container-search-page" id="wrapper">
 
-  <div class="search-page-header"><h5>Show results for</h5></div>
+  <div class="search-page-header"><h5>Show results for <?php
+                                                  if(isset($_GET['token']))
+                                                    { echo $_GET['token']; }
+                                                    ?></h5></div>
   <div class="row">
     <div class="col-sm-3">
-      <div class="search-side-panel">
+      <div class="search-side-panel" style="margin-top: 30px;">
         <!-- php-based GET form submission, used jQuery instead because of front
         end components. :NT
           <form class="" action="results.php?" method="get"> -->
           <ul class="nav nav-list divider-vertical">
             <li class="nav-header">
-              <input class="form-control input-hg search-box" type="text"
+              <input class="form-control input-hg" type="text"
               name="token" id="token" value="<?php
                                                   if(isset($_GET['token']))
                                                     { echo $_GET['token']; }
                                                     ?>">
             </li>
             <li class="divider"></li>
-            <li class="nav-header"><select
+            <li class="nav-header" id="cat-list"><select
               class="category-select form-control select select-primary select-sm mbl">
               <option value="">Category...</option>
               <?php
@@ -164,8 +167,9 @@ include("../includes/layouts/header.php");
                 title="Awful">1
                 star</label>
               </fieldset>
-              <div class="col-sm-8 col-sm-offset-2">
-                <input class="btn-filter btn-hg btn-primary btn-wide pull-left"
+              <!-- <div class="col-sm-8 col-sm-offset-2"> -->
+                <div class="text-center">
+                <input class="btn-filter btn-hg btn-primary btn-wide "
                 type="submit" name="btn-filter" value="Filter" onclick="filter();">
               </div>
             </div>

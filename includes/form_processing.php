@@ -272,7 +272,7 @@ function queryAuctionData($auctionId){
   global $connection;
   $auctionId = $_GET["auctionId"];
 
-  $query = "SELECT auction.title, description, views, imageName, firstName, lastName,expirationDate,"; 
+  $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName,expirationDate,"; 
   $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
   $query .= "IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars , j.user_Id AS currentWinner ";
 

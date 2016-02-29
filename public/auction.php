@@ -84,14 +84,22 @@
 		  <!-- Nav tabs -->
 		  <ul class="nav nav-tabs" id="admin-tab" role="tablist">
 		    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-		    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Admin</a></li>
+		    <?php
+		    if($_SESSION["userId"]==$auctionData["seller"]){
+		    	echo '<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Admin</a></li>';
+		    }
+		    ?>
 		  </ul>
 
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		    <div role="tabpanel" class="tab-pane active" id="home"><?php echo $auctionData["description"] ?></div>
-		    <div role="tabpanel" class="tab-pane" id="profile">Views: <?php echo $auctionData["views"] ?></div>
-
+		    <?php
+		    if($_SESSION["userId"]==$auctionData["seller"]){
+		    	echo '<div role="tabpanel" class="tab-pane" id="profile">Views: '. $auctionData["views"] .'</div>';
+		    }
+		    ?>
+		    
 		  </div>
 
 		</div>

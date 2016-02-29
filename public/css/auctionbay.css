@@ -260,9 +260,9 @@ img.search-result-table {
 
 .btn-filter {
 	position: relative;
-	right: 70px;
-	width: 200px;
-	padding-right: 5em;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
 	padding-bottom: 10px;
 	border: none;
 }
@@ -326,6 +326,10 @@ html, body {
 	position:absolute;
 	top:-9999px;
 	clip:rect(0,0,0,0);
+}
+
+#cat-list{
+	display: inline-block;
 }
 
 .rating:not(:checked) > label {
