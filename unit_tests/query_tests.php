@@ -194,6 +194,25 @@ function query_select_current_price_failure() {
   assert(!query_select_current_price($auctionId));
 }
 
+//@TEST
+function query_select_address_failure() {
+
+  //precondition:
+  $userId = 9999999;
+
+  //postcondition: returns 0
+  assert(!query_select_address($userId));
+}
+
+//@TEST
+function query_select_address_success() {
+
+  $userId = 78;
+
+  //postcondition: zip for user 78 is "postcode"
+  assert(query_select_address($userId)['zip'] == "postcode");
+}
+
 //query_insert_user()
 //query_insert_user_test_failure();
 //query_insert_user_test_success();
@@ -220,6 +239,10 @@ query_select_auction_search_success();
 //query_select_current_price()
 query_select_current_price_success();
 query_select_current_price_failure();
+
+//query_select_address()
+query_select_address_failure();
+query_select_address_success();
 
 echo "<h3>All tests completed</h3>";
 

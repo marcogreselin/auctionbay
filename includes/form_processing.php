@@ -167,6 +167,11 @@ function attempt_login($email, $password) {
 
   if($user && (password_verify($password, $user['password']))) {
     //user found in database, and password matches
+
+    //retrieve user address details:
+    $address = query_select_address($user['userId']);
+    $user = $user + $address;
+
     return $user;
   } else {
     //email does not match any user (boolean short-circuit),
@@ -272,7 +277,7 @@ function queryAuctionData($auctionId){
   $query .= "WHERE auctionId=" . $auctionId;
   $query .= " GROUP BY userId;";
 
- 
+
   return  mysqli_fetch_assoc(mysqli_query($connection,$query));
 
 }
@@ -281,8 +286,8 @@ function addVisit($auctionId){
   global $connection;
 
   $query = "UPDATE auction SET views = views + 1 WHERE auctionId = " . $auctionId;
-  
- 
+
+
   return  mysqli_query($connection,$query);
 
 }
@@ -292,8 +297,8 @@ function favoriteAuction(){
   $auctionId = $_GET["auctionId"];
 
   $query = "INSERT INTO follower (`auction_id`, `user_id`) VALUES ('".$auctionId."','".$userId."')";
-  
- 
+
+
   return  mysqli_query($connection,$query);
 }
 
@@ -322,8 +327,8 @@ function unfavoriteAuction(){
   $auctionId = $_GET["auctionId"];
 
   $query = "DELETE FROM follower WHERE `user_id`='".$userId."';";
-  
- 
+
+
   mysqli_query($connection,$query);
 }
 

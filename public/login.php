@@ -27,8 +27,17 @@ if(isset($_POST['submit'])) {
       //restart the session
       clear_session();
       //$_SESSION['logged_in'] = 1;
-      $_SESSION['role'] = $user['role'];
-      $_SESSION['userId'] = $user['userId'];
+      $_SESSION['role']       = $user['role'];
+      $_SESSION['userId']     = $user['userId'];
+      $_SESSION['email']      = $user['email'];
+      $_SESSION['firstName']  = $user['firstName'];
+      $_SESSION['lastName']   = $user['lastName'];
+      //add address details
+      $_SESSION['street']     = $user['street'];
+      $_SESSION['number']     = $user['number'];
+      $_SESSION['zip']        = $user['zip'];
+      $_SESSION['city']       = $user['city'];
+      $_SESSION['country']    = $user['country'];
 
       redirect_to("buyer_account.php");
     } else {

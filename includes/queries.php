@@ -84,6 +84,25 @@ function query_insert_address() {
   }
 }
 
+/*Constructs a query and sends it to the database connection specified by the
+* $connection global variable. Fetches user address details from userId. Returns
+* an associative array containing the result of the query*/
+function query_select_address($userId) {
+  global $connection;
+
+ //construct query:
+ $query  = "SELECT street, number, zip, city, country FROM address ";
+ $query .= "WHERE user_id={$userId}; ";
+
+ $result = mysqli_query($connection, $query);
+
+ if($result) {
+   return mysqli_fetch_assoc($result);
+ } else {
+   return 0;
+ }
+}
+
 /*Fetches the user with the largest userId (the last inserted user).*/
 function query_select_last_user() {
   global $connection;
