@@ -437,14 +437,12 @@ function returnStarRating($starNumber) {
   return $finalOutput;
 }
 
-<<<<<<< HEAD
 function bidderList(){
   global $connection;
   $query = 'SELECT CONCAT(firstName, " ", lastName) AS bidder, bidAmount, date(bid.createdDate) as date ';
   $query .= 'FROM user JOIN bid ON bid.user_id = user.userid WHERE auction_id = '.$_GET["auctionId"] . ' ORDER BY date DESC';
   return mysqli_query($connection, $query);
 }
-=======
 
 /** Form processing for the feedback form */
 function process_feedback_form() {
@@ -464,6 +462,5 @@ function process_feedback_form() {
   }
 }
 
->>>>>>> c647c2f926d18eaf04324dfce133d4b816d00349
 ?>
 

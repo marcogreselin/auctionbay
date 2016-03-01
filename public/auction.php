@@ -27,6 +27,7 @@
 
 ?>
 <div class="container">
+<div class="rating2"></div>
 	<h1><?php echo $auctionData["title"] ?></h1>
 	<p><h6 id="stars-price">Sold by <?php echo $auctionData["firstName"] . " ". $auctionData["lastName"] ?> (<?php echo $auctionData["stars"]?> stars)</h6>
 	<h7>Time remaining: <?php 
@@ -92,8 +93,12 @@
 		  <ul class="nav nav-tabs" id="admin-tab" role="tablist">
 		    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
 		    <?php
+		    if(is_buyer())
+		    	$tabName = 'Previous Bids';
+		    else
+		    	$tabName = 'Admin';
 		    if($_SESSION["userId"]==$auctionData["seller"] || is_buyer()){
-		    	echo '<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Admin</a></li>';
+		    	echo '<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">'.$tabName.'</a></li>';
 		    }
 		    ?>
 		  </ul>
@@ -104,9 +109,12 @@
 		    <?php
 
 		    if($_SESSION["userId"]==$auctionData["seller"] || is_buyer()){
-		    	echo '<div role="tabpanel" class="tab-pane" id="profile"><p>Views: '. $auctionData["views"].'</p>';
+		    	echo '<div role="tabpanel" class="tab-pane" id="profile">';
+		    	if($_SESSION["userId"]==$auctionData["seller"]){
+		    		echo '<p>Views: '. $auctionData["views"].'</p>';
+				}
 
-		    	if(true){
+		    	if(mysqli_num_rows($bidders)>0){
 		    		echo '<table class="table table-striped">
 						    <col width="200px">
 						    <tr>
@@ -120,6 +128,8 @@
 		    			echo "<td>{$row['bidAmount']}</td></tr>";
 		    		}
 		    		echo '</table>';
+		    	} else {
+		    		echo 'No bids yet!';
 		    	}
 		    	echo '</div>';
 		    }

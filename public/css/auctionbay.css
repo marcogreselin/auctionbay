@@ -492,3 +492,8 @@ h7{
 	color: #f1c40f;
 	border-color: #f1c40f;
 }
+.rating2{
+	content: '★ ';
+	font-size: 3em;
+	color: gold;
+}
