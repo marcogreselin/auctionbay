@@ -32,7 +32,11 @@
 	<p><h6 id="stars-price">Sold by <?php echo $auctionData["firstName"] . " ". $auctionData["lastName"] ?> (<?php echo $auctionData["stars"]?> stars)</h6>
 	<h7>Time remaining: <?php 
 		$dateInterval=timeRemaining($auctionData["expirationDate"]);
-		echo $dateInterval->days." days";
+		if($dateInterval==false){
+			echo '<span style="color:#ec7063"> Expired!</span>';
+		} else {
+			echo $dateInterval->days." days";
+		}
 	?></h7>
 	</p>
 
@@ -55,7 +59,12 @@
 			?>
 			</p>
 			<p>
-				<div class="auction-price">Current Price:<br>&pound;<?php echo $auctionData["price"] ?>
+				<div class="auction-price"><?php if ($dateInterval==false) {
+					echo 'Final Price:';
+				} else {
+					echo 'Current Price';
+				}
+					?><br>&pound;<?php echo $auctionData["price"] ?>
 				<?php 
 					if($_SESSION["userId"]==$auctionData["currentWinner"]){
 						echo '<br><div id="this-you">This is you!</div>';
@@ -75,7 +84,7 @@
 			<p class="text-center"><button class="btn btn-hg btn-primary" name="bidButton">
 			  Bid!
 			</button></p>';
-				if(is_buyer())
+				if(is_buyer() && $dateInterval!=false)
 					echo $biddingInterface;
 			?>
 			</div>

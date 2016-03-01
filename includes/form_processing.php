@@ -272,7 +272,7 @@ function queryAuctionData($auctionId){
   global $connection;
   $auctionId = $_GET["auctionId"];
 
-  $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName,expirationDate,"; 
+  $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName, date(expirationDate) as expirationDate,"; 
   $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
   $query .= "IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars , j.user_Id AS currentWinner ";
 
@@ -315,9 +315,13 @@ function favoriteAuction(){
 }
 
 function timeRemaining($expiryTime){
-  $start_date = new DateTime();
-  return $start_date->diff(new DateTime($expiryTime));
-
+  $today = new DateTime();
+  $interval = date_diff($today,new DateTime($expiryTime));
+  if($today<new DateTime($expiryTime)){
+    return $interval;
+  } else {
+    return null;
+  }
 }
 
 function isFavorite(){
