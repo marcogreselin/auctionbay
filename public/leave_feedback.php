@@ -7,23 +7,71 @@ require_once('../includes/dbconnection.php');
 require_once('../includes/session.php');
 require_once('../includes/navigation.php');
 require_once('../includes/form_processing.php');
+require_once('../includes/validation_functions.php');
+require_once('../includes/output.php');
+
 ?>
 
 <?php
-$user_id = $_GET['user_id'];
+
+$user_id = "";
+$auction_id = "";
+
+
+if(isset($_SESSION['errors']))
+    $errors = $_SESSION['errors'];
+
+
+if (isset($_GET['user_id'])) {
+    $user_id = $_GET['user_id'];
+    $_SESSION['user_id'] = $_GET['user_id'];
+} else {
+    // For second redirection, $_SESSION['user_id'] can be used after it has been assigned value during the first time
+    $user_id = $_SESSION['user_id'];
+}
+
+
+if (isset($_GET['auction_id'])) {
+    $auction_id = $_GET['auction_id'];
+    $_SESSION['auction_id'] = $_GET['auction_id'];
+} else {
+    // For second redirection, $SESSION['auction_id'] can be used after it has been assigned value during the first time
+    $auction_id = $_SESSION['auction_id'];
+}
 
 
 if (isset($_POST["submitFeedback"])) {
-    // leave_feedback.php comes from the buyer_account.php or seller_account.php
-    leaveFeedback();
+    $errors = array();
+    // Validation for the feedback form, if there's error, redirect back to leave_feedback.php,
+    // if there's no error, the data is inserted into the feedback table and page redirects to index.php
+
+    process_feedback_form();
 }
+
 ?>
 
 <?php
-require_once('../includes/layouts/header.php')
+require_once('../includes/layouts/header.php');
 ?>
 
 <div class="container">
+<p>
+    <?php
+    if(isset($errors) && !empty($errors)) {
+        echo
+        "<div class=\"alert alert-danger\">
+                          <button class=\"close fui-cross\" data-dismiss=\"alert\"></button>
+                          <h4>Oops!</`h4>";
+        output_errors();
+        echo "</div>";
+
+        //TODO: the error should be cleared every time after a new page is reloaded. Only shows the error if the error really appears
+        clear_errors();
+    }
+    ?>
+
+
+    </p>
 
         <h1>Leave Feedback for: <?php echo searchFeedbackUser($user_id) ?></h1>
     <div class="jumbotron">

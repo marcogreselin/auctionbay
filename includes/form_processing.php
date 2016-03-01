@@ -359,15 +359,17 @@ function bid($auctionData){
       }
 }
 
-/** Leave feedback after clicking the leave feedback picture in the buyer_account or seller_account*/
+/** Leave feedback after clicking the leave feedback pictures in the buyer_account or seller_account*/
 function leaveFeedback() {
   global $connection;
+
+
 
   $stars = (int)$_POST['stars'];
   $comment = $_POST['comment'];
   $title = $_POST['title'];
-  $auction_id = $_POST['auction_id'];
-  $user_id = $_POST['user_id'];
+  $auction_id = isset($_GET['auction_id']) ? $_GET['auction_id'] : $_SESSION['auction_id'];
+  $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
   $date = new DateTime('now');
 
   // construct query
@@ -435,10 +437,33 @@ function returnStarRating($starNumber) {
   return $finalOutput;
 }
 
+<<<<<<< HEAD
 function bidderList(){
   global $connection;
   $query = 'SELECT CONCAT(firstName, " ", lastName) AS bidder, bidAmount, date(bid.createdDate) as date ';
   $query .= 'FROM user JOIN bid ON bid.user_id = user.userid WHERE auction_id = '.$_GET["auctionId"] . ' ORDER BY date DESC';
   return mysqli_query($connection, $query);
 }
+=======
+
+/** Form processing for the feedback form */
+function process_feedback_form() {
+  global $errors;
+
+  $required_fields = array("stars", "comment", "title");
+  validate_presences($required_fields);
+
+  $fields_with_max_lengths = array("title" => 20);
+  validate_max_lengths($fields_with_max_lengths);
+
+
+  if (!empty($errors)) {
+    redirect_to("leave_feedback.php");
+  } else {
+    leaveFeedback();
+  }
+}
+
+>>>>>>> c647c2f926d18eaf04324dfce133d4b816d00349
 ?>
+
