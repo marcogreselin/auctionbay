@@ -434,4 +434,11 @@ function returnStarRating($starNumber) {
   }
   return $finalOutput;
 }
+
+function bidderList(){
+  global $connection;
+  $query = 'SELECT CONCAT(firstName, " ", lastName) AS bidder, bidAmount, date(bid.createdDate) as date ';
+  $query .= 'FROM user JOIN bid ON bid.user_id = user.userid WHERE auction_id = '.$_GET["auctionId"] . ' ORDER BY date DESC';
+  return mysqli_query($connection, $query);
+}
 ?>

@@ -5,7 +5,7 @@
     addVisit($_GET["auctionId"]);
 
   $auctionData = queryAuctionData($_GET["auctionId"]);
-
+  $bidders = bidderList();
 
 
 
@@ -37,7 +37,9 @@
 
 	<div class="row">
 	<form action="" method="POST">
-		<div class="col-md-3 auction-left">
+		<div class="col-md-3 middle">
+			<div >
+
 			<p class="text-center">
 			<?php if(!$isFavorite){
 			  echo '<button class="btn btn-hg btn-warning" name="favoriteButton">';
@@ -62,7 +64,8 @@
 				</div>
 			</p>
 
-			<p><div class="form-group">
+			<?php 
+				$biddingInterface = '<p><div class="form-group">
 			  <div class="input-group">
 			    <span class="input-group-addon">&pound;</span>
 			    <input type="text" class="form-control" method="POST" name="newBidAmount" placeholder="" />
@@ -70,9 +73,13 @@
 			</div></p>
 			<p class="text-center"><button class="btn btn-hg btn-primary" name="bidButton">
 			  Bid!
-			</button></p>
+			</button></p>';
+				if(is_buyer())
+					echo $biddingInterface;
+			?>
+			</div>
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-9 middle">
 		<img class="auction_img" src="img/auctions/<?php echo $auctionData["imageName"]?>">
 
 		</div>
@@ -85,7 +92,7 @@
 		  <ul class="nav nav-tabs" id="admin-tab" role="tablist">
 		    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
 		    <?php
-		    if($_SESSION["userId"]==$auctionData["seller"]){
+		    if($_SESSION["userId"]==$auctionData["seller"] || is_buyer()){
 		    	echo '<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Admin</a></li>';
 		    }
 		    ?>
@@ -95,9 +102,28 @@
 		  <div class="tab-content">
 		    <div role="tabpanel" class="tab-pane active" id="home"><?php echo $auctionData["description"] ?></div>
 		    <?php
-		    if($_SESSION["userId"]==$auctionData["seller"]){
-		    	echo '<div role="tabpanel" class="tab-pane" id="profile">Views: '. $auctionData["views"] .'</div>';
+
+		    if($_SESSION["userId"]==$auctionData["seller"] || is_buyer()){
+		    	echo '<div role="tabpanel" class="tab-pane" id="profile"><p>Views: '. $auctionData["views"].'</p>';
+
+		    	if(true){
+		    		echo '<table class="table table-striped">
+						    <col width="200px">
+						    <tr>
+						      <th>Bidder</th>
+						      <th>Date</th>
+						      <th>Amount</th>
+						    </tr>';
+		    		while($row = mysqli_fetch_array($bidders)){
+		    			echo "<tr><td>{$row['bidder']}</td>";
+		    			echo "<td>{$row['date']}</td>";
+		    			echo "<td>{$row['bidAmount']}</td></tr>";
+		    		}
+		    		echo '</table>';
+		    	}
+		    	echo '</div>';
 		    }
+
 		    ?>
 		    
 		  </div>
