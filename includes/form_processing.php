@@ -270,12 +270,24 @@ function queryCatArray(){
 
 function queryAuctionData($auctionId){
   global $connection;
+  $auctionId = $_GET["auctionId"];
 
-  $query = "SELECT auction.title, description, views, imageName, firstName, lastName,expirationDate, FLOOR(AVG(stars)) AS stars FROM auction ";
+  $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName, date(expirationDate) as expirationDate,"; 
+  $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
+  $query .= "IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars , j.user_Id AS currentWinner ";
+
+  $query .= "FROM auction ";
   $query .= "JOIN user ON auction.seller = user.userid ";
-  $query .= "JOIN feedback ON feedback.user_Id = user.userId ";
-  $query .= "WHERE auctionId=" . $auctionId;
-  $query .= " GROUP BY userId;";
+  $query .= "LEFT JOIN feedback ON feedback.user_Id = user.userId ";
+  $query .= "LEFT JOIN ( ";
+    $query .= "SELECT bidamount AS amount, user_id , auction_id ";
+    $query .= "FROM bid ";
+    $query .= "WHERE auction_Id=".$auctionId." ";
+    $query .= "ORDER BY amount DESC ";
+    $query .= "LIMIT 1 ";
+  $query .= ") AS j ON j.auction_id = auction.auctionid ";
+  $query .= "WHERE auctionId=".$auctionId." ";
+  $query .= "GROUP BY userId;";
 
 
   return  mysqli_fetch_assoc(mysqli_query($connection,$query));
@@ -303,9 +315,13 @@ function favoriteAuction(){
 }
 
 function timeRemaining($expiryTime){
-  $start_date = new DateTime();
-  return $start_date->diff(new DateTime($expiryTime));
-
+  $today = new DateTime();
+  $interval = date_diff($today,new DateTime($expiryTime));
+  if($today<new DateTime($expiryTime)){
+    return $interval;
+  } else {
+    return null;
+  }
 }
 
 function isFavorite(){
@@ -332,15 +348,32 @@ function unfavoriteAuction(){
   mysqli_query($connection,$query);
 }
 
-/** Leave feedback after clicking the leave feedback picture in the buyer_account or seller_account*/
+
+function bid($auctionData){
+  global $connection;
+  $userId = $_SESSION["userId"];
+  $auctionId = $_GET["auctionId"];
+  $query="INSERT INTO `auction_site`.`bid` (`auction_id`, `user_id`, `bidAmount`) VALUES ('".$auctionId."', '".$userId."', '".$_POST["newBidAmount"]."');";
+
+  if($_POST["newBidAmount"]>$auctionData["price"]){
+    mysqli_query($connection,$query);
+    return true;
+  } else {
+    return false;
+      }
+}
+
+/** Leave feedback after clicking the leave feedback pictures in the buyer_account or seller_account*/
 function leaveFeedback() {
   global $connection;
+
+
 
   $stars = (int)$_POST['stars'];
   $comment = $_POST['comment'];
   $title = $_POST['title'];
-  $auction_id = $_POST['auction_id'];
-  $user_id = $_POST['user_id'];
+  $auction_id = isset($_GET['auction_id']) ? $_GET['auction_id'] : $_SESSION['auction_id'];
+  $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
   $date = new DateTime('now');
 
   // construct query
@@ -407,4 +440,31 @@ function returnStarRating($starNumber) {
   }
   return $finalOutput;
 }
+
+function bidderList(){
+  global $connection;
+  $query = 'SELECT CONCAT(firstName, " ", lastName) AS bidder, bidAmount, date(bid.createdDate) as date ';
+  $query .= 'FROM user JOIN bid ON bid.user_id = user.userid WHERE auction_id = '.$_GET["auctionId"] . ' ORDER BY date DESC';
+  return mysqli_query($connection, $query);
+}
+
+/** Form processing for the feedback form */
+function process_feedback_form() {
+  global $errors;
+
+  $required_fields = array("stars", "comment", "title");
+  validate_presences($required_fields);
+
+  $fields_with_max_lengths = array("title" => 20);
+  validate_max_lengths($fields_with_max_lengths);
+
+
+  if (!empty($errors)) {
+    redirect_to("leave_feedback.php");
+  } else {
+    leaveFeedback();
+  }
+}
+
 ?>
+

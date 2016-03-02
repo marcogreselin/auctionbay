@@ -9,11 +9,12 @@
 	text-align: center;
 	word-wrap: break-word;
 }
-@media (max-width: 600px){
-	.login-headline {
-		font-size: 50px;
-	}
-}
+.middle {
+  /*  display: inline-block;
+    vertical-align: middle;
+    float: none;
+*/}
+
 .login-box{
   	width: 45%;
   	min-width: 300px;
@@ -260,9 +261,9 @@ img.search-result-table {
 
 .btn-filter {
 	position: relative;
-	right: 70px;
-	width: 200px;
-	padding-right: 5em;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
 	padding-bottom: 10px;
 	border: none;
 }
@@ -326,6 +327,10 @@ html, body {
 	position:absolute;
 	top:-9999px;
 	clip:rect(0,0,0,0);
+}
+
+#cat-list{
+	display: inline-block;
 }
 
 .rating:not(:checked) > label {
@@ -405,13 +410,7 @@ html, body {
     margin-top: 30px;
     margin-bottom: 50px;
 }
-.auction-left{
 
-  min-height: 50vh; /* These two lines are counted as one :-)       */
-
-/*  display: flex;
-*/  align-items: center;
-}
 
 .feedback-result-rating {
 	padding-top: 2em;
@@ -484,4 +483,17 @@ html, body {
 }
 h7{
 	font-size: 15px;
+}
+#admin-tab{
+	margin-bottom:0px !important;
+}
+#this-you{
+	font-size: 15px;
+	color: #f1c40f;
+	border-color: #f1c40f;
+}
+.rating2{
+	content: '★ ';
+	font-size: 3em;
+	color: gold;
 }
