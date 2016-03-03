@@ -7,9 +7,6 @@
       redirect_to("index.php");
     }
 
-    print_r($_SESSION);
-    print_r($errors);
-
 ?>
 
 <div class="container">
