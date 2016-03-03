@@ -233,7 +233,7 @@ function query_select_seller_auctions($sellerUserId) {
   $subquery_select_from_bids  = "SELECT bidId FROM bid WHERE ";
   $subquery_select_from_bids .= "bidAmount=({$subquery_select_max_bid_for_auction})";
 
-  $subquery_select_from_auctionId  = "SELECT value FROM current_price "
+  $subquery_select_from_auctionId  = "SELECT value FROM current_price ";
   $subquery_select_from_auctionId .= "WHERE bid_id=({$subquery_select_from_bids})";
 
   $query  = "SELECT auctionId, title, imgName, description ";
