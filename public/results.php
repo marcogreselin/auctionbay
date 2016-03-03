@@ -179,6 +179,9 @@ include("../includes/layouts/header.php");
 
             <div class="col-sm-8">
                 <table class="search-page-table table-striped">
+                    <col width="200px">
+                    <col width="800px">
+
                   <?php
 
                 //if (filtered if requested) result set is not empty:
