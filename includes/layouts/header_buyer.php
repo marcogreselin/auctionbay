@@ -1,12 +1,8 @@
-<?php
-  setcookie("test",45,time()+60*60*24*7);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Cookies</title>
+    <title>AuctionBay</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Loading Bootstrap -->
@@ -32,23 +28,23 @@
     <!-- Navbar -->
     <nav class="navbar navbar-default navbar-lg" role="navigation">
       <div class="navbar-header">
-        <a class="navbar-brand"><div class="logo-small"></div>AuctionBay</a>
+        <a class="navbar-brand" href="index.php"><div class="logo-small"></div>AuctionBay</a>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
           <span class="sr-only">Toggle navigation</span>
         </button>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse-01">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#fakelink">My Account</a></li>
-          <li><a href="#fakelink">Create an Auction</a></li>
+          <li><a href="buyer_account.php">My Account</a></li>
+          <li><a href="search.php">Search</a></li>
         </ul>
         <p class="navbar-text navbar-right">
-          <a class="navbar-link" href="index.php">Logout</a>
+          <a class="navbar-link" href="logout.php">Logout</a>
         </p>
-        <form class="navbar-form navbar-right" action="#" role="search">
+        <form class="navbar-form navbar-right" action="results.php?" method="get">
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+              <input class="form-control" id="navbarInput-01" type="text" name="token" placeholder="Search">
               <span class="input-group-btn">
                 <button type="submit" class="btn"><span class="fui-search"></span></button>
               </span>
@@ -57,18 +53,3 @@
         </form>
       </div><!-- /.navbar-collapse -->
     </nav><!-- /navbar -->
-
-
-    <div class="container">
-      <h1>My Account</h1>
-    </div>
-
-
-    <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-    <script src="js/vendor/jquery.min.js"></script>
-    <script src="js/vendor/video.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/flat-ui-pro.js"></script>
-
-  </body>
-</html>
