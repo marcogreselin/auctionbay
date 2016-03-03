@@ -184,7 +184,7 @@ function query_select_current_price_success() {
   $auctionId = 5;
 
   assert(query_select_current_price($auctionId) == 101);
-//  echo query_select_current_price($auctionId) . "<br/>";
+ //  echo query_select_current_price($auctionId) . "<br/>";
 }
 
 //@TEST
@@ -211,6 +211,20 @@ function query_select_address_success() {
 
   //postcondition: zip for user 78 is "postcode"
   assert(query_select_address($userId)['zip'] == "postcode");
+}
+
+//@TEST
+function query_select_seller_auctions_failure() {
+  $userId = 1;
+
+  assert(!query_select_seller_auctions($userId));
+}
+
+//@TEST
+function query_select_seller_auctions_success() {
+  $userId = 78;
+
+  assert(query_select_seller_auctions($userId)[0]['auctionId'] == 2);
 }
 
 //query_insert_user()
@@ -243,6 +257,10 @@ query_select_current_price_failure();
 //query_select_address()
 query_select_address_failure();
 query_select_address_success();
+
+//query_select_seller_auctions()
+query_select_seller_auctions_failure();
+query_select_seller_auctions_success();
 
 echo "<h3>All tests completed</h3>";
 

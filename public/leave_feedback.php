@@ -18,7 +18,7 @@ $user_id = $_GET['user_id'];
 echo $user_id;
 $auction_id = $_GET['auction_id'];
 echo $auction_id;
-$auctionFeedbackDetails = getAuctionForFeedback($auction_id);
+$auctionFeedbackDetails/* TODO? = getAuctionForFeedback($auction_id)*/;
 
 
 if(isset($_SESSION['errors'])) {

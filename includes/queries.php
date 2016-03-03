@@ -185,7 +185,7 @@ function query_select_auction_search($token) {
   $query .= "FROM auction ";
   $query .= "WHERE title LIKE '%{$token}%' OR ";
   $query .= "       description LIKE '%{$token}%' ";
-//  $query .= "LIMIT 50;"; //limit?
+ //  $query .= "LIMIT 50;"; //limit?
 
   $result_set = mysqli_query($connection, $query);
 
@@ -217,6 +217,35 @@ function query_select_current_price($auctionId) {
 
   if($result)
     $result = mysqli_fetch_row($result)[0];
+
+  return $result;
+}
+
+/*Returns the set of auctions created by the seller specified in the parameter*/
+function query_select_seller_auctions($sellerUserId) {
+  global $connection;
+
+  $sellerUserId = mysqli_real_escape_string($sellerUserId);
+
+  $subquery_select_max_bid_for_auction  = "SELECT MAX(bidAmount) ";
+  $subquery_select_max_bid_for_auction .= "FROM bid WHERE auction_id={$auctionId}";
+
+  $subquery_select_from_bids  = "SELECT bidId FROM bid WHERE ";
+  $subquery_select_from_bids .= "bidAmount=({$subquery_select_max_bid_for_auction})";
+
+  $subquery_select_from_auctionId  = "SELECT value FROM current_price "
+  $subquery_select_from_auctionId .= "WHERE bid_id=({$subquery_select_from_bids})";
+
+  $query  = "SELECT auctionId, title, imgName, description ";
+  $query .= "FROM auction ";
+  $query .= "WHERE seller='{$sellerUserId}' AND ";
+  $query .= "NOW() > expirationDate AND ";
+  $query .= "reservePrice<=($subquery_select_from_auctionId)";
+
+  $result = mysqli_query($connection, $query);
+
+  if($result)
+    $result = mysqli_fetch($result);
 
   return $result;
 }
