@@ -18,7 +18,7 @@ require_once('../includes/layouts/header.php');
 
 
     <?php
-        $feedback = mysqli_fetch_assoc($feedbackMainResult);
+        $feedback = mysqli_fetch_assoc(getFeedbackInformation($userId));
         ?>
 
     <h1>Feedback for <?php echo $feedback["firstName"]." ".$feedback["lastName"]; ?></h1>
@@ -51,20 +51,21 @@ require_once('../includes/layouts/header.php');
         <tbody>
         <?php
 
-        while($feedback = mysqli_fetch_assoc($feedbackMainResult)) {
+        while($row = mysqli_fetch_assoc($feedbackMainResult)) {
+
                 $output1 = "<tr>
-            <td>               <a href=\"#\"><img class=\"feedback_img\" src=\"img/auctions/{$feedback['imageName']}\" class=\"feedback-table\"></a>
+            <td>              <img class=\"feedback_img\" src=\"img/auctions/{$row['imageName']}\" class=\"feedback-table\">
                 </td>
             <td>
             <div class=\"container-feedback-item-title\">
-                <h7>{$feedback['title']}</h7>
+                <h7>{$row['title']}</h7>
                 </div>
             </td>
             <td>
             <div class=\"feedback-result-rating\">";
 
             // Get the number of stars fom the database first and pass it into the function called returnStarRating to echo the number of stars accordingly.
-            $starNumber = $feedback['stars'];
+            $starNumber = $row['stars'];
             $output2 = returnStarRating($starNumber);
 
             $output3="
@@ -78,7 +79,7 @@ require_once('../includes/layouts/header.php');
 
             <td>
                 <div class=\"container-feedback-comment\">`
-                     {$feedback['comment']}
+                     {$row['comment']}
                 </div>
             </td>
                 </tr>";
