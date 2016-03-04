@@ -41,6 +41,9 @@
     <table class="table" id="table-account-feedback">
       <col width="200px">
 
+      <?php
+        
+       ?>
       <tr>
 
         <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
@@ -48,12 +51,12 @@
         <td>First Row, third column</td>
       </tr>
 
-      <tr>
+    <!--  <tr>
 
         <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
         <td>First Row, second column</td>
         <td>First Row, third column</td>
-      </tr>
+      </tr> -->
 
     </table>
 

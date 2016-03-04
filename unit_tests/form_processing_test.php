@@ -228,6 +228,30 @@ function get_price_failure() {
 }
 
 //@TEST
+function get_price_with_buyer_id_failure() {
+  global $connection;
+
+  $auctionId = 2;
+  $startingPrice = 1;
+
+  $result = get_price_with_buyer_id($auctionId, $startingPrice);
+  assert($result['value'] == 1);
+  assert($result['user_id'] = -1);
+}
+
+//@TEST
+function get_price_with_buyer_id_success() {
+  global $connection;
+
+  $auctionId = 5;
+  $startingPrice = 1;
+
+  $result = get_price_with_buyer_id($auctionId, $startingPrice);
+  assert($result['value'] == 101);
+  assert($result['user_id'] = 38);
+}
+
+//@TEST
 function process_filter_form_not_empty() {
   $auction_set = array();
 
@@ -284,12 +308,42 @@ function process_filter_form_empty() {
 
   echo "Auctions list after filtering: ";
   echo "<pre>";
-  echo "Should print null: ";
+  echo "Should print null just below: ";
   print_r($result);
+  echo "<br/>Should print null just above: ";
   echo "</pre>";
 }
 
+//@TEST
+function retrieve_expired_auctions_success() {
+  $temp = null;
 
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 74;
+  $result = retrieve_expired_auctions();
+  // print_r($result[3]);
+  assert($result[3]['auctionId'] == 5);
+  assert($result[3]['winning_price'] == 101);
+  assert($result[3]['winner_id'] == 38);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function retrieve_expired_auctions_failure() {
+  $temp = null;
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 1;
+  assert(!retrieve_expired_auctions());
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
 
 //test for failure first post
 first_form_test_failure();
@@ -336,6 +390,14 @@ get_price_failure();
 //process_filter_form()
 process_filter_form_not_empty();
 process_filter_form_empty();
+
+//retrieve_expired_auctions()
+retrieve_expired_auctions_success();
+retrieve_expired_auctions_failure();
+
+//get_price_with_buyer_id()
+get_price_with_buyer_id_failure();
+get_price_with_buyer_id_success();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";
