@@ -1,6 +1,7 @@
 <?php
   require_once("../includes/session.php");
   require_once("../includes/navigation.php");
+  require_once("../includes/dbconnection.php");
   if(is_seller()) {
       include("../includes/layouts/header.php");
     } else {
@@ -33,32 +34,53 @@
 
 
   <div class="col-md-10">
-  <div class="alert alert-warning" role="alert">
 
-    <button type="button" class="close fui-cross" data-dismiss="alert"></button>
-    <h4>Leave Feedback!</h4>
-
-    <table class="table" id="table-account-feedback">
-      <col width="200px">
 
       <?php
-        
+
+        $auction_set = retrieve_expired_auctions();
+
+        if($auction_set) {
+          $output = "
+          <div class=\"alert alert-warning\" role=\"alert\">
+
+            <button type=\"button\" class=\"close fui-cross\"
+                data-dismiss=\"alert\">
+            </button>
+            <h4>Leave Feedback!</h4>
+
+            <table class=\"table\" id=\"table-account-feedback\">
+              <col width=\"200px\">";
+
+          foreach ($auction_set as $auction) {
+            $output .= "<tr>
+
+                        <td><a href=\"leave_feedback.php?
+                                  user_id={$auction['winner_id']}
+                                  &auction_id={$auction['auctionId']}\">
+                        <img src=\"img/user-interface.svg\" title=\"Insert title\">
+                        First Row, first column</a></td>
+                        <td>First Row, second column</td>
+                        <td>First Row, third column</td>
+                      </tr>";
+          }
+
+          // <!--  <tr>
+          //
+          //     <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
+          //     <td>First Row, second column</td>
+          //     <td>First Row, third column</td>
+          //   </tr> -->
+
+          $output .= "</table>";
+
+          echo $output;
+        }
+
        ?>
-      <tr>
 
-        <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
-        <td>First Row, second column</td>
-        <td>First Row, third column</td>
-      </tr>
 
-    <!--  <tr>
 
-        <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
-        <td>First Row, second column</td>
-        <td>First Row, third column</td>
-      </tr> -->
-
-    </table>
 
 
 

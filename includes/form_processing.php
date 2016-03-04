@@ -249,6 +249,7 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
 * created, with their final price as 'winning_price', and winner as 'winner_id'.
 * returns 0 if the user has no expired auctions*/
 function retrieve_expired_auctions() {
+  
 
   $auction_set = query_select_seller_auctions($_SESSION['userId']);
   for($i=0; $i<sizeof($auction_set); $i++) {
