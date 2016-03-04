@@ -5,7 +5,7 @@ function output_errors(){
   global $errors;
 
   foreach ($errors as $error) {
-    echo "<li> '{$error}' </li>";
+    echo "<li> {$error} </li>";
   }
 }
 

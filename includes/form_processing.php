@@ -397,12 +397,12 @@ function searchFeedbackUser($userId) {
 
   $query = "SELECT * FROM user WHERE userId = $userId";
 
-  $userFeedbackResult = mysqli_query($connection, $query);
+  $userFeedbackQueryResult = mysqli_query($connection, $query);
 
-  if (!$userFeedbackResult) {
+  if (!$userFeedbackQueryResult) {
     die("Database query failed. " . mysqli_error($connection));
   } else {
-    $userFeedback = mysqli_fetch_assoc($userFeedbackResult);
+    $userFeedback = mysqli_fetch_assoc($userFeedbackQueryResult);
   }
   return $userFeedback['firstName'];
 }
@@ -425,7 +425,6 @@ WHERE user.userId = $userId";
   if (!$feedbackMainResult) {
     die("Database query failed");
   }
-
   return $feedbackMainResult;
 }
 
@@ -449,7 +448,7 @@ function bidderList(){
 }
 
 /** Form processing for the feedback form */
-function process_feedback_form() {
+function process_feedback_form($user_id, $auction_id) {
   global $errors;
 
   $required_fields = array("stars", "comment", "title");
@@ -458,13 +457,34 @@ function process_feedback_form() {
   $fields_with_max_lengths = array("title" => 20);
   validate_max_lengths($fields_with_max_lengths);
 
+  echo "testing feedback form before";
 
-  if (!empty($errors)) {
-    redirect_to("leave_feedback.php");
-  } else {
+  if (empty($errors)) {
     leaveFeedback();
   }
 }
+
+/** Get details for the leave_feedback.php */
+
+function getAuctionForFeedback($auction_id) {
+  global $connection;
+
+// query to retrieve the current all the relevant feedback information
+  $query = "SELECT imageName, title
+FROM auction
+WHERE auctionId = $auction_id";
+
+
+  $auctionFeedbackQueryResult = mysqli_query($connection, $query);
+
+
+  if (!$auctionFeedbackQueryResult) {
+    die("Database query failed. " . mysqli_error($connection));
+  } else {
+    return mysqli_fetch_assoc($auctionFeedbackQueryResult);
+  }
+}
+
 
 ?>
 

@@ -1,7 +1,7 @@
 <?php
 	define("DB_SERVER", "localhost");
-	define("DB_USER", "site_general");
-	define("DB_PASS", "hy24b");
+	define("DB_USER", "root");
+	define("DB_PASS", "");
 	define("DB_NAME", "auction_site");
 
   // Create a database connection
