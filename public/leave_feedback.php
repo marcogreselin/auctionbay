@@ -14,12 +14,17 @@ require_once('../includes/output.php');
 
 <?php
 
-$user_id = "";
-$auction_id = "";
+$user_id = $_GET['user_id'];
+echo $user_id;
+$auction_id = $_GET['auction_id'];
+echo $auction_id;
+$auctionFeedbackDetails/* TODO? = getAuctionForFeedback($auction_id)*/;
 
 
-if(isset($_SESSION['errors']))
+if(isset($_SESSION['errors'])) {
     $errors = $_SESSION['errors'];
+}
+
 
 
 if (isset($_GET['user_id'])) {
@@ -44,8 +49,9 @@ if (isset($_POST["submitFeedback"])) {
     $errors = array();
     // Validation for the feedback form, if there's error, redirect back to leave_feedback.php,
     // if there's no error, the data is inserted into the feedback table and page redirects to index.php
-
     process_feedback_form();
+} else {
+    clear_errors();
 }
 
 ?>
@@ -80,8 +86,8 @@ require_once('../includes/layouts/header.php');
 
                 <div class="row">
                 <div class="col-sm-6 leave-feedback-item-container">
-                    <p><h4>Item title</h4></p>
-                    <a href="#"><img src="img/user-interface.svg" title="Insert title" class="leave-feedback-image"></a>
+                    <p><h4><?php echo $auctionFeedbackDetails["title"] ?></h4></p>
+                    <a href="#"><img src="img/<?php echo $auctionFeedbackDetails["imageName"] ?>" title="Insert title" class="leave-feedback-image"></a>
                 </div>
 
 

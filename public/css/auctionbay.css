@@ -311,7 +311,7 @@ html, body {
 	margin-top: 30px;
 }
 
-/** Star rating, pure css **/
+/** Star rating, pure css, original **/
 
 
 .rating {
@@ -388,6 +388,96 @@ html, body {
 .rating-search-result {
 	content: '★ ';
 	float:left;
+}
+
+
+/* Start of the rating-feedback-result, changed all the colors to gold so that it is shown on the screen. */
+.rating-feedback-result {
+	content: '★ ';
+	float:left;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating-feedback-result:not(:checked) > input {
+	content: '★ ';
+	position:absolute;
+	top:-9999px;
+	/*clip:rect(0,0,0,0);*/
+}
+
+#cat-list{
+	display: inline-block;
+}
+
+.rating-feedback-result:not(:checked) > label {
+	content: '★ ';
+	float:right;
+	width:1em;
+	padding:0 .1em;
+	overflow:hidden;
+	white-space:nowrap;
+	cursor:pointer;
+	font-size:200%;
+	line-height:1.2;
+	color: gold;
+	/*text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);*/
+}
+
+.rating-feedback-result:not(:checked) > label:before {
+	content: '★ ';
+}
+
+.rating-feedback-result > input:checked ~ label {
+	content: '★ ';
+	color: gold;
+	/*text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);*/
+}
+
+.rating-feedback-result:not(:checked) > label:hover,
+.rating-feedback-result:not(:checked) > label:hover ~ label {
+	content: '★ ';
+	color: gold;
+	/*text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);*/
+}
+
+.rating-feedback-result > input:checked + label:hover,
+.rating-feedback-result > input:checked + label:hover ~ label,
+.rating-feedback-result > input:checked ~ label:hover,
+.rating-feedback-result > input:checked ~ label:hover ~ label,
+.rating-feedback-result > label:hover ~ input:checked ~ label {
+	content: '★ ';
+	color: gold;
+	/*text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);*/
+}
+
+.rating-feedback-result > label:active {
+	content: '★ ';
+	position:relative;
+	top:2px;
+	left:2px;
+}
+
+.rating-search-result > label {
+	width: 40px !important;
+}
+
+.rating-search-result {
+	content: '★ ';
+	float:left;
+}
+
+
+
+
+
+#individual-feedback-star:not(:checked) > input {
+	color: gold; !important;
+}
+
+#individual-feedback-star-star:not(:checked) > input {
+	color: gold; !important;
 }
 
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
