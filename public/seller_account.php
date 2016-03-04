@@ -60,7 +60,7 @@
             $output .= "<tr>
 
                         <td><a href=\"{$link}\">
-                        <img src=\"{$auction['imageName']}\"
+                        <img src=\"img/auctions/{$auction['imageName']}\"
                         title=\"{$auction['title']}\">
                         {$auction['title']}</a></td>
                         <td>
@@ -88,7 +88,7 @@
 
        ?>
 
-  </div>
+  
 
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
@@ -116,10 +116,10 @@
       $link = "auction.php?auctionId=" . urlencode($auction['auctionId']);
       $output = "
       <tr>
-        <td><a href=\"{$link}\">
-        <img src=\"{$imageName}\"
+        <td><a href=\"{$link}\"><h7>{$title}</h7>
+        <img src=\"img/auctions/{$imageName}\"
         title=\"{$title}\">
-        {$title}</a></td>
+        </a></td>
         <td>
           <strong>Description:</strong><br/>
           {$description}
@@ -142,6 +142,7 @@
   </table>
 
 
+</div>
 </div>
 </div>
 
