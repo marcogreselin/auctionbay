@@ -88,8 +88,6 @@
 
        ?>
 
-  </div>
-
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
   <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?> <!--Alex Vally<br> -->
@@ -142,6 +140,7 @@
   </table>
 
 
+    </div>
 </div>
 </div>
 
