@@ -8,7 +8,6 @@ require_once('../includes/validation_functions.php');
 require_once('../includes/form_processing.php');
 require_once("../includes/output.php");
 
-//  Cookies:
 
 //  Process form from signup.php:
 if(isset($_POST['submit'])) {
@@ -80,13 +79,6 @@ if(isset($_POST['submit'])) {
 
     <link rel="shortcut icon" href="img/favicon.ico">
 
-
-
-
-
-
-
-
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
 
@@ -114,7 +106,18 @@ if(isset($_POST['submit'])) {
 
 <div class="container">
     <h1>Sign Up</h1>
+    <?php
+    if(isset($errors) && !empty($errors)) {
+      echo
+          "<div class=\"alert alert-danger\">
+              <button class=\"close fui-cross\" data-dismiss=\"alert\"></button>
+              <h4>Oops!</h4>";
+              output_errors();
+      echo "</div>";
 
+      clear_errors();
+    }
+     ?>
 <div class="container text-center">
     <div class="address-headline"><h4>Enter your address</h4></div>
     <form class="address-form form-horizontal" role="form" action="address.php" method="post">
