@@ -502,6 +502,13 @@ html, body {
 }
 
 
+.feedback_img {
+	max-height: 200px;
+	display: block;
+	margin-bottom: 50px;
+}
+
+
 .feedback-result-rating {
 	padding-top: 2em;
 }
