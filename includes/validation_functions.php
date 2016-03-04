@@ -24,14 +24,17 @@ function validate_presences($required_fields) {
 
   foreach($required_fields as $field) {
     $value = trim($_POST[$field]);
-  	if (!has_presence($value)) {
-  		$errors[$field] = fieldname_as_text($field) . " can't be blank";
+  	if (!has_presence($value) && $field === "stars") {
+  		$errors[$field] = "Please make a rating";
       $result = 0;
-  	}
+  	} elseif (!has_presence($value)) {
+        $errors[$field] = fieldname_as_text($field) . " can't be blank";
+        $result = 0;
+    }
   }
-
   return $result;
 }
+
 
 /*Generic function based on validate_presences($required_fields), generalizes to
 * allow any array to be set as the array to check for presences*/

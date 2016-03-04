@@ -196,7 +196,8 @@ function query_select_auction_search($token) {
 }
 
 /*Returns the current price (the value of the highest bid, i.e. the second
-* highest bid + 1) or 0 if no bids have been made*/
+* highest bid + 1), also returns the bid_id of the winning bid from the bid
+* table. Returns 0 if no bids have been made on the auction*/
 function query_select_current_price($auctionId) {
   global $connection;
 
@@ -210,42 +211,40 @@ function query_select_current_price($auctionId) {
   $subquery_select_from_bids  = "SELECT bidId FROM bid WHERE ";
   $subquery_select_from_bids .= "bidAmount=({$subquery_select_max_bid_for_auction})";
 
-  $query = "SELECT value FROM current_price WHERE bid_id=({$subquery_select_from_bids})";
+  $query  = "SELECT current_price.value, bid.user_id FROM current_price ";
+  $query .= "INNER JOIN bid ON current_price.bid_id=bid.bidId ";
+  $query .= "WHERE bid_id=({$subquery_select_from_bids})";
 
   //do query:
   $result = mysqli_query($connection, $query);
 
   if($result)
-    $result = mysqli_fetch_row($result)[0];
+    $result = mysqli_fetch_assoc($result);
 
   return $result;
 }
 
-/*Returns the set of auctions created by the seller specified in the parameter*/
+/*Returns the set of <strike><strong>not-expired</strong></strike> auctions created by the seller
+* specified in the parameter*/
 function query_select_seller_auctions($sellerUserId) {
   global $connection;
 
-  $sellerUserId = mysqli_real_escape_string($sellerUserId);
+  //escape input
+  $sellerUserId = mysqli_real_escape_string($connection, $sellerUserId);
 
-  $subquery_select_max_bid_for_auction  = "SELECT MAX(bidAmount) ";
-  $subquery_select_max_bid_for_auction .= "FROM bid WHERE auction_id={$auctionId}";
-
-  $subquery_select_from_bids  = "SELECT bidId FROM bid WHERE ";
-  $subquery_select_from_bids .= "bidAmount=({$subquery_select_max_bid_for_auction})";
-
-  $subquery_select_from_auctionId  = "SELECT value FROM current_price ";
-  $subquery_select_from_auctionId .= "WHERE bid_id=({$subquery_select_from_bids})";
-
-  $query  = "SELECT auctionId, title, imgName, description ";
+  //prepare query
+  $query  = "SELECT auctionId, title, imageName, description, startingPrice, ";
+  $query .= "expirationDate ";
   $query .= "FROM auction ";
-  $query .= "WHERE seller='{$sellerUserId}' AND ";
-  $query .= "NOW() > expirationDate AND ";
-  $query .= "reservePrice<=($subquery_select_from_auctionId)";
+  $query .= "WHERE seller={$sellerUserId} ";
+  // $query .= "AND NOW()>expirationDate";
 
+  //forward query to database
   $result = mysqli_query($connection, $query);
 
+  //If set is not empty, return a number-indexed array, return 0 otherwise
   if($result)
-    $result = mysqli_fetch($result);
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
   return $result;
 }

@@ -1,6 +1,7 @@
 <?php
   require_once("../includes/session.php");
   require_once("../includes/navigation.php");
+  require_once("../includes/dbconnection.php");
   if(is_seller()) {
       include("../includes/layouts/header.php");
     } else {
@@ -31,37 +32,63 @@
     </ul>
   </div>
 
-
   <div class="col-md-10">
-  <div class="alert alert-warning" role="alert">
+      <?php
+        $auction_set_unfiltered = retrieve_seller_auctions();
+        $auction_set = filter_auctions_without_bids($auction_set_unfiltered);
+        $auction_set = filter_non_expired_auctions($auction_set);
 
-    <button type="button" class="close fui-cross" data-dismiss="alert"></button>
-    <h4>Leave Feedback!</h4>
+        if($auction_set) {
 
-    <table class="table" id="table-account-feedback">
-      <col width="200px">
+          $output = "
+          <div class=\"alert alert-warning\" role=\"alert\">
 
-      <tr>
+            <button type=\"button\" class=\"close fui-cross\"
+                data-dismiss=\"alert\">
+            </button>
+            <h4>Leave Feedback!</h4>
 
-        <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
-        <td>First Row, second column</td>
-        <td>First Row, third column</td>
-      </tr>
+            <table class=\"table\" id=\"table-account-feedback\">
+              <col width=\"200px\">";
 
-      <tr>
+          foreach ($auction_set as $auction) {
 
-        <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
-        <td>First Row, second column</td>
-        <td>First Row, third column</td>
-      </tr>
+            $encoded_winner_id  = urlencode($auction['winner_id']);
+            $encoded_auction_id = urlencode($auction['auctionId']);
+            $link  = "leave_feedback.php?user_id={$encoded_winner_id}";
+            $link .= "&auction_id={$encoded_auction_id}";
+            $output .= "<tr>
 
-    </table>
+                        <td><a href=\"{$link}\">
+                        <img src=\"{$auction['imageName']}\"
+                        title=\"{$auction['title']}\">
+                        {$auction['title']}</a></td>
+                        <td>
+                          <strong>Description:</strong><br/>
+                          {$auction['description']}
+                        </td>
+                        <td>
+                          <Strong>Sold:</strong><br/>
+                          £{$auction['winning_price']}
+                        </td>
+                      </tr>";
+          }
 
+          // <!--  <tr>
+          //
+          //     <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
+          //     <td>First Row, second column</td>
+          //     <td>First Row, third column</td>
+          //   </tr> -->
 
+          $output .= "</table>";
+
+          echo $output;
+        }
+
+       ?>
 
   </div>
-
-
 
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
@@ -78,27 +105,40 @@
       <th>Description</th>
       <th>Current Price</th>
     </tr>
-    <tr>
+    <?php
+    $auction_set = filter_expired_auctions($auction_set_unfiltered);
 
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
-      <td>First Row, second column</td>
-      <td>First Row, third column</td>
-    </tr>
-    <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Second Row, first column</a></td>
-      <td>Second Row, second column</td>
-      <td>Second Row, third column</td>
-    </tr>
-    <tr>
+    foreach ($auction_set as $auction) {
+      $imageName      = htmlentities($auction['imageName']);
+      $title          = htmlentities($auction['title']);
+      $description    = htmlentities($auction['description']);
+      $winning_price  = htmlentities($auction['winning_price']);
+      $link = "auction.php?auctionId=" . urlencode($auction['auctionId']);
+      $output = "
+      <tr>
+        <td><a href=\"{$link}\">
+        <img src=\"{$imageName}\"
+        title=\"{$title}\">
+        {$title}</a></td>
+        <td>
+          <strong>Description:</strong><br/>
+          {$description}
+        </td>
+        <td>
+          <Strong>Price:</strong><br/>
+          £{$winning_price}
+        </td>
+      </tr>";
+
+      echo $output;
+    }
+
+    ?>
+    <!-- <tr>
       <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
       <td>Third Row, second column</td>
       <td>Third Row, third column</td>
-    </tr>
-    <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
-      <td>Third Row, second column</td>
-      <td>Third Row, third column</td>
-    </tr>
+    </tr> -->
   </table>
 
 

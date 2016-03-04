@@ -13,16 +13,16 @@ function process_first_form() {
                             "passwordagain"/*, "role-check"*/);
   validate_presences($required_fields);
 
-//  Limits provided should correspond to the limits set in the sql database
+  //  Limits provided should correspond to the limits set in the sql database
   $fields_with_max_lengths = array("firstname" => 20, "lastname" => 20,
                                   "email" => 50, "password" => 20);
 
   validate_max_lengths($fields_with_max_lengths);
 
-// Check that password == passwordagain
+  // Check that password == passwordagain
   matches($_POST['password'], $_POST['passwordagain']);
 
-// check that email has not already been used
+  // check that email has not already been used
   validate_email($_POST['email']);
 
   if(empty($errors)) {
@@ -202,7 +202,7 @@ function get_price($auctionId, $auctionStartingPrice) {
   if(!$result)
     return $auctionStartingPrice;//an integer
   else
-    return $result; //an integer
+    return $result['value']; //an integer
 }
 /* old version: function get_price($auction) {
   $result = query_select_current_price($auction['auctionId']);
@@ -211,6 +211,19 @@ function get_price($auctionId, $auctionStartingPrice) {
   else
     return $result; //an integer
 }*/
+
+/*Performs a query to get both the price and the buyer's id from the database,
+* given an auctionId and a startingPrice, returns an associative array containing
+* "value" (price) and "user_id" (buyer's id). If the auction has no bids, then
+* returns the starting price as "value", and -1 as "user_id"*/
+function get_price_with_buyer_id($auctionId, $auctionStartingPrice) {
+  $result = query_select_current_price($auctionId);
+
+  if(!$result)
+    return array("value"=>$auctionStartingPrice, "user_id"=>-1 );
+  else
+    return $result;
+}
 
 /*Filters the parameter set of auctions by the price, rating and category id
 * parameters, returns a subset of this set*/
@@ -230,6 +243,84 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
   }
 
     return empty($auction_set) ? null : $auction_set;
+}
+
+/*Returns a set of expired auctions that the user identified in the session
+* created, with their final price as 'winning_price', and winner as 'winner_id'.
+* returns 0 if the user has no expired auctions*/
+function retrieve_seller_auctions() {
+
+
+  $auction_set = query_select_seller_auctions($_SESSION['userId']);
+  for($i=0; $i<sizeof($auction_set); $i++) {
+    //append the result of get_price($auctionId, $auctionStartingPrice) to
+    //each auction associative array
+    $winning_bid = get_price_with_buyer_id($auction_set[$i]['auctionId'],
+                      $auction_set[$i]['startingPrice']);
+
+    $auction_set[$i]['winning_price'] = $winning_bid['value'];
+    $auction_set[$i]['winner_id']     = $winning_bid['user_id'];
+  }
+
+  return $auction_set;
+}
+
+/*Filters out from the parameter auction set the auctions that have no bids
+* over the reserve price. Returns 0 (an empty array) in case all auctions
+* in the parameter set were filtered out */
+function filter_auctions_without_bids($auction_set) {
+  $result = array();
+
+  for($i=0; $i<sizeof($auction_set); $i++) {
+
+    if($auction_set[$i]['winner_id'] > 0)
+      array_push($result, $auction_set[$i]);
+
+  }
+
+  return $result;
+}
+
+/*Filters out from the parameter auction set the live auctions (the auctions
+* that are NOT past their expiration date). Returns an array of auctions or 0
+* (an empty array)*/
+function filter_non_expired_auctions($auction_set) {
+  $result = array();
+
+  for($i=0; $i<sizeof($auction_set); $i++) {
+
+    // echo time() - strtotime($auction_set[$i]['expirationDate']);
+    // echo "<br/>";
+    //time() - strtotime($auction_set[$i]['expirationDate'])
+    //returns a negative number if expirationDate is in the future
+
+    if((time() - strtotime($auction_set[$i]['expirationDate'])) > 0) {
+      array_push($result, $auction_set[$i]);
+    }
+  }
+
+  return $result;
+}
+
+/*Filters out from the parameter auction set the expired auctions (the auctions
+* that are past their expiration date). Returns an array of auctions or 0
+* (an empty array)*/
+function filter_expired_auctions($auction_set) {
+  $result = array();
+
+  for($i=0; $i<sizeof($auction_set); $i++) {
+
+    // echo time() - strtotime($auction_set[$i]['expirationDate']);
+    // echo "<br/>";
+    //time() - strtotime($auction_set[$i]['expirationDate'])
+    //returns a negative number if expirationDate is in the future
+
+    if((time() - strtotime($auction_set[$i]['expirationDate'])) < 0) {
+      array_push($result, $auction_set[$i]);
+    }
+  }
+
+  return $result;
 }
 
 function addAuction() {
@@ -272,7 +363,7 @@ function queryAuctionData($auctionId){
   global $connection;
   $auctionId = $_GET["auctionId"];
 
-  $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName, date(expirationDate) as expirationDate,"; 
+  $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName, date(expirationDate) as expirationDate,";
   $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
   $query .= "IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars , j.user_Id AS currentWinner ";
 
@@ -397,12 +488,12 @@ function searchFeedbackUser($userId) {
 
   $query = "SELECT * FROM user WHERE userId = $userId";
 
-  $userFeedbackResult = mysqli_query($connection, $query);
+  $userFeedbackQueryResult = mysqli_query($connection, $query);
 
-  if (!$userFeedbackResult) {
+  if (!$userFeedbackQueryResult) {
     die("Database query failed. " . mysqli_error($connection));
   } else {
-    $userFeedback = mysqli_fetch_assoc($userFeedbackResult);
+    $userFeedback = mysqli_fetch_assoc($userFeedbackQueryResult);
   }
   return $userFeedback['firstName'];
 }
@@ -412,20 +503,20 @@ function searchFeedbackUser($userId) {
 function getFeedbackInformation($userId) {
   global $connection;
 
-// query to retrieve the current all the relevant feedback information
+ // query to retrieve the current all the relevant feedback information
   $query = "SELECT *
-FROM user
-LEFT JOIN feedback ON user.userid = feedback.user_id
-LEFT JOIN auction ON auction.auctionId = feedback.auction_id
-WHERE user.userId = $userId";
+  FROM user
+  LEFT JOIN feedback ON user.userid = feedback.user_id
+  LEFT JOIN auction ON auction.auctionId = feedback.auction_id
+  WHERE user.userId = $userId";
+
 
   $feedbackMainResult = mysqli_query($connection, $query);
 
-// Test if there was a query error
+  // Test if there was a query error
   if (!$feedbackMainResult) {
     die("Database query failed");
   }
-
   return $feedbackMainResult;
 }
 
@@ -458,13 +549,31 @@ function process_feedback_form() {
   $fields_with_max_lengths = array("title" => 20);
   validate_max_lengths($fields_with_max_lengths);
 
-
-  if (!empty($errors)) {
-    redirect_to("leave_feedback.php");
-  } else {
+  if (empty($errors)) {
     leaveFeedback();
   }
 }
 
-?>
+/** Get details for the leave_feedback.php */
 
+function getAuctionForFeedback($auction_id) {
+  global $connection;
+
+// query to retrieve the current all the relevant feedback information
+  $query = "SELECT imageName, title
+FROM auction
+WHERE auctionId = $auction_id";
+
+
+  $auctionFeedbackQueryResult = mysqli_query($connection, $query);
+
+
+  if (!$auctionFeedbackQueryResult) {
+    die("Database query failed. " . mysqli_error($connection));
+  } else {
+    return mysqli_fetch_assoc($auctionFeedbackQueryResult);
+  }
+}
+
+
+?>

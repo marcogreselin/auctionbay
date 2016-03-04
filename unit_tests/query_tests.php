@@ -183,8 +183,11 @@ function query_select_auction_search_success() {
 function query_select_current_price_success() {
   $auctionId = 5;
 
-  assert(query_select_current_price($auctionId) == 101);
- //  echo query_select_current_price($auctionId) . "<br/>";
+  $result = query_select_current_price($auctionId);
+
+  assert($result['value'] == 101 && $result['user_id'] == 38);
+ //print_r(query_select_current_price($auctionId));
+ // echo query_select_current_price($auctionId) . "<br/>";
 }
 
 //@TEST
@@ -222,10 +225,13 @@ function query_select_seller_auctions_failure() {
 
 //@TEST
 function query_select_seller_auctions_success() {
-  $userId = 78;
+  $userId = 74;
 
+  //echo query_select_seller_auctions($userId)[0]['auctionId'];
+  //print_r(query_select_seller_auctions($userId));
   assert(query_select_seller_auctions($userId)[0]['auctionId'] == 2);
 }
+
 
 //query_insert_user()
 //query_insert_user_test_failure();
