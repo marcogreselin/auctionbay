@@ -185,6 +185,7 @@ function query_select_auction_search($token) {
   $query .= "FROM auction ";
   $query .= "WHERE title LIKE '%{$token}%' OR ";
   $query .= "       description LIKE '%{$token}%' ";
+  $query .= " AND NOW()<expirationDate";
  //  $query .= "LIMIT 50;"; //limit?
 
   $result_set = mysqli_query($connection, $query);
