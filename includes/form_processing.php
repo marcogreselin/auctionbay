@@ -505,10 +505,11 @@ function getFeedbackInformation($userId) {
 
  // query to retrieve the current all the relevant feedback information
   $query = "SELECT *
-  FROM feedback
-  JOIN auction ON auction.auctionId = feedback.auction_id
-  JOIN user ON user.userid = feedback.user_id
+  FROM user
+  LEFT JOIN feedback ON user.userid = feedback.user_id
+  LEFT JOIN auction ON auction.auctionId = feedback.auction_id
   WHERE user.userId = $userId";
+
 
   $feedbackMainResult = mysqli_query($connection, $query);
 

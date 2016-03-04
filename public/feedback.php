@@ -1,12 +1,4 @@
 <?php
-// Cookies
-setcookie("test", 45, time() + 60 * 60 * 24 * 7);
-
-
-?>
-
-
-<?php
 require_once('../includes/dbconnection.php');
 require_once("../includes/session.php");
 require_once('../includes/navigation.php');
@@ -29,7 +21,7 @@ require_once('../includes/layouts/header.php');
         $feedback = mysqli_fetch_assoc($feedbackMainResult);
         ?>
 
-    <h1>Feedback for <?php echo $feedback["firstName"]; ?></h1>
+    <h1>Feedback for <?php echo $feedback["firstName"]." ".$feedback["lastName"]; ?></h1>
     <h4>User type: <?php
         if($feedback["role"] == 1) {
             echo "buyer";

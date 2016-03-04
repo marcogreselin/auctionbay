@@ -279,7 +279,7 @@ html, body {
 
 .container-item-description {
 	padding-left: 0.8em;
-	max-width: 1000px;
+	/*max-width: 1000px;*/
 	padding-right: 5em;
 }
 

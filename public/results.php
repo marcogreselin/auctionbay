@@ -182,7 +182,7 @@ include("../includes/layouts/header.php");
         </div>
       </div>
 
-            <div class="col-sm-8">
+            <div class="col-sm-9">
                 <table class="search-page-table table-striped">
                     <col width="200px">
                     <col width="800px">
@@ -222,27 +222,7 @@ include("../includes/layouts/header.php");
                                           {$auction['description']}
                                       </div>
                                   </li>
-                            <!--   <li>
-                                    <div class=\"container-item-description\">
-                                          <div class=\"row\">
-                                              <div class=\"col-sm-6\">
-                                                  <input class=\"btn-bid
-                                                    btn-lg btn-primary
-                                                    btn-wide\" type=\"submit\"
-                                                    name=\"btn-bid\"
-                                                    value=\"Bid\">
-                                              </div>
-
-                                              <div class=\"col-sm-6\">
-                                                  <input class=\"btn-follow
-                                                  btn-lg btn-primary btn-wide\"
-                                                  type=\"submit\"
-                                                   name=\"btn-follow\"
-                                                   value=\"Follow\">
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </li> -->
+                            
                               </ul>
                       </td>
                   </tr>";
