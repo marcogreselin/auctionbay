@@ -72,7 +72,7 @@ require_once('../includes/layouts/header.php');
             </td>
             <td>
                 <div class=\"container-feedback-date\">
-                    {$feedback['date(date)']}
+
                 </div>
             </td>
 
