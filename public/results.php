@@ -222,7 +222,7 @@ include("../includes/layouts/header.php");
                                           {$auction['description']}
                                       </div>
                                   </li>
-                            
+
                               </ul>
                       </td>
                   </tr>";

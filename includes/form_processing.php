@@ -250,7 +250,6 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
 * returns 0 if the user has no expired auctions*/
 function retrieve_seller_auctions() {
 
-
   $auction_set = query_select_seller_auctions($_SESSION['userId']);
   for($i=0; $i<sizeof($auction_set); $i++) {
     //append the result of get_price($auctionId, $auctionStartingPrice) to
@@ -481,7 +480,6 @@ function leaveFeedback() {
   }
 }
 
-
 /** Search from the database the user's firstname to be displayed on the screen for leave_feedback.php*/
 function searchFeedbackUser($userId) {
   global $connection;
@@ -497,7 +495,6 @@ function searchFeedbackUser($userId) {
   }
   return $userFeedback['firstName'];
 }
-
 
 /** Query the information from a combination of different tables */
 function getFeedbackInformation($userId) {
