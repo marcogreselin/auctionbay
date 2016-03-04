@@ -32,13 +32,11 @@
     </ul>
   </div>
 
-
   <div class="col-md-10">
-
-
       <?php
-        $auction_set = retrieve_expired_auctions();
-        $auction_set = filter_auctions_without_bids($auction_set);
+        $auction_set_unfiltered = retrieve_seller_auctions();
+        $auction_set = filter_auctions_without_bids($auction_set_unfiltered);
+        $auction_set = filter_non_expired_auctions($auction_set);
 
         if($auction_set) {
 
@@ -90,14 +88,7 @@
 
        ?>
 
-
-
-
-
-
   </div>
-
-
 
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
@@ -114,27 +105,40 @@
       <th>Description</th>
       <th>Current Price</th>
     </tr>
-    <tr>
+    <?php
+    $auction_set = filter_expired_auctions($auction_set_unfiltered);
 
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
-      <td>First Row, second column</td>
-      <td>First Row, third column</td>
-    </tr>
-    <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Second Row, first column</a></td>
-      <td>Second Row, second column</td>
-      <td>Second Row, third column</td>
-    </tr>
-    <tr>
+    foreach ($auction_set as $auction) {
+      $imageName      = htmlentities($auction['imageName']);
+      $title          = htmlentities($auction['title']);
+      $description    = htmlentities($auction['description']);
+      $winning_price  = htmlentities($auction['winning_price']);
+      $link = "auction.php?auctionId=" . urlencode($auction['auctionId']);
+      $output = "
+      <tr>
+        <td><a href=\"{$link}\">
+        <img src=\"{$imageName}\"
+        title=\"{$title}\">
+        {$title}</a></td>
+        <td>
+          <strong>Description:</strong><br/>
+          {$description}
+        </td>
+        <td>
+          <Strong>Price:</strong><br/>
+          £{$winning_price}
+        </td>
+      </tr>";
+
+      echo $output;
+    }
+
+    ?>
+    <!-- <tr>
       <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
       <td>Third Row, second column</td>
       <td>Third Row, third column</td>
-    </tr>
-    <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
-      <td>Third Row, second column</td>
-      <td>Third Row, third column</td>
-    </tr>
+    </tr> -->
   </table>
 
 

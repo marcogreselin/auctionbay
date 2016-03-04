@@ -248,7 +248,7 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
 /*Returns a set of expired auctions that the user identified in the session
 * created, with their final price as 'winning_price', and winner as 'winner_id'.
 * returns 0 if the user has no expired auctions*/
-function retrieve_expired_auctions() {
+function retrieve_seller_auctions() {
 
 
   $auction_set = query_select_seller_auctions($_SESSION['userId']);
@@ -265,13 +265,57 @@ function retrieve_expired_auctions() {
   return $auction_set;
 }
 
-/*Filters out from the parameter auction set the auctions that expired with no
-* bids over the reserve price. Returns 0 (an empty array) in case all auctions
+/*Filters out from the parameter auction set the auctions that have no bids
+* over the reserve price. Returns 0 (an empty array) in case all auctions
 * in the parameter set were filtered out */
 function filter_auctions_without_bids($auction_set) {
   $result = array();
+
   for($i=0; $i<sizeof($auction_set); $i++) {
-    if($auction_set[$i]['winner_id'] > 0) {
+
+    if($auction_set[$i]['winner_id'] > 0)
+      array_push($result, $auction_set[$i]);
+
+  }
+
+  return $result;
+}
+
+/*Filters out from the parameter auction set the live auctions (the auctions
+* that are NOT past their expiration date). Returns an array of auctions or 0
+* (an empty array)*/
+function filter_non_expired_auctions($auction_set) {
+  $result = array();
+
+  for($i=0; $i<sizeof($auction_set); $i++) {
+
+    // echo time() - strtotime($auction_set[$i]['expirationDate']);
+    // echo "<br/>";
+    //time() - strtotime($auction_set[$i]['expirationDate'])
+    //returns a negative number if expirationDate is in the future
+
+    if((time() - strtotime($auction_set[$i]['expirationDate'])) > 0) {
+      array_push($result, $auction_set[$i]);
+    }
+  }
+
+  return $result;
+}
+
+/*Filters out from the parameter auction set the expired auctions (the auctions
+* that are past their expiration date). Returns an array of auctions or 0
+* (an empty array)*/
+function filter_expired_auctions($auction_set) {
+  $result = array();
+
+  for($i=0; $i<sizeof($auction_set); $i++) {
+
+    // echo time() - strtotime($auction_set[$i]['expirationDate']);
+    // echo "<br/>";
+    //time() - strtotime($auction_set[$i]['expirationDate'])
+    //returns a negative number if expirationDate is in the future
+
+    if((time() - strtotime($auction_set[$i]['expirationDate'])) < 0) {
       array_push($result, $auction_set[$i]);
     }
   }

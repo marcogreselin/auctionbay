@@ -224,7 +224,7 @@ function query_select_current_price($auctionId) {
   return $result;
 }
 
-/*Returns the set of <strong>not-expired</strong> auctions created by the seller
+/*Returns the set of <strike><strong>not-expired</strong></strike> auctions created by the seller
 * specified in the parameter*/
 function query_select_seller_auctions($sellerUserId) {
   global $connection;
@@ -233,10 +233,11 @@ function query_select_seller_auctions($sellerUserId) {
   $sellerUserId = mysqli_real_escape_string($connection, $sellerUserId);
 
   //prepare query
-  $query  = "SELECT auctionId, title, imageName, description, startingPrice ";
+  $query  = "SELECT auctionId, title, imageName, description, startingPrice, ";
+  $query .= "expirationDate ";
   $query .= "FROM auction ";
   $query .= "WHERE seller={$sellerUserId} ";
-  $query .= "AND NOW()>expirationDate";
+  // $query .= "AND NOW()>expirationDate";
 
   //forward query to database
   $result = mysqli_query($connection, $query);

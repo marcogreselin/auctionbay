@@ -315,14 +315,14 @@ function process_filter_form_empty() {
 }
 
 //@TEST
-function retrieve_expired_auctions_success() {
+function retrieve_seller_auctions_success() {
   $temp = null;
 
   if(isset($_SESSION['userId']))
     $temp = $_SESSION['userId'];
 
   $_SESSION['userId'] = 74;
-  $result = retrieve_expired_auctions();
+  $result = retrieve_seller_auctions();
   // print_r($result[3]);
   assert($result[3]['auctionId'] == 5);
   assert($result[3]['winning_price'] == 101);
@@ -333,13 +333,13 @@ function retrieve_expired_auctions_success() {
 }
 
 //@TEST
-function retrieve_expired_auctions_failure() {
+function retrieve_seller_auctions_failure() {
   $temp = null;
   if(isset($_SESSION['userId']))
     $temp = $_SESSION['userId'];
 
   $_SESSION['userId'] = 1;
-  assert(!retrieve_expired_auctions());
+  assert(!retrieve_seller_auctions());
 
   if($temp)
     $_SESSION['userId'] = $temp;
@@ -353,7 +353,7 @@ function filter_auctions_without_bids_success() {
     $temp = $_SESSION['userId'];
   $_SESSION['userId'] = 74;
 
-  $result = retrieve_expired_auctions();
+  $result = retrieve_seller_auctions();
   $result = filter_auctions_without_bids($result);
 
   assert($result[0]['auctionId'] == 5);
@@ -370,13 +370,73 @@ function filter_auctions_without_bids_failure() {
     $temp = $_SESSION['userId'];
   $_SESSION['userId'] = 74;
 
-  $result = retrieve_expired_auctions();
+  $result = retrieve_seller_auctions();
   $result = filter_auctions_without_bids($result);
 
   assert($result[0]['auctionId'] == 5);
 
   if($temp)
     $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function filter_non_expired_auctions_success() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+  $_SESSION['userId'] = 74;
+
+  $result = retrieve_seller_auctions();
+  $result = filter_non_expired_auctions($result);
+
+  // echo "<pre>";
+  // print_r($result);
+  // echo "</pre>";
+
+  assert($result[3]['auctionId'] == 5);
+
+  foreach ($result as $auction) {
+    assert(!($auction['auctionId'] == 7));
+  }
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function filter_non_expired_auctions_failure() {
+
+}
+
+//@TEST
+function filter_expired_auctions_success() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+  $_SESSION['userId'] = 74;
+
+  $result = retrieve_seller_auctions();
+  $result = filter_expired_auctions($result);
+
+  echo "<pre>";
+  print_r($result);
+  echo "</pre>";
+
+  // assert($result[3]['auctionId'] == 5);
+  assert($result);
+  foreach ($result as $auction) {
+    assert(!($auction['auctionId'] == 5));
+  }
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function filter_expired_auctions_failure() {
+
 }
 
 //test for failure first post
@@ -425,9 +485,9 @@ get_price_failure();
 process_filter_form_not_empty();
 process_filter_form_empty();
 
-//retrieve_expired_auctions()
-retrieve_expired_auctions_success();
-retrieve_expired_auctions_failure();
+//retrieve_seller_auctions()
+retrieve_seller_auctions_success();
+retrieve_seller_auctions_failure();
 
 //get_price_with_buyer_id()
 get_price_with_buyer_id_failure();
@@ -436,6 +496,14 @@ get_price_with_buyer_id_success();
 //filter_auctions_without_bids()
 filter_auctions_without_bids_success();
 filter_auctions_without_bids_failure();
+
+//filter_non_expired_auctions()
+filter_non_expired_auctions_success();
+filter_non_expired_auctions_failure();
+
+//filter_expired_auctions()
+filter_expired_auctions_success();
+filter_expired_auctions_failure();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";

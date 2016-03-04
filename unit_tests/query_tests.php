@@ -232,6 +232,7 @@ function query_select_seller_auctions_success() {
   assert(query_select_seller_auctions($userId)[0]['auctionId'] == 2);
 }
 
+
 //query_insert_user()
 //query_insert_user_test_failure();
 //query_insert_user_test_success();
