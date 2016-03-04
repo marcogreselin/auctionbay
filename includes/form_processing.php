@@ -448,7 +448,7 @@ function bidderList(){
 }
 
 /** Form processing for the feedback form */
-function process_feedback_form($user_id, $auction_id) {
+function process_feedback_form() {
   global $errors;
 
   $required_fields = array("stars", "comment", "title");
@@ -456,8 +456,6 @@ function process_feedback_form($user_id, $auction_id) {
 
   $fields_with_max_lengths = array("title" => 20);
   validate_max_lengths($fields_with_max_lengths);
-
-  echo "testing feedback form before";
 
   if (empty($errors)) {
     leaveFeedback();
