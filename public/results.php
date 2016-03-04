@@ -11,6 +11,11 @@ if(!is_buyer() && !is_seller()) {
   redirect_to("index.php");
 }
 
+if(isset($_POST) && !empty($_POST)) {
+  if(!isset($_POST['stars']))
+    $_POST['stars'] = -1;
+}
+
 if(isset($_GET['token'])) {
   //process search form
   $search_token = process_search_form();
@@ -217,7 +222,7 @@ include("../includes/layouts/header.php");
                                           {$auction['description']}
                                       </div>
                                   </li>
-                            
+
                               </ul>
                       </td>
                   </tr>";

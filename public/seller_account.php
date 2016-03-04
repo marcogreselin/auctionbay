@@ -81,14 +81,12 @@
           //     <td>First Row, third column</td>
           //   </tr> -->
 
-          $output .= "</table>";
+          $output .= "</table></div>";
 
           echo $output;
         }
 
        ?>
-
-  
 
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
@@ -140,7 +138,6 @@
       <td>Third Row, third column</td>
     </tr> -->
   </table>
-
 
 </div>
 </div>
