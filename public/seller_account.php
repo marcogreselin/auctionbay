@@ -37,10 +37,11 @@
 
 
       <?php
-
         $auction_set = retrieve_expired_auctions();
+        $auction_set = filter_auctions_without_bids($auction_set);
 
         if($auction_set) {
+
           $output = "
           <div class=\"alert alert-warning\" role=\"alert\">
 
@@ -53,15 +54,25 @@
               <col width=\"200px\">";
 
           foreach ($auction_set as $auction) {
+
+            $encoded_winner_id  = urlencode($auction['winner_id']);
+            $encoded_auction_id = urlencode($auction['auctionId']);
+            $link  = "leave_feedback.php?user_id={$encoded_winner_id}";
+            $link .= "&auction_id={$encoded_auction_id}";
             $output .= "<tr>
 
-                        <td><a href=\"leave_feedback.php?
-                                  user_id={$auction['winner_id']}
-                                  &auction_id={$auction['auctionId']}\">
-                        <img src=\"img/user-interface.svg\" title=\"Insert title\">
-                        First Row, first column</a></td>
-                        <td>First Row, second column</td>
-                        <td>First Row, third column</td>
+                        <td><a href=\"{$link}\">
+                        <img src=\"{$auction['imageName']}\"
+                        title=\"{$auction['title']}\">
+                        {$auction['title']}</a></td>
+                        <td>
+                          <strong>Description:</strong><br/>
+                          {$auction['description']}
+                        </td>
+                        <td>
+                          <Strong>Sold:</strong><br/>
+                          £{$auction['winning_price']}
+                        </td>
                       </tr>";
           }
 

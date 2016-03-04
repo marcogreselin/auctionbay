@@ -249,7 +249,7 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
 * created, with their final price as 'winning_price', and winner as 'winner_id'.
 * returns 0 if the user has no expired auctions*/
 function retrieve_expired_auctions() {
-  
+
 
   $auction_set = query_select_seller_auctions($_SESSION['userId']);
   for($i=0; $i<sizeof($auction_set); $i++) {
@@ -263,6 +263,20 @@ function retrieve_expired_auctions() {
   }
 
   return $auction_set;
+}
+
+/*Filters out from the parameter auction set the auctions that expired with no
+* bids over the reserve price. Returns 0 (an empty array) in case all auctions
+* in the parameter set were filtered out */
+function filter_auctions_without_bids($auction_set) {
+  $result = array();
+  for($i=0; $i<sizeof($auction_set); $i++) {
+    if($auction_set[$i]['winner_id'] > 0) {
+      array_push($result, $auction_set[$i]);
+    }
+  }
+
+  return $result;
 }
 
 function addAuction() {

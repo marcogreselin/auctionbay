@@ -345,6 +345,40 @@ function retrieve_expired_auctions_failure() {
     $_SESSION['userId'] = $temp;
 }
 
+//@TEST
+function filter_auctions_without_bids_success() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+  $_SESSION['userId'] = 74;
+
+  $result = retrieve_expired_auctions();
+  $result = filter_auctions_without_bids($result);
+
+  assert($result[0]['auctionId'] == 5);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function filter_auctions_without_bids_failure() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+  $_SESSION['userId'] = 74;
+
+  $result = retrieve_expired_auctions();
+  $result = filter_auctions_without_bids($result);
+
+  assert($result[0]['auctionId'] == 5);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
 //test for failure first post
 first_form_test_failure();
 //$errors = array();
@@ -398,6 +432,10 @@ retrieve_expired_auctions_failure();
 //get_price_with_buyer_id()
 get_price_with_buyer_id_failure();
 get_price_with_buyer_id_success();
+
+//filter_auctions_without_bids()
+filter_auctions_without_bids_success();
+filter_auctions_without_bids_failure();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";
