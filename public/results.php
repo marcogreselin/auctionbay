@@ -35,6 +35,7 @@ if(isset($_GET['token'])) {
       //TODO: also, this happens with every new get request, with a fresh query
       //for the token being made on the database, whereas no new query should
       //occurr for filtering purposes
+      
 
       //once the current price is known, there is no further need for a
       //startingPrice field on the retrieved associative array
@@ -68,8 +69,8 @@ include("../includes/layouts/header.php");
 <div class="container-search-page" id="wrapper">
 
   <div class="search-page-header"><h5>Show results for <?php
-                                                  if(isset($_GET['token']))
-                                                    { echo $_GET['token']; }
+                                            if(isset($_GET['token']))
+                                            { echo urldecode($_GET['token']); }
                                                     ?></h5></div>
   <div class="row">
     <div class="col-sm-3">
@@ -81,8 +82,8 @@ include("../includes/layouts/header.php");
             <li class="nav-header">
               <input class="form-control input-hg" type="text"
               name="token" id="token" value="<?php
-                                                  if(isset($_GET['token']))
-                                                    { echo $_GET['token']; }
+                                          if(isset($_GET['token']))
+                                            { echo urldecode($_GET['token']); }
                                                     ?>">
             </li>
             <li class="divider"></li>
@@ -193,10 +194,17 @@ include("../includes/layouts/header.php");
                 if($auction_set) {
 
                   foreach ($auction_set as $auction) {
+                    $imageName    = htmlentities($auction['imageName']);
+                    $title        = htmlentities($auction['title']);
+                    $auctionId    = htmlentities($auction['auctionId']);
+                    $currentPrice = htmlentities($auction['currentPrice']);
+                    $description  = htmlentities($auction['description']);
+
                     $output = "
                     <td>
-                          <a href=\"#\"><img src=\"img/user-interface.svg\"
-                                          title=\"Insert title\"
+                          <a href=\"auction.php?auctionId={$auctionId}\">
+                          <img src=\"img/auctions/{$imageName}\"
+                                          title=\"{$title}\"
                                           class=\"search-result-table\"></a>
                       </td>
                       <td>
@@ -205,21 +213,21 @@ include("../includes/layouts/header.php");
                                   <li>
                                       <div class=\"col-sm-6\">
                                           <a href=\"
-                                            auction.php?auctionId={$auction['auctionId']}\">
+                                            auction.php?auctionId={$auctionId}\">
 
                                           <h6 class=\"jqAuctionTitle\">
-                                          {$auction['title']}</h6>
+                                          {$title}</h6>
                                           </a>
                                       </div>
                                       <div class=\"col-sm-6\">
                                           <div><h6 class=\"jqAuctionPrice\">
                                           Current Price:
-                                            £{$auction['currentPrice']}</h6></div>
+                                            £{$currentPrice}</h6></div>
                                       </div>
                                   </li>
                                   <li>
                                       <div class=\"container-item-description\">
-                                          {$auction['description']}
+                                          {$description}
                                       </div>
                                   </li>
 
