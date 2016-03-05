@@ -4,9 +4,6 @@ require_once("../includes/session.php");
 require_once("../includes/validation_functions.php");
 require_once("../includes/output.php");
 
-//  Cookies
- setcookie("test",45, time()+60*60*24*7);
-
  //if user is logged in, log them out:
  //TODO (see login.php)
 
@@ -14,9 +11,9 @@ require_once("../includes/output.php");
 if(isset($_SESSION['errors']))
   $errors = $_SESSION['errors'];
 
-$firstname = repeat_input("firstname");
-$lastname = repeat_input("lastname");
-$email = repeat_input("email");
+$firstname  = repeat_input("firstname");
+$lastname   = repeat_input("lastname");
+$email      = repeat_input("email");
 ?>
 
 <!DOCTYPE html>

@@ -300,4 +300,31 @@ function query_select_user_rating($user_id) {
 
   return $result;
 }
+
+/*Returns a set of auctions the user is following*/
+function query_select_followed_by_user($userId) {
+  global $connection;
+
+  //escape input
+  $userId = mysqli_real_escape_string($connection, $userId);
+
+  //prepare queries
+  $subquery_select_from_follower  = "SELECT auction_id FROM follower ";
+  $subquery_select_from_follower .= "WHERE user_id='{$userId}'";
+
+  $query  = "SELECT auctionId, title, imageName, description, startingPrice, ";
+  $query .= "expirationDate ";
+  $query .= "FROM auction ";
+  $query .= "WHERE auctionId IN ($subquery_select_from_follower)";
+
+  //forward query to database
+  $result = mysqli_query($connection, $query);
+
+  //If set is not empty, return a number-indexed array, return 0 otherwise
+  if($result)
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+  return $result;
+}
+
 ?>

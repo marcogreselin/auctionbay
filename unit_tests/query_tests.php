@@ -4,8 +4,9 @@ assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
 assert_options(ASSERT_BAIL, 0);
 
-//define expected value for auction 5
+//define expected values
 define("EXPECTED_PRICE_FOR_AUCTION_5", 120);
+define("EXPECTED_AUCTION_ID", 11);
 
 //Dependencies
 require("../includes/dbconnection.php");
@@ -276,6 +277,23 @@ function query_select_user_rating_failure() {
   assert($result['occurrences'] == 0);
 }
 
+//@TEST
+function query_select_followed_by_user_success() {
+  $userId = 38;
+
+  $result = query_select_followed_by_user($userId);
+  // print_r($result);
+  assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
+}
+
+//@TEST
+function query_select_followed_by_user_failure() {
+  $userId = 272;
+
+  $result = query_select_followed_by_user($userId);
+  assert(!$result);
+}
+
 //query_insert_user()
 //query_insert_user_test_failure();
 //query_insert_user_test_success();
@@ -318,6 +336,10 @@ query_select_buyer_auctions_failure();
 //query_select_user_rating()
 query_select_user_rating_success();
 query_select_user_rating_failure();
+
+//query_select_followed_by_user()
+query_select_followed_by_user_success();
+query_select_followed_by_user_failure();
 
 echo "<h3>All tests completed</h3>";
 

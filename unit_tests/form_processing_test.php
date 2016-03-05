@@ -4,8 +4,9 @@ assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
 assert_options(ASSERT_BAIL, 0);
 
-//define expected value for auction 5
+//define expected values
 define("EXPECTED_PRICE_FOR_AUCTION_5", 120);
+define("EXPECTED_AUCTION_ID", 11);
 
 //Dependencies
 require("../includes/validation_functions.php");
@@ -469,6 +470,40 @@ function retrieve_buyer_auctions_failure() {
 
 }
 
+//@TEST
+function retrieve_followed_by_user_success() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 38;
+  $result = retrieve_followed_by_user();
+  // print_r($result[3]);
+  assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
+  assert($result[2]['winning_price'] == EXPECTED_AUCTION_ID);
+  assert($result[2]['winner_id'] == -1);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function retrieve_followed_by_user_failure() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 272;
+  $result = retrieve_followed_by_user();
+  // print_r($result[3]);
+  assert(!$result);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
 //test for failure first post
 first_form_test_failure();
 //$errors = array();
@@ -538,6 +573,10 @@ filter_expired_auctions_failure();
 //retrieve_buyer_auctions()
 retrieve_buyer_auctions_success();
 retrieve_buyer_auctions_failure();
+
+//retrieve_followed_by_user()
+retrieve_followed_by_user_success();
+retrieve_followed_by_user_failure();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";
