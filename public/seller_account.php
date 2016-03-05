@@ -55,24 +55,29 @@
 
             $encoded_winner_id  = urlencode($auction['winner_id']);
             $encoded_auction_id = urlencode($auction['auctionId']);
+            $imageName      = htmlentities($auction['imageName']);
+            $title          = htmlentities($auction['title']);
+            $description    = htmlentities($auction['description']);
+            $winning_price  = htmlentities($auction['winning_price']);
             $link  = "leave_feedback.php?user_id={$encoded_winner_id}";
             $link .= "&auction_id={$encoded_auction_id}";
             $output .= "<tr>
 
-                        <td><a href=\"{$link}\">
-                        <img src=\"img/auctions/{$auction['imageName']}\"
-                        title=\"{$auction['title']}\">
-                        {$auction['title']}</a></td>
+                        <td><a href=\"{$link}\"><h7>{$title}</h7>
+                        <img src=\"img/auctions/{$imageName}\"
+                        title=\"{$title}\">
+                        </a></td>
                         <td>
                           <strong>Description:</strong><br/>
                           {$auction['description']}
                         </td>
                         <td>
-                          <Strong>Sold:</strong><br/>
+                          <Strong>Bought!</strong><br/>
                           £{$auction['winning_price']}
                         </td>
                       </tr>";
           }
+
 
           // <!--  <tr>
           //

@@ -245,9 +245,9 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
     return empty($auction_set) ? null : $auction_set;
 }
 
-/*Returns a set of expired auctions that the user identified in the session
-* created, with their final price as 'winning_price', and winner as 'winner_id'.
-* returns 0 if the user has no expired auctions*/
+/*Returns a set of <strike>expired</strike> auctions that the user identified in
+* the session created, with their final price as 'winning_price', and winner as
+* 'winner_id'. Returns 0 if the user has no <strike>expired</strike> auctions*/
 function retrieve_seller_auctions() {
 
   $auction_set = query_select_seller_auctions($_SESSION['userId']);
@@ -320,6 +320,30 @@ function filter_expired_auctions($auction_set) {
   }
 
   return $result;
+}
+
+/*Returns a set of auctions that the user identified in the session bid on at
+* some point. Returns 0 if the user has not bid on any auctions*/
+function retrieve_buyer_auctions() {
+
+  $auction_set = query_select_buyer_auctions($_SESSION['userId']);
+  for($i=0; $i<sizeof($auction_set); $i++) {
+    //append the result of get_price($auctionId, $auctionStartingPrice) to
+    //each auction associative array
+    $winning_bid = get_price_with_buyer_id($auction_set[$i]['auctionId'],
+                      $auction_set[$i]['startingPrice']);
+
+    $auction_set[$i]['winning_price'] = $winning_bid['value'];
+    $auction_set[$i]['winner_id']     = $winning_bid['user_id'];
+  }
+
+  return $auction_set;
+}
+
+/*Reduces the auction set parameter excluding auctions based on whether the
+* user identified from session information won the auction*/
+function filter_auctions_not_won($auction_set) {
+  
 }
 
 function addAuction() {

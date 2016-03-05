@@ -439,6 +439,27 @@ function filter_expired_auctions_failure() {
 
 }
 
+//@TEST
+function retrieve_buyer_auctions_success() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 38;
+  $result = retrieve_buyer_auctions();
+
+  assert($result[0]['auctionId'] == 5);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function retrieve_buyer_auctions_failure() {
+
+}
+
 //test for failure first post
 first_form_test_failure();
 //$errors = array();
@@ -504,6 +525,10 @@ filter_non_expired_auctions_failure();
 //filter_expired_auctions()
 filter_expired_auctions_success();
 filter_expired_auctions_failure();
+
+//retrieve_buyer_auctions()
+retrieve_buyer_auctions_success();
+retrieve_buyer_auctions_failure();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";

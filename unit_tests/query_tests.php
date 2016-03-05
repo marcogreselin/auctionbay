@@ -232,6 +232,18 @@ function query_select_seller_auctions_success() {
   assert(query_select_seller_auctions($userId)[0]['auctionId'] == 2);
 }
 
+//@TEST
+function query_select_buyer_auctions_success() {
+  $userId = 38;
+
+  $result = query_select_buyer_auctions($userId);
+  assert($result[0]['auctionId'] == 5);
+}
+
+//@TEST
+function query_select_buyer_auctions_failure() {
+
+}
 
 //query_insert_user()
 //query_insert_user_test_failure();
@@ -267,6 +279,10 @@ query_select_address_success();
 //query_select_seller_auctions()
 query_select_seller_auctions_failure();
 query_select_seller_auctions_success();
+
+//query_select_buyer_auctions()
+query_select_buyer_auctions_success();
+query_select_buyer_auctions_failure();
 
 echo "<h3>All tests completed</h3>";
 
