@@ -201,7 +201,7 @@ include("../includes/layouts/header.php");
                     $auctionId      = htmlentities($auction['auctionId']);
                     $currentPrice   = htmlentities($auction['currentPrice']);
                     $description    = htmlentities($auction['description']);
-                    $rating_string  = "";
+                    $rating_string  = "The seller has not yet been rated<br/>";
                     if($auction['no_of_ratings'] > 0) {
                       $rating         = htmlentities($auction['stars']);
                       $no_of_ratings  = htmlentities($auction['no_of_ratings']);

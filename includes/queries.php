@@ -181,8 +181,8 @@ function query_select_auction_search($token) {
   $token = mysqli_real_escape_string($connection, $token);
 
   //prep query
-  $query  = "SELECT auctionId, title, description, startingPrice, category_id,";
-  $query .= " imageName, seller ";
+  $query  = "SELECT auctionId, title, description, startingPrice, category_id, ";
+  $query .= "imageName, seller ";
   $query .= "FROM auction ";
   $query .= "WHERE NOW()<expirationDate AND ";
   $query .= "(title LIKE '%{$token}%' OR description LIKE '%{$token}%')";
@@ -289,7 +289,8 @@ function query_select_user_rating($user_id) {
   $user_id = mysqli_real_escape_string($connection, $user_id);
 
   //construct query
-  $query  = "SELECT FLOOR(AVG(stars)) AS stars, COUNT(user_id) AS occurrences ";
+  $query  = "SELECT IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) AS stars, ";
+  $query .= "COUNT(user_id) AS occurrences ";
   $query .= "FROM feedback WHERE user_id='{$user_id}'";
 
   $result = mysqli_query($connection, $query);
