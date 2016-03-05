@@ -362,7 +362,7 @@ function queryAuctionData($auctionId){
   global $connection;
   $auctionId = $_GET["auctionId"];
 
-  $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName, date(expirationDate) as expirationDate,";
+  $query = "SELECT auction.title, seller, description, views, imageName, firstName, auctionId, lastName, date(expirationDate) as expirationDate,";
   $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
   $query .= "IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars , j.user_Id AS currentWinner ";
 
@@ -501,7 +501,7 @@ function getFeedbackInformation($userId) {
   global $connection;
 
  // query to retrieve the current all the relevant feedback information
-  $query = "SELECT *
+  $query = "SELECT firstName, lastName, imageName, auction.title, stars, comment, role,  date(date)
   FROM user
   LEFT JOIN feedback ON user.userid = feedback.user_id
   LEFT JOIN auction ON auction.auctionId = feedback.auction_id
