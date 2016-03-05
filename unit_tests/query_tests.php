@@ -258,6 +258,24 @@ function query_select_buyer_auctions_failure() {
 
 }
 
+//@TEST
+function query_select_user_rating_success() {
+  $user_id = 78;
+
+  $result = query_select_user_rating($user_id);
+  assert($result['stars'] == 3);
+  assert($result['occurrences'] > 0);
+}
+
+//@TEST
+function query_select_user_rating_failure() {
+  $user_id = 272;
+
+  $result = query_select_user_rating($user_id);
+  assert($result['stars'] == 0);
+  assert($result['occurrences'] == 0);
+}
+
 //query_insert_user()
 //query_insert_user_test_failure();
 //query_insert_user_test_success();
@@ -296,6 +314,10 @@ query_select_seller_auctions_success();
 //query_select_buyer_auctions()
 query_select_buyer_auctions_success();
 query_select_buyer_auctions_failure();
+
+//query_select_user_rating()
+query_select_user_rating_success();
+query_select_user_rating_failure();
 
 echo "<h3>All tests completed</h3>";
 

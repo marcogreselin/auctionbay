@@ -261,17 +261,17 @@ function process_filter_form_not_empty() {
   $auction_set = array();
 
   $short = array('auctionId' => 2, "title" => "title",
-      "description" => "description", "currentPrice" => 10, "rating" => 1,
+      "description" => "description", "currentPrice" => 10, "stars" => 1,
       "category_id" => 5);
   $short_spaces = array('auctionId' => 3, "title" => "title with spaces",
       "description" => "description with spaces", "currentPrice" => 10,
-      "rating" => 2, "category_id" => 5);
+      "stars" => 2, "category_id" => 5);
   $different = array('auctionId' => 4, "title" => "different",
-      "description" => "same description", "currentPrice" => 10, "rating" => 3,
+      "description" => "same description", "currentPrice" => 10, "stars" => 3,
       "category_id" => 5);
   $costly = array('auctionId' => 5, "title" => "auction with long description",
       "description" => "very long description", "currentPrice" => 100,
-      "rating" => 4, "category_id" => 5);
+      "stars" => 4, "category_id" => 5);
 
   array_push($auction_set, $short, $short_spaces, $different, $costly);
 
@@ -290,20 +290,20 @@ function process_filter_form_empty() {
   $auction_set = array();
 
   $short = array('auctionId' => 2, "title" => "title",
-      "description" => "description", "currentPrice" => 10, "rating" => 1,
+      "description" => "description", "currentPrice" => 10, "stars" => 1,
       "category_id" => 5);
   $short_spaces = array('auctionId' => 3, "title" => "title with spaces",
       "description" => "description with spaces", "currentPrice" => 10,
-      "rating" => 2, "category_id" => 5);
+      "stars" => 2, "category_id" => 5);
   $different = array('auctionId' => 4, "title" => "different",
-      "description" => "same description", "currentPrice" => 10, "rating" => 3,
+      "description" => "same description", "currentPrice" => 10, "stars" => 3,
       "category_id" => 5);
   $costly = array('auctionId' => 5, "title" => "auction with long description",
       "description" => "very long description", "currentPrice" => 100,
-      "rating" => 4, "category_id" => 5);
+      "stars" => 4, "category_id" => 5);
   $wrong_category = array('auctionId' => 5, "title" => "auction with long description",
       "description" => "very long description", "currentPrice" => 100,
-      "rating" => 4, "category_id" => 1000);
+      "stars" => 4, "category_id" => 1000);
 
   array_push($auction_set, $short, $short_spaces, $different, $costly);
 

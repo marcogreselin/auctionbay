@@ -235,7 +235,7 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
       ($auctionElement['currentPrice'] > $price_max))
         unset($auction_set[$auctionKey]);
 
-      if($auctionElement['rating'] < $rating)
+      if($auctionElement['stars'] < $rating)
         unset($auction_set[$auctionKey]);
 
       if($category_id && ($auctionElement['category_id'] != $category_id))
@@ -584,11 +584,10 @@ function process_feedback_form() {
 }
 
 /** Get details for the leave_feedback.php */
-
 function getAuctionForFeedback($auction_id) {
   global $connection;
 
-// query to retrieve the current all the relevant feedback information
+  // query to retrieve the current all the relevant feedback information
   $query = "SELECT imageName, title
   FROM auction
   WHERE auctionId = $auction_id";

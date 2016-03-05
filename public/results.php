@@ -30,17 +30,19 @@ if(isset($_GET['token'])) {
 
       $auction_set[$i]['currentPrice'] = $current_price;
 
-      //TODO
-      $auction_set[$i]['rating'] = 4;
-      //TODO: also, this happens with every new get request, with a fresh query
+
+      // $auction_set[$i]['rating'] = 4;
+      //TODO: this happens with every new get request, with a fresh query
       //for the token being made on the database, whereas no new query should
       //occurr for filtering purposes
-      
+      $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
+
+      $auction_set[$i]['stars']         = $feedback_array['stars'];
+      $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
 
       //once the current price is known, there is no further need for a
       //startingPrice field on the retrieved associative array
       unset($auction_set[$i]['startingPrice']);
-
     }
     //print_r($auction_set);
   }
@@ -194,11 +196,19 @@ include("../includes/layouts/header.php");
                 if($auction_set) {
 
                   foreach ($auction_set as $auction) {
-                    $imageName    = htmlentities($auction['imageName']);
-                    $title        = htmlentities($auction['title']);
-                    $auctionId    = htmlentities($auction['auctionId']);
-                    $currentPrice = htmlentities($auction['currentPrice']);
-                    $description  = htmlentities($auction['description']);
+                    $imageName      = htmlentities($auction['imageName']);
+                    $title          = htmlentities($auction['title']);
+                    $auctionId      = htmlentities($auction['auctionId']);
+                    $currentPrice   = htmlentities($auction['currentPrice']);
+                    $description    = htmlentities($auction['description']);
+                    $rating_string  = "";
+                    if($auction['no_of_ratings'] > 0) {
+                      $rating         = htmlentities($auction['stars']);
+                      $no_of_ratings  = htmlentities($auction['no_of_ratings']);
+
+                      $rating = "Rating:{$rating}<br/>
+                                Based on {$no_of_ratings} ratings<br/>";
+                    }
 
                     $output = "
                     <td>
@@ -222,7 +232,8 @@ include("../includes/layouts/header.php");
                                       <div class=\"col-sm-6\">
                                           <div><h6 class=\"jqAuctionPrice\">
                                           Current Price:
-                                            £{$currentPrice}</h6></div>
+                                            £{$currentPrice}</h6>
+                                            {$rating_string} </div>
                                       </div>
                                   </li>
                                   <li>
