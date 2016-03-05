@@ -6,7 +6,9 @@ require_once('../includes/form_processing.php');
 
 // Get the user_id and the auction_id from the screen before
 $userId = $_GET['for_user_id'];
+$auctionId = $_GET['auctionId'];
 $feedbackMainResult = getFeedbackInformation($userId);
+$feedbackMainResultForAverageStars = queryAuctionData($auctionId);
 ?>
 
 
@@ -21,7 +23,7 @@ require_once('../includes/layouts/header.php');
         $feedback = mysqli_fetch_assoc(getFeedbackInformation($userId));
         ?>
 
-    <h1>Feedback for <?php echo $feedback["firstName"]." ".$feedback["lastName"]; ?></h1>
+    <h1>Feedback for <?php echo $feedback["firstName"]." ".$feedback["lastName"]; ?> (<?php echo $feedbackMainResultForAverageStars["stars"]?> stars)</h1>
     <h4>User type: <?php
         if($feedback["role"] == 1) {
             echo "buyer";
@@ -73,7 +75,7 @@ require_once('../includes/layouts/header.php');
             </td>
             <td>
                 <div class=\"container-feedback-date\">
-
+                    {$row['date(date)']}
                 </div>
             </td>
 
