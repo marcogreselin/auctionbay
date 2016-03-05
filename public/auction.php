@@ -5,7 +5,7 @@
     addVisit($_GET["auctionId"]);
 
   $auctionData = queryAuctionData($_GET["auctionId"]);
-  $bidders = bidderList();
+
 
 
 
@@ -23,7 +23,7 @@
   	bid($auctionData);
     $auctionData = queryAuctionData($_GET["auctionId"]);
   }
-
+    $bidders = bidderList();
 
 ?>
 

@@ -364,14 +364,14 @@ function queryAuctionData($auctionId){
 
   $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName, date(expirationDate) as expirationDate,";
   $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
-  $query .= "IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars , j.user_Id AS currentWinner ";
+  $query .= "IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars , j.user_Id AS currentWinner, j.email AS currentWinnerEmail ";
 
   $query .= "FROM auction ";
   $query .= "JOIN user ON auction.seller = user.userid ";
   $query .= "LEFT JOIN feedback ON feedback.user_Id = user.userId ";
   $query .= "LEFT JOIN ( ";
-    $query .= "SELECT bidamount AS amount, user_id , auction_id ";
-    $query .= "FROM bid ";
+    $query .= "SELECT bidamount AS amount, user_id , auction_id, email ";
+    $query .= "FROM bid JOIN user ON user.userId = bid.user_id ";
     $query .= "WHERE auction_Id=".$auctionId." ";
     $query .= "ORDER BY amount DESC ";
     $query .= "LIMIT 1 ";
@@ -447,6 +447,14 @@ function bid($auctionData){
 
   if($_POST["newBidAmount"]>$auctionData["price"]){
     mysqli_query($connection,$query);
+    if($auctionData['currentWinner']!=$userId){
+      $to      = $auctionData['currentWinnerEmail'];
+      $subject = 'Your bid for '.$auctionData['title'];
+      $message = "Hello there, \n We are writing you to inform you that your bid has been outbid by another user. The new price is set to £".$_POST["newBidAmount"].".\n Please visit AuctionBay and keep bidding!\n \n Your AuctionBay Team";
+      $headers = 'From: auctiobay.ucl@gmail.com' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+      mail($to, $subject, $message, $headers);
+    }
     return true;
   } else {
     return false;
