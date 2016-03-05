@@ -231,7 +231,7 @@ function get_price_failure() {
 function get_price_with_buyer_id_failure() {
   global $connection;
 
-  $auctionId = 2;
+  $auctionId = 3;
   $startingPrice = 1;
 
   $result = get_price_with_buyer_id($auctionId, $startingPrice);
@@ -356,7 +356,11 @@ function filter_auctions_without_bids_success() {
   $result = retrieve_seller_auctions();
   $result = filter_auctions_without_bids($result);
 
-  assert($result[0]['auctionId'] == 5);
+  // echo "<pre>";
+  // print_r($result);
+  // echo "</pre>";
+
+  assert($result[1]['auctionId'] == 5);
 
   if($temp)
     $_SESSION['userId'] = $temp;
@@ -373,7 +377,7 @@ function filter_auctions_without_bids_failure() {
   $result = retrieve_seller_auctions();
   $result = filter_auctions_without_bids($result);
 
-  assert($result[0]['auctionId'] == 5);
+  assert($result[1]['auctionId'] == 5);
 
   if($temp)
     $_SESSION['userId'] = $temp;

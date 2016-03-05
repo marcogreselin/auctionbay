@@ -343,7 +343,7 @@ function retrieve_buyer_auctions() {
 /*Reduces the auction set parameter excluding auctions based on whether the
 * user identified from session information won the auction*/
 function filter_auctions_not_won($auction_set) {
-  
+
 }
 
 function addAuction() {
@@ -590,8 +590,8 @@ function getAuctionForFeedback($auction_id) {
 
 // query to retrieve the current all the relevant feedback information
   $query = "SELECT imageName, title
-FROM auction
-WHERE auctionId = $auction_id";
+  FROM auction
+  WHERE auctionId = $auction_id";
 
 
   $auctionFeedbackQueryResult = mysqli_query($connection, $query);

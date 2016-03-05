@@ -192,7 +192,7 @@ function query_select_current_price_success() {
 
 //@TEST
 function query_select_current_price_failure() {
-  $auctionId = 2;
+  $auctionId = 3;
 
   assert(!query_select_current_price($auctionId));
 }
