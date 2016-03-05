@@ -4,6 +4,9 @@ assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
 assert_options(ASSERT_BAIL, 0);
 
+//define expected value for auction 5
+define("EXPECTED_PRICE_FOR_AUCTION_5", 120);
+
 //Dependencies
 require("../includes/validation_functions.php");
 require("../includes/form_processing.php");
@@ -210,8 +213,9 @@ function get_price_success() {
   $result_set = (query_select_auction_search("long"));
 
   foreach ($result_set as $auction) {
-    //assert((get_price($auction) == 101));
-    assert((get_price($auction['auctionId'], $auction['startingPrice']) == 101));
+    //assert((get_price($auction) == EXPECTED_PRICE_FOR_AUCTION_5));
+    assert((get_price($auction['auctionId'],
+                  $auction['startingPrice']) == EXPECTED_PRICE_FOR_AUCTION_5));
   }
 }
 
@@ -223,6 +227,7 @@ function get_price_failure() {
 
   foreach ($result_set as $auction) {
     //assert((get_price($auction) == 10));
+
     assert((get_price($auction['auctionId'], $auction['startingPrice']) == 10));
   }
 }
@@ -247,7 +252,7 @@ function get_price_with_buyer_id_success() {
   $startingPrice = 1;
 
   $result = get_price_with_buyer_id($auctionId, $startingPrice);
-  assert($result['value'] == 101);
+  assert($result['value'] == EXPECTED_PRICE_FOR_AUCTION_5);
   assert($result['user_id'] = 38);
 }
 
@@ -325,7 +330,7 @@ function retrieve_seller_auctions_success() {
   $result = retrieve_seller_auctions();
   // print_r($result[3]);
   assert($result[3]['auctionId'] == 5);
-  assert($result[3]['winning_price'] == 101);
+  assert($result[3]['winning_price'] == EXPECTED_PRICE_FOR_AUCTION_5);
   assert($result[3]['winner_id'] == 38);
 
   if($temp)

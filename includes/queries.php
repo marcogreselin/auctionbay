@@ -199,14 +199,14 @@ function query_select_auction_search($token) {
 /*Returns the current price (the value of the highest bid<strike>, i.e. the
 * second highest bid + 1</strike>), also returns the bid_id of the winning bid
 * from the bid table. Returns 0 if no bids have been made on the auction*/
-function query_select_current_price($auctionId) {
+function query_select_winning_bid($auctionId) {
   global $connection;
 
   //no need to prep input as input comes from another query
   $auctionId = mysqli_real_escape_string($connection, $auctionId);
 
   //prep query:
-  $query  = "SELECT MAX(bidAmount), user_id ";
+  $query  = "SELECT user_id, MAX(bidAmount) AS value ";
   $query .= "FROM bid WHERE auction_id={$auctionId}";
   /*//old logic, queried a "current_price" table for the data
   $subquery_select_max_bid_for_auction  = "SELECT MAX(bidAmount) ";

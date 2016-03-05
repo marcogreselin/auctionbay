@@ -72,7 +72,7 @@
                           {$auction['description']}
                         </td>
                         <td>
-                          <Strong>Bought!</strong><br/>
+                          <Strong>Sold!</strong><br/>
                           £{$auction['winning_price']}
                         </td>
                       </tr>";
@@ -92,7 +92,7 @@
         }
 
        ?>
-
+<!--Maybe add an "edit" button here, would require another query to user table-->
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
   <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?> <!--Alex Vally<br> -->

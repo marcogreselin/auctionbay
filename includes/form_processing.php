@@ -197,15 +197,15 @@ function process_search_form() {
 * price, returns the price of the auction when the auction is a legitimate row
 * of the auction table in the database, its behaviour is otherwise undefined */
 function get_price($auctionId, $auctionStartingPrice) {
-  $result = query_select_current_price($auctionId);
+  $result = query_select_winning_bid($auctionId);
 
-  if(!$result)
+  if(!$result['user_id'])
     return $auctionStartingPrice;//an integer
   else
     return $result['value']; //an integer
 }
 /* old version: function get_price($auction) {
-  $result = query_select_current_price($auction['auctionId']);
+  $result = query_select_winning_bid($auction['auctionId']);
   if(!$result)
     return $auction['startingPrice'];//an integer
   else
@@ -217,9 +217,9 @@ function get_price($auctionId, $auctionStartingPrice) {
 * "value" (price) and "user_id" (buyer's id). If the auction has no bids, then
 * returns the starting price as "value", and -1 as "user_id"*/
 function get_price_with_buyer_id($auctionId, $auctionStartingPrice) {
-  $result = query_select_current_price($auctionId);
+  $result = query_select_winning_bid($auctionId);
 
-  if(!$result)
+  if(!$result['user_id'])
     return array("value"=>$auctionStartingPrice, "user_id"=>-1 );
   else
     return $result;

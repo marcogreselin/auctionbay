@@ -4,6 +4,9 @@ assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
 assert_options(ASSERT_BAIL, 0);
 
+//define expected value for auction 5
+define("EXPECTED_PRICE_FOR_AUCTION_5", 120);
+
 //Dependencies
 require("../includes/dbconnection.php");
 require("../includes/session.php");
@@ -180,21 +183,31 @@ function query_select_auction_search_success() {
 }
 
 //@TEST
-function query_select_current_price_success() {
+function query_select_winning_bid_success() {
   $auctionId = 5;
 
-  $result = query_select_current_price($auctionId);
+  $result = query_select_winning_bid($auctionId);
+  echo "Content of auction 5 price query:<br/>";
+  echo "<pre>";
+  print_r($result);
+  echo "</pre>";
 
-  assert($result['value'] == 101 && $result['user_id'] == 38);
- //print_r(query_select_current_price($auctionId));
- // echo query_select_current_price($auctionId) . "<br/>";
+  assert($result['value'] == EXPECTED_PRICE_FOR_AUCTION_5 &&
+          $result['user_id'] == 38);
+ //print_r(query_select_winning_bid($auctionId));
+ // echo query_select_winning_bid($auctionId) . "<br/>";
 }
 
 //@TEST
-function query_select_current_price_failure() {
+function query_select_winning_bid_failure() {
   $auctionId = 3;
+  $result = query_select_winning_bid($auctionId);
 
-  assert(!query_select_current_price($auctionId));
+  // echo "<pre>";
+  // print_r($result);
+  // echo "</pre>";
+
+  assert(!$result['user_id']);
 }
 
 //@TEST
@@ -268,9 +281,9 @@ query_count_occurrences_failure();
 query_select_auction_search_failure();
 query_select_auction_search_success();
 
-//query_select_current_price()
-query_select_current_price_success();
-query_select_current_price_failure();
+//query_select_winning_bid()
+query_select_winning_bid_success();
+query_select_winning_bid_failure();
 
 //query_select_address()
 query_select_address_failure();
