@@ -16,7 +16,7 @@
   if(isset($_POST["unfavoriteButton"])){
   	unfavoriteAuction();
   }
-
+  
   $isFavorite = isFavorite();
 
   if(isset($_POST["bidButton"])){
@@ -32,7 +32,7 @@
 <div class="rating2"></div>
 	<h1><?php echo $auctionData["title"] ?></h1>
 	<p><h6 id="stars-price">Sold by <?php echo "<a href=\"feedback.php?for_user_id={$auctionData['seller']}&auctionId={$auctionData['auctionId']}\">" . $auctionData["firstName"] . " ". $auctionData["lastName"] . "</a>" ?> (<?php echo $auctionData["stars"]?> stars)</h6>
-	<h7>Time remaining: <?php 
+	<h7>Time remaining: <?php
 		$dateInterval=timeRemaining($auctionData["expirationDate"]);
 		if($dateInterval==false){
 			echo '<span style="color:#ec7063"> Expired!</span>';
@@ -67,21 +67,21 @@
 					echo 'Current Price';
 				}
 					?><br>&pound;<?php echo $auctionData["price"] ?>
-				<?php 
+				<?php
 					if($_SESSION["userId"]==$auctionData["currentWinner"]){
 						echo '<br><div id="this-you">This is you!</div>';
-					
-					} 
+
+					}
 				?>
 				</div>
 			</p>
 
-			<?php 
+			<?php
 				$biddingInterface = '<p><div class="form-group">
 			  <div class="input-group">
 			    <span class="input-group-addon">&pound;</span>
 			    <input type="text" class="form-control" method="POST" name="newBidAmount" placeholder="" />
-			  </div>  
+			  </div>
 			</div></p>
 			<p class="text-center"><button class="btn btn-hg btn-primary" name="bidButton">
 			  Bid!
@@ -146,7 +146,7 @@
 		    }
 
 		    ?>
-		    
+
 		  </div>
 
 		</div>

@@ -37,6 +37,7 @@
         $auction_set_unfiltered = retrieve_seller_auctions();
         $auction_set = filter_auctions_without_bids($auction_set_unfiltered);
         $auction_set = filter_non_expired_auctions($auction_set);
+        //add check if feedback was left?
 
         if($auction_set) {
 
@@ -55,24 +56,29 @@
 
             $encoded_winner_id  = urlencode($auction['winner_id']);
             $encoded_auction_id = urlencode($auction['auctionId']);
+            $imageName      = htmlentities($auction['imageName']);
+            $title          = htmlentities($auction['title']);
+            $description    = htmlentities($auction['description']);
+            $winning_price  = htmlentities($auction['winning_price']);
             $link  = "leave_feedback.php?user_id={$encoded_winner_id}";
             $link .= "&auction_id={$encoded_auction_id}";
             $output .= "<tr>
 
-                        <td><a href=\"{$link}\">
-                        <img src=\"img/auctions/{$auction['imageName']}\"
-                        title=\"{$auction['title']}\">
-                        {$auction['title']}</a></td>
+                        <td><a href=\"{$link}\"><h7>{$title}</h7>
+                        <img src=\"img/auctions/{$imageName}\"
+                        title=\"{$title}\">
+                        </a></td>
                         <td>
                           <strong>Description:</strong><br/>
                           {$auction['description']}
                         </td>
                         <td>
-                          <Strong>Sold:</strong><br/>
+                          <Strong>Sold!</strong><br/>
                           £{$auction['winning_price']}
                         </td>
                       </tr>";
           }
+
 
           // <!--  <tr>
           //
@@ -87,7 +93,7 @@
         }
 
        ?>
-
+<!--Maybe add an "edit" button here, would require another query to user table-->
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
   <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?> <!--Alex Vally<br> -->

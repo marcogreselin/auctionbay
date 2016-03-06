@@ -181,11 +181,11 @@ function query_select_auction_search($token) {
   $token = mysqli_real_escape_string($connection, $token);
 
   //prep query
-  $query  = "SELECT auctionId, title, description, startingPrice, category_id ";
+  $query  = "SELECT auctionId, title, description, startingPrice, category_id, ";
+  $query .= "imageName, seller ";
   $query .= "FROM auction ";
-  $query .= "WHERE title LIKE '%{$token}%' OR ";
-  $query .= "       description LIKE '%{$token}%' ";
-  $query .= " AND NOW()<expirationDate";
+  $query .= "WHERE NOW()<expirationDate AND ";
+  $query .= "(title LIKE '%{$token}%' OR description LIKE '%{$token}%')";
  //  $query .= "LIMIT 50;"; //limit?
 
   $result_set = mysqli_query($connection, $query);
@@ -196,16 +196,19 @@ function query_select_auction_search($token) {
   return $result_set;
 }
 
-/*Returns the current price (the value of the highest bid, i.e. the second
-* highest bid + 1), also returns the bid_id of the winning bid from the bid
-* table. Returns 0 if no bids have been made on the auction*/
-function query_select_current_price($auctionId) {
+/*Returns the current price (the value of the highest bid<strike>, i.e. the
+* second highest bid + 1</strike>), also returns the bid_id of the winning bid
+* from the bid table. Returns 0 if no bids have been made on the auction*/
+function query_select_winning_bid($auctionId) {
   global $connection;
 
   //no need to prep input as input comes from another query
   $auctionId = mysqli_real_escape_string($connection, $auctionId);
 
-  //prep queries:
+  //prep query:
+  $query  = "SELECT user_id, MAX(bidAmount) AS value ";
+  $query .= "FROM bid WHERE auction_id={$auctionId}";
+  /*//old logic, queried a "current_price" table for the data
   $subquery_select_max_bid_for_auction  = "SELECT MAX(bidAmount) ";
   $subquery_select_max_bid_for_auction .= "FROM bid WHERE auction_id={$auctionId}";
 
@@ -214,7 +217,7 @@ function query_select_current_price($auctionId) {
 
   $query  = "SELECT current_price.value, bid.user_id FROM current_price ";
   $query .= "INNER JOIN bid ON current_price.bid_id=bid.bidId ";
-  $query .= "WHERE bid_id=({$subquery_select_from_bids})";
+  $query .= "WHERE bid_id=({$subquery_select_from_bids})";*/
 
   //do query:
   $result = mysqli_query($connection, $query);
@@ -225,8 +228,8 @@ function query_select_current_price($auctionId) {
   return $result;
 }
 
-/*Returns the set of <strike><strong>not-expired</strong></strike> auctions created by the seller
-* specified in the parameter*/
+/*Returns the set of <strike><strong>not-expired</strong></strike> auctions
+* created by the seller specified in the parameter*/
 function query_select_seller_auctions($sellerUserId) {
   global $connection;
 
@@ -239,6 +242,80 @@ function query_select_seller_auctions($sellerUserId) {
   $query .= "FROM auction ";
   $query .= "WHERE seller={$sellerUserId} ";
   // $query .= "AND NOW()>expirationDate";
+
+  //forward query to database
+  $result = mysqli_query($connection, $query);
+
+  //If set is not empty, return a number-indexed array, return 0 otherwise
+  if($result)
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+  return $result;
+}
+
+/*Returns the set of auctions that the buyer specified in the parameter bid on
+* at some point*/
+function query_select_buyer_auctions($buyerUserId) {
+  global $connection;
+
+  //escape input
+  $buyerUserId = mysqli_real_escape_string($connection, $buyerUserId);
+
+  //prepare queries
+  $subquery_select_from_bids  = "SELECT auction_id FROM bid ";
+  $subquery_select_from_bids .= "WHERE user_id='{$buyerUserId}'";
+
+  $query  = "SELECT auctionId, title, imageName, description, startingPrice, ";
+  $query .= "expirationDate ";
+  $query .= "FROM auction ";
+  $query .= "WHERE auctionId IN ($subquery_select_from_bids)";
+
+  //forward query to database
+  $result = mysqli_query($connection, $query);
+
+  //If set is not empty, return a number-indexed array, return 0 otherwise
+  if($result)
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+  return $result;
+}
+
+/*Returns the average rating for the user and the number of times the user has
+* been left feedback (the number of occurrences of the user's id) */
+function query_select_user_rating($user_id) {
+  global $connection;
+
+  //should be safe but escape:
+  $user_id = mysqli_real_escape_string($connection, $user_id);
+
+  //construct query
+  $query  = "SELECT IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) AS stars, ";
+  $query .= "COUNT(user_id) AS occurrences ";
+  $query .= "FROM feedback WHERE user_id='{$user_id}'";
+
+  $result = mysqli_query($connection, $query);
+
+  if($result)
+    $result = mysqli_fetch_assoc($result);
+
+  return $result;
+}
+
+/*Returns a set of auctions the user is following*/
+function query_select_followed_by_user($userId) {
+  global $connection;
+
+  //escape input
+  $userId = mysqli_real_escape_string($connection, $userId);
+
+  //prepare queries
+  $subquery_select_from_follower  = "SELECT auction_id FROM follower ";
+  $subquery_select_from_follower .= "WHERE user_id='{$userId}'";
+
+  $query  = "SELECT auctionId, title, imageName, description, startingPrice, ";
+  $query .= "expirationDate ";
+  $query .= "FROM auction ";
+  $query .= "WHERE auctionId IN ($subquery_select_from_follower)";
 
   //forward query to database
   $result = mysqli_query($connection, $query);

@@ -197,15 +197,15 @@ function process_search_form() {
 * price, returns the price of the auction when the auction is a legitimate row
 * of the auction table in the database, its behaviour is otherwise undefined */
 function get_price($auctionId, $auctionStartingPrice) {
-  $result = query_select_current_price($auctionId);
+  $result = query_select_winning_bid($auctionId);
 
-  if(!$result)
+  if(!$result['user_id'])
     return $auctionStartingPrice;//an integer
   else
     return $result['value']; //an integer
 }
 /* old version: function get_price($auction) {
-  $result = query_select_current_price($auction['auctionId']);
+  $result = query_select_winning_bid($auction['auctionId']);
   if(!$result)
     return $auction['startingPrice'];//an integer
   else
@@ -217,9 +217,9 @@ function get_price($auctionId, $auctionStartingPrice) {
 * "value" (price) and "user_id" (buyer's id). If the auction has no bids, then
 * returns the starting price as "value", and -1 as "user_id"*/
 function get_price_with_buyer_id($auctionId, $auctionStartingPrice) {
-  $result = query_select_current_price($auctionId);
+  $result = query_select_winning_bid($auctionId);
 
-  if(!$result)
+  if(!$result['user_id'])
     return array("value"=>$auctionStartingPrice, "user_id"=>-1 );
   else
     return $result;
@@ -235,7 +235,7 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
       ($auctionElement['currentPrice'] > $price_max))
         unset($auction_set[$auctionKey]);
 
-      if($auctionElement['rating'] < $rating)
+      if($auctionElement['stars'] < $rating)
         unset($auction_set[$auctionKey]);
 
       if($category_id && ($auctionElement['category_id'] != $category_id))
@@ -245,9 +245,9 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
     return empty($auction_set) ? null : $auction_set;
 }
 
-/*Returns a set of expired auctions that the user identified in the session
-* created, with their final price as 'winning_price', and winner as 'winner_id'.
-* returns 0 if the user has no expired auctions*/
+/*Returns a set of <strike>expired</strike> auctions that the user identified in
+* the session created, with their final price as 'winning_price', and winner as
+* 'winner_id'. Returns 0 if the user has no <strike>expired</strike> auctions*/
 function retrieve_seller_auctions() {
 
   $auction_set = query_select_seller_auctions($_SESSION['userId']);
@@ -320,6 +320,48 @@ function filter_expired_auctions($auction_set) {
   }
 
   return $result;
+}
+
+/*Returns a set of auctions that the user identified in the session bid on at
+* some point. Returns 0 if the user has not bid on any auctions*/
+function retrieve_buyer_auctions() {
+
+  $auction_set = query_select_buyer_auctions($_SESSION['userId']);
+  for($i=0; $i<sizeof($auction_set); $i++) {
+    //append the result of get_price($auctionId, $auctionStartingPrice) to
+    //each auction associative array
+    $winning_bid = get_price_with_buyer_id($auction_set[$i]['auctionId'],
+                      $auction_set[$i]['startingPrice']);
+
+    $auction_set[$i]['winning_price'] = $winning_bid['value'];
+    $auction_set[$i]['winner_id']     = $winning_bid['user_id'];
+  }
+
+  return $auction_set;
+}
+
+/*Reduces the auction set parameter excluding auctions based on whether the
+* user identified from session information won the auction*/
+function filter_auctions_not_won($auction_set) {
+  //TODO
+}
+
+/*Returns a set of auctions corresponding to the auctions the user identified in
+* the session is following.*/
+function retrieve_followed_by_user() {
+
+  $auction_set = query_select_followed_by_user($_SESSION['userId']);
+  for($i=0; $i<sizeof($auction_set); $i++) {
+    //append the result of get_price($auctionId, $auctionStartingPrice) to
+    //each auction associative array
+    $winning_bid = get_price_with_buyer_id($auction_set[$i]['auctionId'],
+                      $auction_set[$i]['startingPrice']);
+
+    $auction_set[$i]['winning_price'] = $winning_bid['value'];
+    $auction_set[$i]['winner_id']     = $winning_bid['user_id'];
+  }
+
+  return $auction_set;
 }
 
 function addAuction() {
@@ -432,7 +474,8 @@ function unfavoriteAuction(){
   $userId = $_SESSION["userId"];
   $auctionId = $_GET["auctionId"];
 
-  $query = "DELETE FROM follower WHERE `user_id`='".$userId."';";
+  $query  = "DELETE FROM follower WHERE `user_id`='".$userId."' AND ";
+  $query .= "auction_id='{$auctionId}';";
 
 
   mysqli_query($connection,$query);
@@ -560,14 +603,13 @@ function process_feedback_form() {
 }
 
 /** Get details for the leave_feedback.php */
-
 function getAuctionForFeedback($auction_id) {
   global $connection;
 
-// query to retrieve the current all the relevant feedback information
+  // query to retrieve the current all the relevant feedback information
   $query = "SELECT imageName, title
-FROM auction
-WHERE auctionId = $auction_id";
+  FROM auction
+  WHERE auctionId = $auction_id";
 
 
   $auctionFeedbackQueryResult = mysqli_query($connection, $query);
@@ -579,6 +621,7 @@ WHERE auctionId = $auction_id";
     return mysqli_fetch_assoc($auctionFeedbackQueryResult);
   }
 }
+
 
 
 ?>

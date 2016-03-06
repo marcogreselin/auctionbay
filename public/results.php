@@ -30,16 +30,19 @@ if(isset($_GET['token'])) {
 
       $auction_set[$i]['currentPrice'] = $current_price;
 
-      //TODO
-      $auction_set[$i]['rating'] = 4;
-      //TODO: also, this happens with every new get request, with a fresh query
+
+      // $auction_set[$i]['rating'] = 4;
+      //TODO: this happens with every new get request, with a fresh query
       //for the token being made on the database, whereas no new query should
       //occurr for filtering purposes
+      $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
+
+      $auction_set[$i]['stars']         = $feedback_array['stars'];
+      $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
 
       //once the current price is known, there is no further need for a
       //startingPrice field on the retrieved associative array
       unset($auction_set[$i]['startingPrice']);
-
     }
     //print_r($auction_set);
   }
@@ -68,8 +71,8 @@ include("../includes/layouts/header.php");
 <div class="container-search-page" id="wrapper">
 
   <div class="search-page-header"><h5>Show results for <?php
-                                                  if(isset($_GET['token']))
-                                                    { echo $_GET['token']; }
+                                            if(isset($_GET['token']))
+                                            { echo urldecode($_GET['token']); }
                                                     ?></h5></div>
   <div class="row">
     <div class="col-sm-3">
@@ -81,8 +84,8 @@ include("../includes/layouts/header.php");
             <li class="nav-header">
               <input class="form-control input-hg" type="text"
               name="token" id="token" value="<?php
-                                                  if(isset($_GET['token']))
-                                                    { echo $_GET['token']; }
+                                          if(isset($_GET['token']))
+                                            { echo urldecode($_GET['token']); }
                                                     ?>">
             </li>
             <li class="divider"></li>
@@ -193,10 +196,25 @@ include("../includes/layouts/header.php");
                 if($auction_set) {
 
                   foreach ($auction_set as $auction) {
+                    $imageName      = htmlentities($auction['imageName']);
+                    $title          = htmlentities($auction['title']);
+                    $auctionId      = htmlentities($auction['auctionId']);
+                    $currentPrice   = htmlentities($auction['currentPrice']);
+                    $description    = htmlentities($auction['description']);
+                    $rating_string  = "The seller has not yet been rated<br/>";
+                    if($auction['no_of_ratings'] > 0) {
+                      $rating         = htmlentities($auction['stars']);
+                      $no_of_ratings  = htmlentities($auction['no_of_ratings']);
+
+                      $rating = "Rating:{$rating}<br/>
+                                Based on {$no_of_ratings} ratings<br/>";
+                    }
+
                     $output = "
                     <td>
-                          <a href=\"#\"><img src=\"img/user-interface.svg\"
-                                          title=\"Insert title\"
+                          <a href=\"auction.php?auctionId={$auctionId}\">
+                          <img src=\"img/auctions/{$imageName}\"
+                                          title=\"{$title}\"
                                           class=\"search-result-table\"></a>
                       </td>
                       <td>
@@ -205,21 +223,22 @@ include("../includes/layouts/header.php");
                                   <li>
                                       <div class=\"col-sm-6\">
                                           <a href=\"
-                                            auction.php?auctionId={$auction['auctionId']}\">
+                                            auction.php?auctionId={$auctionId}\">
 
                                           <h6 class=\"jqAuctionTitle\">
-                                          {$auction['title']}</h6>
+                                          {$title}</h6>
                                           </a>
                                       </div>
                                       <div class=\"col-sm-6\">
                                           <div><h6 class=\"jqAuctionPrice\">
                                           Current Price:
-                                            £{$auction['currentPrice']}</h6></div>
+                                            £{$currentPrice}</h6>
+                                            {$rating_string} </div>
                                       </div>
                                   </li>
                                   <li>
                                       <div class=\"container-item-description\">
-                                          {$auction['description']}
+                                          {$description}
                                       </div>
                                   </li>
 

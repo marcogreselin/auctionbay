@@ -4,6 +4,10 @@ assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
 assert_options(ASSERT_BAIL, 0);
 
+//define expected values
+define("EXPECTED_PRICE_FOR_AUCTION_5", 120);
+define("EXPECTED_AUCTION_ID", 11);
+
 //Dependencies
 require("../includes/validation_functions.php");
 require("../includes/form_processing.php");
@@ -210,8 +214,9 @@ function get_price_success() {
   $result_set = (query_select_auction_search("long"));
 
   foreach ($result_set as $auction) {
-    //assert((get_price($auction) == 101));
-    assert((get_price($auction['auctionId'], $auction['startingPrice']) == 101));
+    //assert((get_price($auction) == EXPECTED_PRICE_FOR_AUCTION_5));
+    assert((get_price($auction['auctionId'],
+                  $auction['startingPrice']) == EXPECTED_PRICE_FOR_AUCTION_5));
   }
 }
 
@@ -223,6 +228,7 @@ function get_price_failure() {
 
   foreach ($result_set as $auction) {
     //assert((get_price($auction) == 10));
+
     assert((get_price($auction['auctionId'], $auction['startingPrice']) == 10));
   }
 }
@@ -231,7 +237,7 @@ function get_price_failure() {
 function get_price_with_buyer_id_failure() {
   global $connection;
 
-  $auctionId = 2;
+  $auctionId = 3;
   $startingPrice = 1;
 
   $result = get_price_with_buyer_id($auctionId, $startingPrice);
@@ -247,7 +253,7 @@ function get_price_with_buyer_id_success() {
   $startingPrice = 1;
 
   $result = get_price_with_buyer_id($auctionId, $startingPrice);
-  assert($result['value'] == 101);
+  assert($result['value'] == EXPECTED_PRICE_FOR_AUCTION_5);
   assert($result['user_id'] = 38);
 }
 
@@ -256,17 +262,17 @@ function process_filter_form_not_empty() {
   $auction_set = array();
 
   $short = array('auctionId' => 2, "title" => "title",
-      "description" => "description", "currentPrice" => 10, "rating" => 1,
+      "description" => "description", "currentPrice" => 10, "stars" => 1,
       "category_id" => 5);
   $short_spaces = array('auctionId' => 3, "title" => "title with spaces",
       "description" => "description with spaces", "currentPrice" => 10,
-      "rating" => 2, "category_id" => 5);
+      "stars" => 2, "category_id" => 5);
   $different = array('auctionId' => 4, "title" => "different",
-      "description" => "same description", "currentPrice" => 10, "rating" => 3,
+      "description" => "same description", "currentPrice" => 10, "stars" => 3,
       "category_id" => 5);
   $costly = array('auctionId' => 5, "title" => "auction with long description",
       "description" => "very long description", "currentPrice" => 100,
-      "rating" => 4, "category_id" => 5);
+      "stars" => 4, "category_id" => 5);
 
   array_push($auction_set, $short, $short_spaces, $different, $costly);
 
@@ -285,20 +291,20 @@ function process_filter_form_empty() {
   $auction_set = array();
 
   $short = array('auctionId' => 2, "title" => "title",
-      "description" => "description", "currentPrice" => 10, "rating" => 1,
+      "description" => "description", "currentPrice" => 10, "stars" => 1,
       "category_id" => 5);
   $short_spaces = array('auctionId' => 3, "title" => "title with spaces",
       "description" => "description with spaces", "currentPrice" => 10,
-      "rating" => 2, "category_id" => 5);
+      "stars" => 2, "category_id" => 5);
   $different = array('auctionId' => 4, "title" => "different",
-      "description" => "same description", "currentPrice" => 10, "rating" => 3,
+      "description" => "same description", "currentPrice" => 10, "stars" => 3,
       "category_id" => 5);
   $costly = array('auctionId' => 5, "title" => "auction with long description",
       "description" => "very long description", "currentPrice" => 100,
-      "rating" => 4, "category_id" => 5);
+      "stars" => 4, "category_id" => 5);
   $wrong_category = array('auctionId' => 5, "title" => "auction with long description",
       "description" => "very long description", "currentPrice" => 100,
-      "rating" => 4, "category_id" => 1000);
+      "stars" => 4, "category_id" => 1000);
 
   array_push($auction_set, $short, $short_spaces, $different, $costly);
 
@@ -325,7 +331,7 @@ function retrieve_seller_auctions_success() {
   $result = retrieve_seller_auctions();
   // print_r($result[3]);
   assert($result[3]['auctionId'] == 5);
-  assert($result[3]['winning_price'] == 101);
+  assert($result[3]['winning_price'] == EXPECTED_PRICE_FOR_AUCTION_5);
   assert($result[3]['winner_id'] == 38);
 
   if($temp)
@@ -356,7 +362,11 @@ function filter_auctions_without_bids_success() {
   $result = retrieve_seller_auctions();
   $result = filter_auctions_without_bids($result);
 
-  assert($result[0]['auctionId'] == 5);
+  // echo "<pre>";
+  // print_r($result);
+  // echo "</pre>";
+
+  assert($result[1]['auctionId'] == 5);
 
   if($temp)
     $_SESSION['userId'] = $temp;
@@ -373,7 +383,7 @@ function filter_auctions_without_bids_failure() {
   $result = retrieve_seller_auctions();
   $result = filter_auctions_without_bids($result);
 
-  assert($result[0]['auctionId'] == 5);
+  assert($result[1]['auctionId'] == 5);
 
   if($temp)
     $_SESSION['userId'] = $temp;
@@ -437,6 +447,61 @@ function filter_expired_auctions_success() {
 //@TEST
 function filter_expired_auctions_failure() {
 
+}
+
+//@TEST
+function retrieve_buyer_auctions_success() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 38;
+  $result = retrieve_buyer_auctions();
+
+  assert($result[0]['auctionId'] == 5);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function retrieve_buyer_auctions_failure() {
+
+}
+
+//@TEST
+function retrieve_followed_by_user_success() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 38;
+  $result = retrieve_followed_by_user();
+  // print_r($result[3]);
+  assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
+  assert($result[2]['winning_price'] == EXPECTED_AUCTION_ID);
+  assert($result[2]['winner_id'] == -1);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function retrieve_followed_by_user_failure() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 272;
+  $result = retrieve_followed_by_user();
+  // print_r($result[3]);
+  assert(!$result);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
 }
 
 //test for failure first post
@@ -504,6 +569,14 @@ filter_non_expired_auctions_failure();
 //filter_expired_auctions()
 filter_expired_auctions_success();
 filter_expired_auctions_failure();
+
+//retrieve_buyer_auctions()
+retrieve_buyer_auctions_success();
+retrieve_buyer_auctions_failure();
+
+//retrieve_followed_by_user()
+retrieve_followed_by_user_success();
+retrieve_followed_by_user_failure();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";

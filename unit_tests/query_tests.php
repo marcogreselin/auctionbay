@@ -4,6 +4,10 @@ assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
 assert_options(ASSERT_BAIL, 0);
 
+//define expected values
+define("EXPECTED_PRICE_FOR_AUCTION_5", 120);
+define("EXPECTED_AUCTION_ID", 11);
+
 //Dependencies
 require("../includes/dbconnection.php");
 require("../includes/session.php");
@@ -180,21 +184,31 @@ function query_select_auction_search_success() {
 }
 
 //@TEST
-function query_select_current_price_success() {
+function query_select_winning_bid_success() {
   $auctionId = 5;
 
-  $result = query_select_current_price($auctionId);
+  $result = query_select_winning_bid($auctionId);
+  echo "Content of auction 5 price query:<br/>";
+  echo "<pre>";
+  print_r($result);
+  echo "</pre>";
 
-  assert($result['value'] == 101 && $result['user_id'] == 38);
- //print_r(query_select_current_price($auctionId));
- // echo query_select_current_price($auctionId) . "<br/>";
+  assert($result['value'] == EXPECTED_PRICE_FOR_AUCTION_5 &&
+          $result['user_id'] == 38);
+ //print_r(query_select_winning_bid($auctionId));
+ // echo query_select_winning_bid($auctionId) . "<br/>";
 }
 
 //@TEST
-function query_select_current_price_failure() {
-  $auctionId = 2;
+function query_select_winning_bid_failure() {
+  $auctionId = 3;
+  $result = query_select_winning_bid($auctionId);
 
-  assert(!query_select_current_price($auctionId));
+  // echo "<pre>";
+  // print_r($result);
+  // echo "</pre>";
+
+  assert(!$result['user_id']);
 }
 
 //@TEST
@@ -232,6 +246,53 @@ function query_select_seller_auctions_success() {
   assert(query_select_seller_auctions($userId)[0]['auctionId'] == 2);
 }
 
+//@TEST
+function query_select_buyer_auctions_success() {
+  $userId = 38;
+
+  $result = query_select_buyer_auctions($userId);
+  assert($result[0]['auctionId'] == 5);
+}
+
+//@TEST
+function query_select_buyer_auctions_failure() {
+
+}
+
+//@TEST
+function query_select_user_rating_success() {
+  $user_id = 78;
+
+  $result = query_select_user_rating($user_id);
+  assert($result['stars'] == 3);
+  assert($result['occurrences'] > 0);
+}
+
+//@TEST
+function query_select_user_rating_failure() {
+  $user_id = 272;
+
+  $result = query_select_user_rating($user_id);
+  assert($result['stars'] == 0);
+  assert($result['occurrences'] == 0);
+}
+
+//@TEST
+function query_select_followed_by_user_success() {
+  $userId = 38;
+
+  $result = query_select_followed_by_user($userId);
+  // print_r($result);
+  assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
+}
+
+//@TEST
+function query_select_followed_by_user_failure() {
+  $userId = 272;
+
+  $result = query_select_followed_by_user($userId);
+  assert(!$result);
+}
 
 //query_insert_user()
 //query_insert_user_test_failure();
@@ -256,9 +317,9 @@ query_count_occurrences_failure();
 query_select_auction_search_failure();
 query_select_auction_search_success();
 
-//query_select_current_price()
-query_select_current_price_success();
-query_select_current_price_failure();
+//query_select_winning_bid()
+query_select_winning_bid_success();
+query_select_winning_bid_failure();
 
 //query_select_address()
 query_select_address_failure();
@@ -267,6 +328,18 @@ query_select_address_success();
 //query_select_seller_auctions()
 query_select_seller_auctions_failure();
 query_select_seller_auctions_success();
+
+//query_select_buyer_auctions()
+query_select_buyer_auctions_success();
+query_select_buyer_auctions_failure();
+
+//query_select_user_rating()
+query_select_user_rating_success();
+query_select_user_rating_failure();
+
+//query_select_followed_by_user()
+query_select_followed_by_user_success();
+query_select_followed_by_user_failure();
 
 echo "<h3>All tests completed</h3>";
 
