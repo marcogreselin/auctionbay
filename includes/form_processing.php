@@ -392,7 +392,7 @@ function filter_auctions_already_rated($auction_set, $role) {
       if(!query_feedback_left($auction['seller'], $auction['auctionId'])) {
 
           array_push($result, $auction);
-          echo "<br/>Session id: ".$_SESSION['userId']."<br/> Seller id: ".$auction['seller'];
+          // echo "<br/>Session id: ".$_SESSION['userId']."<br/> Seller id: ".$auction['seller'];
       }
     }
   } else {
