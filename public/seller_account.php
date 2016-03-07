@@ -8,6 +8,8 @@
       redirect_to("index.php");
     }
 
+  $userId = $_GET['user_id'];
+
 ?>
 
 <div class="container">
@@ -29,9 +31,15 @@
         </a>
       </li>
 
+
+      <li>
+        <a href="#sold-auctions">
+          Sold
+        </a>
+      </li>
+
     </ul>
   </div>
-
   <div class="col-md-10">
       <?php
         $auction_set_unfiltered = retrieve_seller_auctions();
@@ -143,6 +151,39 @@
       <td>Third Row, third column</td>
     </tr> -->
   </table>
+
+
+    <!-- Table for the sold auctions for the seller -->
+    <a name="sold-auctions"><h3>Items Sold</h3></a>
+    <table class="table table-striped">
+      <col width="200px">
+      <col width="auto">
+      <col width="auto">
+      <tr>
+        <th>Auction Item</th>
+        <th>Corresponding Buyer</th>
+        <th>Final Price</th>
+      </tr>
+
+      <?php
+      $completedAuction = getCompletedAuctionDetailsForSeller($userId);
+
+      while ($row = mysqli_fetch_assoc($completedAuction)) {
+        $link = "auction.php?auctionId=" . urlencode($row['auction_id']);
+
+        $output = "
+       <tr>
+        <td><div>{$row['title']}</div><a href=\"{$link}\"><img src=\"img/auctions/{$row['imageName']}\" title=\"{$row['title']}\"></a></td>
+        <td>{$row['buyerName']}<br>{$row['buyerAddress']}</td>
+        <td>{$row['finalAmount']}</td>
+      </tr>";
+
+        echo $output;
+      }
+      ?>
+    </table>
+
+
 
 </div>
 </div>

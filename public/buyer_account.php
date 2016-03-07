@@ -3,11 +3,14 @@
   require_once("../includes/navigation.php");
   require_once("../includes/form_processing.php");
   require_once("../includes/dbconnection.php");
+
   if(is_buyer()) {
       include("../includes/layouts/header.php");
     } else {
       redirect_to("index.php");
     }
+
+  $userId = $_GET['user_id'];
 ?>
 
 <div class="container">
@@ -34,6 +37,13 @@
           Following
         </a>
       </li>
+
+      <li>
+        <a href="#awarded-auctions">
+          Awarded
+        </a>
+      </li>
+
     </ul>
   </div>
 
@@ -162,8 +172,6 @@
   <table class="table table-striped">
     <col width="200px">
     <col width="auto">
-    <col width="auto">
-    <col width="50px">
     <tr>
       <th>Item Name</th>
       <th>Description</th>
@@ -195,6 +203,40 @@
       <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
     </tr>
   </table>
+
+
+    <!-- Table for the awarded auctions for the buyer -->
+    <a name="awarded-auctions"><h3>Awarded Auctions</h3></a>
+    <table class="table table-striped">
+      <col width="200px">
+      <col width="auto">
+      <col width="auto">
+      <col width="50px">
+      <tr>
+        <th>Auction Item</th>
+        <th>Corresponding Seller</th>
+        <th>Final Price</th>
+      </tr>
+
+      <?php
+      $completedAuction = getCompletedAuctionDetailsForBuyer($userId);
+
+
+      while ($row = mysqli_fetch_assoc($completedAuction)) {
+        $link = "auction.php?auctionId=" . urlencode($row['auction_id']);
+        $output = "
+       <tr>
+        <td><div>{$row['title']}</div><a href=\"{$link}\"><img src=\"img/auctions/{$row['imageName']}\" title=\"{$row['title']}\"></a></td>
+        <td>{$row['sellerName']}<br>{$row['sellerAddress']}</td>
+        <td>{$row['finalAmount']}</td>
+      </tr>";
+        echo $output;
+      }
+      ?>
+    </table>
+
+
+
 </div>
 </div>
 
