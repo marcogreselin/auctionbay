@@ -389,8 +389,11 @@ function filter_auctions_already_rated($auction_set, $role) {
   } elseif($role == ROLE_BUYER) {
     //$auction_set must already be only the ones the buyer won
     foreach ($auction_set as $auction) {
-      if(!query_feedback_left($auction['seller'], $auction['auctionId']))
-        array_push($result, $auction);
+      if(!query_feedback_left($auction['seller'], $auction['auctionId'])) {
+
+          array_push($result, $auction);
+          echo "<br/>Session id: ".$_SESSION['userId']."<br/> Seller id: ".$auction['seller'];
+      }
     }
   } else {
     $result = $auction_set;

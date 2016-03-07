@@ -79,13 +79,13 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
 
         foreach ($auction_set as $auction) {
 
-          $encoded_winner_id  = urlencode(htmlentities($auction['winner_id']));
+          $encoded_seller_id  = urlencode(htmlentities($auction['seller']));
           $encoded_auction_id = urlencode(htmlentities($auction['auctionId']));
           $imageName      = htmlentities($auction['imageName']);
           $title          = htmlentities($auction['title']);
           $description    = htmlentities($auction['description']);
           $winning_price  = htmlentities($auction['winning_price']);
-          $link  = "leave_feedback.php?user_id={$encoded_winner_id}";
+          $link  = "leave_feedback.php?user_id={$encoded_seller_id}";
           $link .= "&auction_id={$encoded_auction_id}";
           $output .= "<tr>
 
