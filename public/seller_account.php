@@ -8,7 +8,7 @@
       redirect_to("index.php");
     }
 
-  $userId = $_GET['user_id'];
+  $userId = $_SESSION['userId'];
 
 ?>
 

@@ -11,7 +11,7 @@
     }
 
 
-  $userId = $_GET['user_id'];
+  $userId = $_SESSION['userId'];
 
 //TODO perhaps unfavoriteAuction should be parametrized, otherwise it is not
 //necessarily clear to the user what the effect of entering an auctionId on the
