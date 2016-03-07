@@ -334,7 +334,7 @@ function retrieve_buyer_auctions() {
                       $auction_set[$i]['startingPrice']);
 
     $auction_set[$i]['winning_price'] = $winning_bid['value'];
-    
+
     $temp = queryAuctionData($auction_set[$i]['auctionId']);
     $auction_set[$i]['winner_id']     = $temp['currentWinner'];//$winning_bid['user_id'];
 
@@ -674,7 +674,7 @@ FROM (
 	JOIN user ON user.userId = bid.user_id
     JOIN address ON address.user_id = user.userId
 	ORDER BY bidamount DESC
-) as A
+) as a
 INNER JOIN (
       SELECT auction_ID, MAX(bidAmount) bidAmount
     FROM (
@@ -682,7 +682,7 @@ INNER JOIN (
 		FROM bid
 		JOIN user ON user.userId = bid.user_id
 		ORDER BY bidamount DESC
-    ) as C
+  ) as c
     GROUP BY auction_ID
 ) AS b ON a.auction_id = b.auction_id AND a.bidAmount = b.bidAmount
 JOIN (
