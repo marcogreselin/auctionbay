@@ -37,7 +37,7 @@
         $auction_set_unfiltered = retrieve_seller_auctions();
         $auction_set = filter_auctions_without_bids($auction_set_unfiltered);
         $auction_set = filter_non_expired_auctions($auction_set);
-        //add check if feedback was left?
+        //add check if feedback was left?  TODO
 
         if($auction_set) {
 
@@ -54,8 +54,8 @@
 
           foreach ($auction_set as $auction) {
 
-            $encoded_winner_id  = urlencode($auction['winner_id']);
-            $encoded_auction_id = urlencode($auction['auctionId']);
+            $encoded_winner_id  = urlencode(htmlentities($auction['winner_id']));
+            $encoded_auction_id = urlencode(htmlentities($auction['auctionId']));
             $imageName      = htmlentities($auction['imageName']);
             $title          = htmlentities($auction['title']);
             $description    = htmlentities($auction['description']);
@@ -117,7 +117,8 @@
       $title          = htmlentities($auction['title']);
       $description    = htmlentities($auction['description']);
       $winning_price  = htmlentities($auction['winning_price']);
-      $link = "auction.php?auctionId=" . urlencode($auction['auctionId']);
+      $link = "auction.php?auctionId=" .
+              urlencode(htmlentities($auction['auctionId']));
       $output = "
       <tr>
         <td><a href=\"{$link}\"><h7>{$title}</h7>

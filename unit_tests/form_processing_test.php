@@ -504,6 +504,43 @@ function retrieve_followed_by_user_failure() {
     $_SESSION['userId'] = $temp;
 }
 
+//@TEST
+function filter_auctions_not_won_failure() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 272;
+  $result = retrieve_buyer_auctions();
+  $result = filter_auctions_not_won($result, $_SESSION['userId']);
+  assert(!$result);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+
+}
+
+//@TEST
+function filter_auctions_not_won_success() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 38;
+  $result = retrieve_buyer_auctions();
+  $result = filter_auctions_not_won($result, $_SESSION['userId']);
+
+  foreach ($result as $auction) {
+    if($auction['auctionId'] == 8)
+      assert($auction['winner_id'] == $_SESSION['userId']);
+  }
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+}
+
 //test for failure first post
 first_form_test_failure();
 //$errors = array();
@@ -577,6 +614,10 @@ retrieve_buyer_auctions_failure();
 //retrieve_followed_by_user()
 retrieve_followed_by_user_success();
 retrieve_followed_by_user_failure();
+
+//filter_auctions_not_won()
+filter_auctions_not_won_success();
+filter_auctions_not_won_failure();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";

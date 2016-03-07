@@ -341,9 +341,17 @@ function retrieve_buyer_auctions() {
 }
 
 /*Reduces the auction set parameter excluding auctions based on whether the
-* user identified from session information won the auction*/
-function filter_auctions_not_won($auction_set) {
-  //TODO
+* user won the auction*/
+function filter_auctions_not_won($auction_set, $userId) {
+
+  $filtered_auction_set = array();
+
+  for($i=0; $i<sizeof($auction_set); $i++) {
+    if($userId == $auction_set[$i]['winner_id'])
+      array_push($filtered_auction_set, $auction_set[$i]);
+  }
+
+  return $filtered_auction_set;
 }
 
 /*Returns a set of auctions corresponding to the auctions the user identified in
