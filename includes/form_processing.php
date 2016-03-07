@@ -439,10 +439,9 @@ function queryAuctionData($auctionId){
   global $connection;
   // $auctionId = $_GET["auctionId"];
 
-  $query = "SELECT auction.title, seller, description, views, imageName, firstName, auctionId, lastName, date(expirationDate) as expirationDate,";
+  $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName, date(expirationDate) as expirationDate,";
   $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
   $query .= "IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars , j.user_Id AS currentWinner, j.email AS currentWinnerEmail ";
-
   $query .= "FROM auction ";
   $query .= "JOIN user ON auction.seller = user.userid ";
   $query .= "LEFT JOIN feedback ON feedback.user_Id = user.userId ";
@@ -452,13 +451,16 @@ function queryAuctionData($auctionId){
     $query .= "WHERE auction_Id=".$auctionId." ";
     $query .= "ORDER BY amount DESC ";
     $query .= "LIMIT 1 ";
-  $query .= ") AS j ON j.auction_id = auction.auctionid ";
+  $query .= ") AS j ON j.auction_id = auction.auctionId ";
   $query .= "WHERE auctionId=".$auctionId." ";
   $query .= "GROUP BY userId;";
 
-
-  return  mysqli_fetch_assoc(mysqli_query($connection,$query));
-
+  $results = mysqli_query($connection, $query);
+  if (!$results) {
+    die("Database query failed. " . mysqli_error($connection));
+  } else {
+    return  mysqli_fetch_assoc(mysqli_query($connection,$query));
+  }
 }
 
 function addVisit($auctionId){
@@ -649,11 +651,101 @@ function getAuctionForFeedback($auction_id) {
 
   $auctionFeedbackQueryResult = mysqli_query($connection, $query);
 
-
   if (!$auctionFeedbackQueryResult) {
     die("Database query failed. " . mysqli_error($connection));
   } else {
     return mysqli_fetch_assoc($auctionFeedbackQueryResult);
+  }
+}
+
+
+/** Get details for awarded auctions for buyer*/
+
+function getCompletedAuctionDetailsForBuyer($userId)
+{
+  global $connection;
+
+  $query = "SELECT a.auction_id, title, imageName, a.bidamount finalAmount, buyerEmail, buyerAddress, buyerName,
+a.userid winner, expirationDate, sellerEmail, sellerName, sellerAddress, seller
+FROM (
+    SELECT bidamount AS bidamount, user.userid userId, auction_id, email buyeremail, CONCAT(firstName, ' ', lastName) buyerName,
+    CONCAT(number,', ', street, ' - ', city) buyerAddress
+	FROM bid
+	JOIN user ON user.userId = bid.user_id
+    JOIN address ON address.user_id = user.userId
+	ORDER BY bidamount DESC
+) as A
+INNER JOIN (
+      SELECT auction_ID, MAX(bidAmount) bidAmount
+    FROM (
+        SELECT bidamount AS bidAmount, user_id , auction_id, email
+		FROM bid
+		JOIN user ON user.userId = bid.user_id
+		ORDER BY bidamount DESC
+    ) as C
+    GROUP BY auction_ID
+) AS b ON a.auction_id = b.auction_id AND a.bidAmount = b.bidAmount
+JOIN (
+    SELECT auctionId, imageName, expirationDate, title, email sellerEmail, CONCAT(firstName, ' ', lastName) sellerName,
+    CONCAT(number,', ', street, ' - ', city) sellerAddress, seller
+    FROM auction
+    JOIN user ON auction.seller=user.userId
+    JOIN address ON address.user_id = user.userId
+) auction ON auction.auctionId = a.auction_id
+WHERE expirationDate<DATE(NOW()) AND a.userid = $userId";
+
+  $completedAuctionResult = mysqli_query($connection, $query);
+
+  if (!$completedAuctionResult) {
+    die("Database query failed. " . mysqli_error($connection));
+  } else {
+    return $completedAuctionResult;
+  }
+}
+
+
+
+/** Get details for items sold for seller*/
+
+function getCompletedAuctionDetailsForSeller($userId)
+{
+  global $connection;
+
+  $query = "SELECT a.auction_id, title, imageName, a.bidamount finalAmount, buyerEmail, buyerAddress, buyerName,
+a.userid winner, expirationDate, sellerEmail, sellerName, sellerAddress, seller
+FROM (
+    SELECT bidamount AS bidamount, user.userid userId, auction_id, email buyeremail, CONCAT(firstName, ' ', lastName) buyerName,
+    CONCAT(number,', ', street, ' - ', city) buyerAddress
+	FROM bid
+	JOIN user ON user.userId = bid.user_id
+    JOIN address ON address.user_id = user.userId
+	ORDER BY bidamount DESC
+) as A
+INNER JOIN (
+      SELECT auction_ID, MAX(bidAmount) bidAmount
+    FROM (
+        SELECT bidamount AS bidAmount, user_id , auction_id, email
+		FROM bid
+		JOIN user ON user.userId = bid.user_id
+		ORDER BY bidamount DESC
+    ) as C
+    GROUP BY auction_ID
+) AS b ON a.auction_id = b.auction_id AND a.bidAmount = b.bidAmount
+JOIN (
+    SELECT auctionId, imageName, expirationDate, title, email sellerEmail, CONCAT(firstName, ' ', lastName) sellerName,
+    CONCAT(number,', ', street, ' - ', city) sellerAddress, seller
+    FROM auction
+    JOIN user ON auction.seller=user.userId
+    JOIN address ON address.user_id = user.userId
+) auction ON auction.auctionId = a.auction_id
+WHERE expirationDate<DATE(NOW()) AND seller = $userId";
+
+  $completedAuctionResult = mysqli_query($connection, $query);
+
+  if (!$completedAuctionResult) {
+    die("Database query failed. " . mysqli_error($connection));
+  } else {
+    return $completedAuctionResult;
   }
 }
 

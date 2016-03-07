@@ -1,14 +1,13 @@
 <?php
 require_once('../includes/dbconnection.php');
-require_once("../includes/session.php");
+require_once('../includes/session.php');
 require_once('../includes/navigation.php');
 require_once('../includes/form_processing.php');
 
 // Get the user_id and the auction_id from the screen before
 $userId = $_GET['for_user_id'];
-$auctionId = $_GET['auctionId'];
 $feedbackMainResult = getFeedbackInformation($userId);
-$feedbackMainResultForAverageStars = queryAuctionData($auctionId);
+$feedbackMainResultForAverageStars = queryAuctionData($_GET['auctionId']);
 ?>
 
 
