@@ -334,7 +334,10 @@ function retrieve_buyer_auctions() {
                       $auction_set[$i]['startingPrice']);
 
     $auction_set[$i]['winning_price'] = $winning_bid['value'];
-    $auction_set[$i]['winner_id']     = $winning_bid['user_id'];
+    
+    $temp = queryAuctionData($auction_set[$i]['auctionId']);
+    $auction_set[$i]['winner_id']     = $temp['currentWinner'];//$winning_bid['user_id'];
+
   }
 
   return $auction_set;
@@ -370,6 +373,30 @@ function retrieve_followed_by_user() {
   }
 
   return $auction_set;
+}
+
+/*Filters the parameter set by whether the user indicated by the role parameter
+* (for each auction in the set) has left feedback on the auction. If role
+* parameter is invalid, the auction set is returned unmodified*/
+function filter_auctions_already_rated($auction_set, $role) {
+  $result = array();
+
+  if($role == ROLE_SELLER) {
+    foreach ($auction_set as $auction) {
+      if(!query_feedback_left($auction['winner_id'], $auction['auctionId']))
+        array_push($result, $auction);
+    }
+  } elseif($role == ROLE_BUYER) {
+    //$auction_set must already be only the ones the buyer won
+    foreach ($auction_set as $auction) {
+      if(!query_feedback_left($auction['seller'], $auction['auctionId']))
+        array_push($result, $auction);
+    }
+  } else {
+    $result = $auction_set;
+  }
+
+  return $result;
 }
 
 function addAuction() {
@@ -410,7 +437,6 @@ function queryCatArray(){
 
 function queryAuctionData($auctionId){
   global $connection;
-  $auctionId = $auctionId;
 
   $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName, date(expirationDate) as expirationDate,";
   $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";

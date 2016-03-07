@@ -283,7 +283,16 @@ function query_select_followed_by_user_success() {
 
   $result = query_select_followed_by_user($userId);
   // print_r($result);
-  assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
+  $found_expected = 0;
+  foreach ($result as $auction) {
+    if($auction['auctionId'] == 7) {
+        $found_expected = 1;
+        break;
+    }
+  }
+  // assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
+
+  assert($found_expected);
 }
 
 //@TEST
@@ -291,6 +300,20 @@ function query_select_followed_by_user_failure() {
   $userId = 272;
 
   $result = query_select_followed_by_user($userId);
+  assert(!$result);
+}
+
+//@TEST
+function query_feedback_left_yes() {
+  $result = query_feedback_left(99, 2);
+  // print_r($result);
+  assert($result);
+}
+
+//@TEST
+function query_feedback_left_no() {
+  $result = query_feedback_left(272, 2);
+
   assert(!$result);
 }
 
@@ -340,6 +363,10 @@ query_select_user_rating_failure();
 //query_select_followed_by_user()
 query_select_followed_by_user_success();
 query_select_followed_by_user_failure();
+
+//query_feedback_left()
+query_feedback_left_no();
+query_feedback_left_yes();
 
 echo "<h3>All tests completed</h3>";
 

@@ -62,7 +62,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       $auction_set_unfiltered = retrieve_buyer_auctions();
       $auction_set = filter_non_expired_auctions($auction_set_unfiltered);
       $auction_set = filter_auctions_not_won($auction_set, $_SESSION['userId']);
-      //$auction_set = filter_auctions_already_rated(); //TODO
+      $auction_set = filter_auctions_already_rated($auction_set, $_SESSION['role']);
 
       if($auction_set) {
 
@@ -191,6 +191,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
     </tr>
     <?php
     $auction_set = retrieve_followed_by_user();
+    $auction_set = filter_expired_auctions($auction_set);
     //TODO this should be extracted: occurs everywhere in buyer and seller pages
     foreach ($auction_set as $auction) {
       $imageName      = htmlentities($auction['imageName']);

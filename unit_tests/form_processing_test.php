@@ -480,9 +480,19 @@ function retrieve_followed_by_user_success() {
   $_SESSION['userId'] = 38;
   $result = retrieve_followed_by_user();
   // print_r($result[3]);
-  assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
-  assert($result[2]['winning_price'] == EXPECTED_AUCTION_ID);
-  assert($result[2]['winner_id'] == -1);
+  $found_expected = 0;
+  foreach ($result as $auction) {
+    if($auction['auctionId'] == EXPECTED_AUCTION_ID &&
+      $auction['winning_price'] == EXPECTED_AUCTION_ID &&
+      $auction['winner_id'] == -1) {
+        $found_expected =1;
+        break;
+    }
+  }
+  // assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
+  // assert($result[2]['winning_price'] == EXPECTED_AUCTION_ID);
+  // assert($result[2]['winner_id'] == -1);
+  assert($found_expected);
 
   if($temp)
     $_SESSION['userId'] = $temp;
@@ -539,6 +549,91 @@ function filter_auctions_not_won_success() {
 
   if($temp)
     $_SESSION['userId'] = $temp;
+}
+
+//@TEST
+function filter_auctions_already_rated_invalid() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 38;
+  $result = retrieve_buyer_auctions();
+  $result = filter_auctions_already_rated($result, -22);
+
+  assert($result);
+
+  $found_expected = 0;
+  foreach ($result as $auction) {
+    if($auction['auctionId'] == 5) {
+        $found_expected =1;
+        break;
+    }
+  }
+
+  assert($found_expected);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+
+}
+
+//@TEST
+function filter_auctions_already_rated_buyer() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 38;
+  $result = retrieve_buyer_auctions();
+  $result = filter_auctions_already_rated($result, ROLE_BUYER);
+
+  assert($result);
+
+  $not_found_expected = 1;
+  foreach ($result as $auction) {
+    if($auction['auctionId'] == 13) {
+        $not_found_expected = 0;
+        break;
+    }
+  }
+
+  assert($not_found_expected);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+
+}
+
+//@TEST
+function filter_auctions_already_rated_seller() {
+  $temp = null;
+
+  if(isset($_SESSION['userId']))
+    $temp = $_SESSION['userId'];
+
+  $_SESSION['userId'] = 74;
+  $result = retrieve_seller_auctions();
+  $result = filter_auctions_already_rated($result, ROLE_SELLER);
+
+  assert($result);
+
+
+  $not_found_expected = 1;
+  foreach ($result as $auction) {
+    if($auction['auctionId'] == 13) {
+        $not_found_expected = 0;
+        break;
+    }
+  }
+
+  assert($not_found_expected);
+
+  if($temp)
+    $_SESSION['userId'] = $temp;
+
 }
 
 //test for failure first post
@@ -618,6 +713,11 @@ retrieve_followed_by_user_failure();
 //filter_auctions_not_won()
 filter_auctions_not_won_success();
 filter_auctions_not_won_failure();
+
+//filter_auctions_already_rated()
+filter_auctions_already_rated_invalid();
+filter_auctions_already_rated_buyer();
+filter_auctions_already_rated_seller();
 
 $test_outcome = "<h3>All tests completed";
 $test_outcome .= "</h3>";

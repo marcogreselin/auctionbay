@@ -266,7 +266,7 @@ function query_select_buyer_auctions($buyerUserId) {
   $subquery_select_from_bids .= "WHERE user_id='{$buyerUserId}'";
 
   $query  = "SELECT auctionId, title, imageName, description, startingPrice, ";
-  $query .= "expirationDate ";
+  $query .= "expirationDate, seller ";
   $query .= "FROM auction ";
   $query .= "WHERE auctionId IN ($subquery_select_from_bids)";
 
@@ -324,6 +324,28 @@ function query_select_followed_by_user($userId) {
   if($result)
     $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+  return $result;
+}
+
+/*Returns a number > 0 where there is a row in the feedback table where user_id
+* is the value of argument $to_user_id, AND auction_id is the value of argument
+* $over_auction_id. Returns 0 otherwise.*/
+function query_feedback_left($to_user_id, $over_auction_id) {
+  global $connection;
+
+  //escape
+  $to_user_id       = mysqli_real_escape_string($connection, $to_user_id);
+  $over_auction_id  = mysqli_real_escape_string($connection, $over_auction_id);
+  // echo $to_user_id . " " . $over_auction_id . "<br/>";
+  //prepare query
+  $query  = "SELECT COUNT(auction_id) FROM feedback ";
+  $query .= "WHERE auction_id='{$over_auction_id}' AND user_id='{$to_user_id}'";
+
+  $result = mysqli_query($connection, $query);
+  // print_r($result);
+  if($result)
+    $result = mysqli_fetch_row($result)[0]; //only element in result array
+// print_r($result);
   return $result;
 }
 

@@ -45,7 +45,7 @@
         $auction_set_unfiltered = retrieve_seller_auctions();
         $auction_set = filter_auctions_without_bids($auction_set_unfiltered);
         $auction_set = filter_non_expired_auctions($auction_set);
-        //add check if feedback was left?  TODO
+        $auction_set = filter_auctions_already_rated($auction_set, $_SESSION['role']);
 
         if($auction_set) {
 
