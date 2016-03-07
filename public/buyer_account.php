@@ -126,7 +126,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
    email: <?php echo " " . $_SESSION['email'] . "<p>"; ?> <!--alex@vally.com</p>-->
 
 
-  <a name="bids"><h3>My Recent Bids</h3></a>
+  <a name="address"><h3>My Details</h3></a>
   <table class="table table-striped">
     <col width="200px">
     <tr>

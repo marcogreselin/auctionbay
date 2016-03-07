@@ -437,7 +437,6 @@ function queryCatArray(){
 
 function queryAuctionData($auctionId){
   global $connection;
-  // $auctionId = $_GET["auctionId"];
 
   $query = "SELECT auction.title, seller, description, views, imageName, firstName, lastName, date(expirationDate) as expirationDate,";
   $query .= "IF(j.Amount IS NULL, startingPrice, j.Amount) AS price, ";
