@@ -235,7 +235,7 @@ function process_filter_form($auction_set, $price_min, $price_max, $rating,
       ($auctionElement['currentPrice'] > $price_max))
         unset($auction_set[$auctionKey]);
 
-      if($auctionElement['rating'] < $rating)
+      if($auctionElement['stars'] < $rating)
         unset($auction_set[$auctionKey]);
 
       if($category_id && ($auctionElement['category_id'] != $category_id))
@@ -341,9 +341,35 @@ function retrieve_buyer_auctions() {
 }
 
 /*Reduces the auction set parameter excluding auctions based on whether the
-* user identified from session information won the auction*/
-function filter_auctions_not_won($auction_set) {
+* user won the auction*/
+function filter_auctions_not_won($auction_set, $userId) {
 
+  $filtered_auction_set = array();
+
+  for($i=0; $i<sizeof($auction_set); $i++) {
+    if($userId == $auction_set[$i]['winner_id'])
+      array_push($filtered_auction_set, $auction_set[$i]);
+  }
+
+  return $filtered_auction_set;
+}
+
+/*Returns a set of auctions corresponding to the auctions the user identified in
+* the session is following.*/
+function retrieve_followed_by_user() {
+
+  $auction_set = query_select_followed_by_user($_SESSION['userId']);
+  for($i=0; $i<sizeof($auction_set); $i++) {
+    //append the result of get_price($auctionId, $auctionStartingPrice) to
+    //each auction associative array
+    $winning_bid = get_price_with_buyer_id($auction_set[$i]['auctionId'],
+                      $auction_set[$i]['startingPrice']);
+
+    $auction_set[$i]['winning_price'] = $winning_bid['value'];
+    $auction_set[$i]['winner_id']     = $winning_bid['user_id'];
+  }
+
+  return $auction_set;
 }
 
 function addAuction() {
@@ -458,7 +484,8 @@ function unfavoriteAuction(){
   $userId = $_SESSION["userId"];
   $auctionId = $_GET["auctionId"];
 
-  $query = "DELETE FROM follower WHERE `user_id`='".$userId."';";
+  $query  = "DELETE FROM follower WHERE `user_id`='".$userId."' AND ";
+  $query .= "auction_id='{$auctionId}';";
 
 
   mysqli_query($connection,$query);
@@ -586,11 +613,10 @@ function process_feedback_form() {
 }
 
 /** Get details for the leave_feedback.php */
-
 function getAuctionForFeedback($auction_id) {
   global $connection;
 
-// query to retrieve the current all the relevant feedback information
+  // query to retrieve the current all the relevant feedback information
   $query = "SELECT imageName, title
   FROM auction
   WHERE auctionId = $auction_id";

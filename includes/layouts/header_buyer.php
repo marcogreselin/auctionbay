@@ -37,7 +37,17 @@
         <ul class="nav navbar-nav">
           <li><a href="buyer_account.php">My Account</a></li>
           <li><a href="search.php">Search</a></li>
-        </ul>
+          </ul>
+<!--           <div class="iconbar">
+          <ul>
+              <li>
+                <a href="#fakelink" class="fui-gear">
+                  <span class="iconbar-unread">1</span>
+                </a>
+              </li>
+              </ul>
+          </div> -->
+        
         <p class="navbar-text navbar-right">
           <a class="navbar-link" href="logout.php">Logout</a>
         </p>

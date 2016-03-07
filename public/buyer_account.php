@@ -10,7 +10,16 @@
       redirect_to("index.php");
     }
 
+
   $userId = $_GET['user_id'];
+
+//TODO perhaps unfavoriteAuction should be parametrized, otherwise it is not
+//necessarily clear to the user what the effect of entering an auctionId on the
+//url might be (used to be buyer_account.php?uf=$id instead of
+//buyer_account.php?auctionId=$id)
+if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
+  unfavoriteAuction();
+
 ?>
 
 <div class="container">
@@ -52,7 +61,8 @@
     <?php
       $auction_set_unfiltered = retrieve_buyer_auctions();
       $auction_set = filter_non_expired_auctions($auction_set_unfiltered);
-      $auction_set = filter_auctions_not_won($auction_set);
+      $auction_set = filter_auctions_not_won($auction_set, $_SESSION['userId']);
+      //$auction_set = filter_auctions_already_rated(); //TODO
 
       if($auction_set) {
 
@@ -69,8 +79,8 @@
 
         foreach ($auction_set as $auction) {
 
-          $encoded_winner_id  = urlencode($auction['winner_id']);
-          $encoded_auction_id = urlencode($auction['auctionId']);
+          $encoded_winner_id  = urlencode(htmlentities($auction['winner_id']));
+          $encoded_auction_id = urlencode(htmlentities($auction['auctionId']));
           $imageName      = htmlentities($auction['imageName']);
           $title          = htmlentities($auction['title']);
           $description    = htmlentities($auction['description']);
@@ -139,7 +149,8 @@
         $is_this_buyer = "
         <br><div id=\"this-you\">Your bid is not the winning bid!</div>";
 
-      $link = "auction.php?auctionId=" . urlencode($auction['auctionId']);
+      $link = "auction.php?auctionId=" .
+              urlencode(htmlentities($auction['auctionId']));
       $output = "
       <tr>
         <td><a href=\"{$link}\"><h7>{$title}</h7>
@@ -178,13 +189,53 @@
       <th>Current Price</th>
       <th>Unfollow</th>
     </tr>
-    <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
-      <td>First Row, second column</td>
-      <td>First Row, third column</td>
-      <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
-    </tr>
-    <tr>
+    <?php
+    $auction_set = retrieve_followed_by_user();
+    //TODO this should be extracted: occurs everywhere in buyer and seller pages
+    foreach ($auction_set as $auction) {
+      $imageName      = htmlentities($auction['imageName']);
+      $title          = htmlentities($auction['title']);
+      $description    = htmlentities($auction['description']);
+      $winning_price  = htmlentities($auction['winning_price']);
+
+      $is_this_buyer = "";
+      if($_SESSION['userId'] == $auction['winner_id'])
+        {$is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";}
+      // else
+      //   $is_this_buyer = "
+      //   <br><div id=\"this-you\">Your bid is not the winning bid!</div>";
+
+      $link = "auction.php?auctionId=" .
+              urlencode(htmlentities($auction['auctionId']));
+      $link_delete_from_following =
+              "buyer_account.php?auctionId=" .
+              urlencode(htmlentities($auction['auctionId'])) .
+              "#following";
+
+      $output ="
+      <tr>
+        <td><a href=\"{$link}\"><h7>{$title}</h7>
+        <img src=\"img/auctions/{$imageName}\"
+        title=\"{$title}\"></a></td>
+        <td>{$description}</td>
+        <td>£{$winning_price} {$is_this_buyer}</td>
+        <td class=\"trash\">
+        <a href=\"$link_delete_from_following\">
+        <img src=\"img/trash.svg\" class=\"trash-icon\"
+        title=\"Unfollow\"></a></td>
+      </tr>";
+
+      echo $output;
+    }
+
+    //DEBUG
+    // echo "<pre>";
+    // print_r($auction_set);
+    // echo "</pre>";
+
+
+    ?>
+    <!--<tr>
       <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Second Row, first column</a></td>
       <td>Second Row, second column</td>
       <td>Second Row, third column</td>
@@ -201,7 +252,7 @@
       <td>Third Row, second column</td>
       <td>Third Row, third column</td>
       <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
-    </tr>
+    </tr>-->
   </table>
 
 

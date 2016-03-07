@@ -233,6 +233,7 @@
   }
 .fui-gear:before {
   content: "\e636";
+  fill: black;
   }
 .fui-bookmark:before {
   content: "\e637";
@@ -6347,9 +6348,9 @@ fieldset[disabled] .navbar-inverse .navbar-btn.active {
   }
 .iconbar {
   float: left;
-  margin: 0 20px 20px 0;
-  background-color: #2c3e50;
-  border-radius: 6px;
+  //margin: 0 20px 20px 0;
+  //background-color: #2c3e50;
+  //border-radius: 6px;
 
   -webkit-backface-visibility: hidden;
   }
