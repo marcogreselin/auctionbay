@@ -126,7 +126,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
    email: <?php echo " " . $_SESSION['email'] . "<p>"; ?> <!--alex@vally.com</p>-->
 
 
-  <a name="address"><h3>My Details</h3></a>
+  <a name="address"><h3>My Recent Bids (to be changed?)</h3></a>
   <table class="table table-striped">
     <col width="200px">
     <tr>
@@ -142,6 +142,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       $title          = htmlentities($auction['title']);
       $description    = htmlentities($auction['description']);
       $winning_price  = htmlentities($auction['winning_price']);
+      // echo $auction['winner_id'] . "<br/>";
 
       if($_SESSION['userId'] == $auction['winner_id'])
         $is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";
@@ -198,7 +199,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       $title          = htmlentities($auction['title']);
       $description    = htmlentities($auction['description']);
       $winning_price  = htmlentities($auction['winning_price']);
-
+      // echo $auction['winner_id'] . "<br/>";
       $is_this_buyer = "";
       if($_SESSION['userId'] == $auction['winner_id'])
         {$is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";}

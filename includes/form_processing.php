@@ -334,9 +334,9 @@ function retrieve_buyer_auctions() {
                       $auction_set[$i]['startingPrice']);
 
     $auction_set[$i]['winning_price'] = $winning_bid['value'];
-
-    $temp = queryAuctionData($auction_set[$i]['auctionId']);
-    $auction_set[$i]['winner_id']     = $temp['currentWinner'];//$winning_bid['user_id'];
+    $auction_set[$i]['winner_id']     = $winning_bid['user_id'];
+    // $temp = queryAuctionData($auction_set[$i]['auctionId']);
+    // $auction_set[$i]['winner_id']     = $temp['currentWinner'];//$winning_bid['user_id'];
 
   }
 
