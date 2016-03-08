@@ -79,13 +79,13 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
 
         foreach ($auction_set as $auction) {
 
-          $encoded_winner_id  = urlencode(htmlentities($auction['winner_id']));
+          $encoded_seller_id  = urlencode(htmlentities($auction['seller']));
           $encoded_auction_id = urlencode(htmlentities($auction['auctionId']));
           $imageName      = htmlentities($auction['imageName']);
           $title          = htmlentities($auction['title']);
           $description    = htmlentities($auction['description']);
           $winning_price  = htmlentities($auction['winning_price']);
-          $link  = "leave_feedback.php?user_id={$encoded_winner_id}";
+          $link  = "leave_feedback.php?user_id={$encoded_seller_id}";
           $link .= "&auction_id={$encoded_auction_id}";
           $output .= "<tr>
 
@@ -126,7 +126,11 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
    email: <?php echo " " . $_SESSION['email'] . "<p>"; ?> <!--alex@vally.com</p>-->
 
 
+<<<<<<< HEAD
   <a name="bids"><h3>My Recent Bids</h3></a>
+=======
+  <a name="address"><h3>My Recent Bids (to be changed?)</h3></a>
+>>>>>>> d7395dd2f84fc228496bc83f831e269e2ece281b
   <table class="table table-striped">
     <col width="200px">
     <tr>
@@ -142,6 +146,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       $title          = htmlentities($auction['title']);
       $description    = htmlentities($auction['description']);
       $winning_price  = htmlentities($auction['winning_price']);
+      // echo $auction['winner_id'] . "<br/>";
 
       if($_SESSION['userId'] == $auction['winner_id'])
         $is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";
@@ -198,7 +203,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       $title          = htmlentities($auction['title']);
       $description    = htmlentities($auction['description']);
       $winning_price  = htmlentities($auction['winning_price']);
-
+      // echo $auction['winner_id'] . "<br/>";
       $is_this_buyer = "";
       if($_SESSION['userId'] == $auction['winner_id'])
         {$is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";}

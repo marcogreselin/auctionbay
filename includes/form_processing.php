@@ -334,9 +334,9 @@ function retrieve_buyer_auctions() {
                       $auction_set[$i]['startingPrice']);
 
     $auction_set[$i]['winning_price'] = $winning_bid['value'];
-    
-    $temp = queryAuctionData($auction_set[$i]['auctionId']);
-    $auction_set[$i]['winner_id']     = $temp['currentWinner'];//$winning_bid['user_id'];
+    $auction_set[$i]['winner_id']     = $winning_bid['user_id'];
+    // $temp = queryAuctionData($auction_set[$i]['auctionId']);
+    // $auction_set[$i]['winner_id']     = $temp['currentWinner'];//$winning_bid['user_id'];
 
   }
 
@@ -389,8 +389,11 @@ function filter_auctions_already_rated($auction_set, $role) {
   } elseif($role == ROLE_BUYER) {
     //$auction_set must already be only the ones the buyer won
     foreach ($auction_set as $auction) {
-      if(!query_feedback_left($auction['seller'], $auction['auctionId']))
-        array_push($result, $auction);
+      if(!query_feedback_left($auction['seller'], $auction['auctionId'])) {
+
+          array_push($result, $auction);
+          // echo "<br/>Session id: ".$_SESSION['userId']."<br/> Seller id: ".$auction['seller'];
+      }
     }
   } else {
     $result = $auction_set;
@@ -673,7 +676,7 @@ FROM (
 	JOIN user ON user.userId = bid.user_id
     JOIN address ON address.user_id = user.userId
 	ORDER BY bidamount DESC
-) as A
+) as a
 INNER JOIN (
       SELECT auction_ID, MAX(bidAmount) bidAmount
     FROM (
@@ -681,7 +684,7 @@ INNER JOIN (
 		FROM bid
 		JOIN user ON user.userId = bid.user_id
 		ORDER BY bidamount DESC
-    ) as C
+  ) as c
     GROUP BY auction_ID
 ) AS b ON a.auction_id = b.auction_id AND a.bidAmount = b.bidAmount
 JOIN (
