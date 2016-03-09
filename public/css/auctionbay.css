@@ -589,6 +589,11 @@ h7{
 	color: #f1c40f;
 	border-color: #f1c40f;
 }
+#this-not-you{
+	font-size: 15px;
+	color: #e74c3c;
+	border-color: #e74c3c;
+}
 .rating2{
 	content: '★ ';
 	font-size: 3em;
