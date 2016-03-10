@@ -281,8 +281,8 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
         $output = "
        <tr>
         <td><div>{$row['title']}</div><a href=\"{$link}\"><img src=\"img/auctions/{$row['imageName']}\" title=\"{$row['title']}\"></a></td>
-        <td>{$row['sellerName']}<br>{$row['sellerAddress']}</td>
-        <td>{$row['finalAmount']}</td>
+        <td>{$row['sellerName']}<br><strong>Address:</strong> {$row['sellerAddress']}<br><strong>Email:</strong> {$row['sellerEmail']}</td>
+        <td>£{$row['finalAmount']}</td>
       </tr>";
         echo $output;
       }
