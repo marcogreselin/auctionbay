@@ -2,6 +2,8 @@
   include("../includes/layouts/header.php");
   require_once("../includes/form_processing.php");
   require_once("../includes/dbconnection.php");
+  require_once("../includes/session.php");
+  require_once("../includes/navigation.php");
     addVisit($_GET["auctionId"]);
 
   $auctionData = queryAuctionData($_GET["auctionId"]);
@@ -48,15 +50,20 @@
 			<div >
 
 			<p class="text-center">
-			<?php if(!$isFavorite){
-			  echo '<button class="btn btn-hg btn-warning" name="favoriteButton">';
-			  echo "Follow!";
-			  echo "</button>";
-			} else {
-			  echo '<button class="btn btn-hg btn-primary" name="unfavoriteButton">';
-			  echo "Unfollow";
-			  echo "</button>";
+			<?php 
+
+			if(is_Buyer()){
+				if(!$isFavorite){
+				  echo '<button class="btn btn-hg btn-warning" name="favoriteButton">';
+				  echo "Follow!";
+				  echo "</button>";
+				} else {
+				  echo '<button class="btn btn-hg btn-primary" name="unfavoriteButton">';
+				  echo "Unfollow";
+				  echo "</button>";
+				}
 			}
+
 
 			?>
 			</p>
