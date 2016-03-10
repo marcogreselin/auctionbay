@@ -127,6 +127,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
 
 
   <a name="address"><h3>My Recent Bids (to be changed?)</h3></a>
+
   <table class="table table-striped">
     <col width="200px">
     <tr>
@@ -148,7 +149,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
         $is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";
       else
         $is_this_buyer = "
-        <br><div id=\"this-you\">Your bid is not the winning bid!</div>";
+        <br><div id=\"this-not-you\">Your bid is not the winning bid!</div>";
 
       $link = "auction.php?auctionId=" .
               urlencode(htmlentities($auction['auctionId']));
@@ -163,7 +164,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
           {$description}
         </td>
         <td>
-          <Strong>Winning bid:</strong><br/>
+          <Strong>Current price:</strong><br/>
           £{$winning_price}
           {$is_this_buyer}
         </td>
