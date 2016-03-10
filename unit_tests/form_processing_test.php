@@ -458,8 +458,17 @@ function retrieve_buyer_auctions_success() {
 
   $_SESSION['userId'] = 38;
   $result = retrieve_buyer_auctions();
+  $found_expected = 0;
+  foreach ($result as $auction) {
+    if($auction['auctionId'] == 5) {
+        $found_expected = 1;
+        break;
+    }
+  }
+  // assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
 
-  assert($result[0]['auctionId'] == 5);
+  assert($found_expected);
+  // assert($result[0]['auctionId'] == 5);
 
   if($temp)
     $_SESSION['userId'] = $temp;
