@@ -176,17 +176,14 @@
         $output = "
        <tr>
         <td><div>{$row['title']}</div><a href=\"{$link}\"><img src=\"img/auctions/{$row['imageName']}\" title=\"{$row['title']}\"></a></td>
-        <td>{$row['buyerName']}<br>{$row['buyerAddress']}</td>
-        <td>{$row['finalAmount']}</td>
+        <td>{$row['buyerName']}<br><strong>Address:</strong> {$row['buyerAddress']}<br><strong>Email:</strong> {$row['buyeremail']}</td>
+        <td>£{$row['finalAmount']}</td>
       </tr>";
 
         echo $output;
       }
       ?>
     </table>
-
-
-
 </div>
 </div>
 </div>
