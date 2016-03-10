@@ -455,7 +455,7 @@ function queryAuctionData($auctionId){
     $query .= "LIMIT 1 ";
   $query .= ") AS j ON j.auction_id = auction.auctionId ";
   $query .= "WHERE auctionId=".$auctionId." ";
-  $query .= "GROUP BY auction.title, seller, description, views, imageName, firstName, lastName, expirationDate, price, currentWinner, currentWinnerEmail";
+  $query .= "GROUP BY userId;";
 
   $results = mysqli_query($connection, $query);
   if (!$results) {
@@ -722,25 +722,25 @@ FROM (
 	JOIN user ON user.userId = bid.user_id
     JOIN address ON address.user_id = user.userId
 	ORDER BY bidamount DESC
-) as A
-INNER JOIN (
+  ) as a
+  INNER JOIN (
       SELECT auction_ID, MAX(bidAmount) bidAmount
     FROM (
         SELECT bidamount AS bidAmount, user_id , auction_id, email
 		FROM bid
 		JOIN user ON user.userId = bid.user_id
 		ORDER BY bidamount DESC
-    ) as C
+  ) as c
     GROUP BY auction_ID
-) AS b ON a.auction_id = b.auction_id AND a.bidAmount = b.bidAmount
-JOIN (
+  ) AS b ON a.auction_id = b.auction_id AND a.bidAmount = b.bidAmount
+  JOIN (
     SELECT auctionId, imageName, expirationDate, title, email sellerEmail, CONCAT(firstName, ' ', lastName) sellerName,
     CONCAT(number,', ', street, ' - ', city) sellerAddress, seller
     FROM auction
     JOIN user ON auction.seller=user.userId
     JOIN address ON address.user_id = user.userId
-) auction ON auction.auctionId = a.auction_id
-WHERE expirationDate<DATE(NOW()) AND seller = $userId";
+  ) auction ON auction.auctionId = a.auction_id
+  WHERE expirationDate<DATE(NOW()) AND seller = $userId";
 
   $completedAuctionResult = mysqli_query($connection, $query);
 
