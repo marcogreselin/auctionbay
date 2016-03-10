@@ -193,7 +193,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
     </tr>
     <?php
     $auction_set = retrieve_followed_by_user();
-    $auction_set = filter_expired_auctions($auction_set);
+    // $auction_set = filter_expired_auctions($auction_set);
     //TODO this should be extracted: occurs everywhere in buyer and seller pages
     foreach ($auction_set as $auction) {
       $imageName      = htmlentities($auction['imageName']);
@@ -204,6 +204,10 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       $is_this_buyer = "";
       if($_SESSION['userId'] == $auction['winner_id'])
         {$is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";}
+      if((time() - strtotime($auction['expirationDate'])) < 0) {
+        $is_this_buyer .= "<br><div id=\"this-not-you\">
+                            This auction is expired!</div>";
+      }
       // else
       //   $is_this_buyer = "
       //   <br><div id=\"this-you\">Your bid is not the winning bid!</div>";
