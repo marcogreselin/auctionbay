@@ -7,7 +7,7 @@ require_once('../includes/form_processing.php');
 // Get the user_id and the auction_id from the screen before
 $userId = $_GET['for_user_id'];
 $feedbackMainResult = getFeedbackInformation($userId);
-$feedbackMainResultForAverageStars = queryAuctionData($_GET['auctionId']);
+$feedbackMainResultForAverageStars = queryAuctionData(98);
 ?>
 
 
@@ -25,9 +25,9 @@ require_once('../includes/layouts/header.php');
     <h1>Feedback for <?php echo $feedback["firstName"]." ".$feedback["lastName"]; ?> (<?php echo $feedbackMainResultForAverageStars["stars"]?> stars)</h1>
     <h4>User type: <?php
         if($feedback["role"] == 1) {
-            echo "buyer";
+            echo "Buyer";
         } else {
-            echo "seller";
+            echo "Seller";
         } ;
 
         ?></h4>
