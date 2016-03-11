@@ -11,10 +11,11 @@ if(!is_buyer() && !is_seller()) {
   redirect_to("index.php");
 }
 
-if(isset($_POST) && !empty($_POST)) {
-  if(!isset($_POST['stars']))
-    $_POST['stars'] = -1;
-}
+//What is this doing again?:NT
+// if(isset($_POST) && !empty($_POST)) {
+//   if(!isset($_POST['stars']))
+//     $_POST['stars'] = -1;
+// }
 
 if(isset($_GET['token'])) {
   //process search form
@@ -47,6 +48,7 @@ if(isset($_GET['token'])) {
     //print_r($auction_set);
 
     //encode result in json format
+
     $json_encoded_auction_set = json_encode($auction_set);
   }
 } else {//if not set $_GET['token']
@@ -116,7 +118,6 @@ include("../includes/layouts/header.php");
                 UML Programming
               </a>
             </li>
-
           -->
             <li class="divider"></li>
 
@@ -163,14 +164,19 @@ include("../includes/layouts/header.php");
       </div>
 
             <div class="col-sm-9">
-                <table class="search-page-table table-striped">
-                    <col width="200px">
-                    <col width="800px">
-
-                  <?php
+              <?php
+              //begin constructing auction set display table, id value used by
+              //jQuery to replace construct with ajax request response
+              $output = "<div id=\"results\">";
 
                 //if (filtered if requested) result set is not empty:
                 if($auction_set) {
+
+                  //begin constructing table
+                  $output = "
+                  <table class=\"search-page-table table-striped\">
+                      <col width=\"200px\">
+                      <col width=\"800px\">";
 
                   foreach ($auction_set as $auction) {
                     $imageName      = htmlentities($auction['imageName']);
@@ -188,8 +194,9 @@ include("../includes/layouts/header.php");
                                 Based on {$no_of_ratings} ratings<br/>";
                     }
 
-                    $output = "
-                    <td>
+                    $output .= "
+                    <tr>
+                      <td>
                           <a href=\"auction.php?auctionId={$auctionId}\">
                           <img src=\"img/auctions/{$imageName}\"
                                           title=\"{$title}\"
@@ -228,13 +235,17 @@ include("../includes/layouts/header.php");
                       </td>
                   </tr>";
 
-                  echo $output;
                   }
+                  //close table after looping
+                  $output .= "</table>";
                 } else {
-                    echo "<h2>No results</h2>";
+                    $output .= "<h2>No results</h2>";
                 }
+
+                //always close div before echo
+                $output .= "</div>";
+                echo $output;
                   ?>
-                </table>
                 </div>
         </div>
     </div>
@@ -289,7 +300,8 @@ include("../includes/layouts/header.php");
     $('select').select2();
 </script>
 
-<!-- Still yet to implement-->
+<!-- Still yet to implement; What is this doing again? It generates a lot of
+errors in the javascript console?:NT-->
 <script type="text/javascript">
     $(document).ready(function () {
         var s = $("#sticker");
@@ -314,11 +326,10 @@ include("../includes/layouts/header.php");
 </script>
 
 <script type="text/javascript">
-//pass auction set to javascript as json object?
-// var auctionSet = JSON.parse('<?php echo json_encode($auction_set); ?>');
 function filter(auctionSet) {
   var rating, price, token, category;
 
+  //read filtering parameters off DOM elements
   if($('.jqSelectedRatingChoice').length == 0)
   rating = -1;
   else
@@ -327,15 +338,7 @@ function filter(auctionSet) {
   price = $( "#slider3" ).slider( "values" );
   token = $('#token').val();
 
-
   category = $( '.category-select' ).find('option:selected').val();
-
-  /*//debug:
-  alert("Rating: " + rating + "\n" +
-  "Slider bottom: " + price[0] + "\n" +
-  "Slider top: " + price[1] + "\n" +
-  "Token: " + token);*/
-
 
   var reload_url = "results.php?";
   reload_url +="token=" + token;
@@ -362,17 +365,19 @@ function filter(auctionSet) {
   * selection in terms of stars rating and price without these having to be set
   * through php or JS logic after the reload. :NT*/
   //   $.ajax({
-  //    type:'GET',
-  //    url:'generate_auction_list.php',
+  //    type:'POST', //using POST to overcome limitation of uri length with GET
+  //    url:'generate_auction_list_display.php',
   //    data: {
-  //      rating: rating,
-  //      bottom: price[0],
-  //      top: price[1],
-  //      token: token
+  //         auctionSet: auctionSet
+  //   //    rating: rating,
+  //   //    bottom: price[0],
+  //   //    top: price[1],
+  //   //    token: token
   //    },
   //    success: function (jqXHR, statusText) {
-  //      console.log(status);
+  //      console.log(statusText);
   //      console.log(jqXHR);
+  //      $("#results").replaceWith(jqXHR);
   //    }
   //  });
 }
