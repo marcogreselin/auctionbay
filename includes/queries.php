@@ -346,10 +346,10 @@ function query_feedback_left($to_user_id, $over_auction_id) {
   $query .= "WHERE auction_id='{$over_auction_id}' AND user_id='{$to_user_id}'";
 
   $result = mysqli_query($connection, $query);
-  // print_r($result);
+  //print_r($result);
   if($result)
     $result = mysqli_fetch_row($result)[0]; //only element in result array
-// print_r($result);
+  //print_r($result);
   return $result;
 }
 

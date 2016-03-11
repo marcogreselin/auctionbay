@@ -7,7 +7,7 @@ require_once('../includes/form_processing.php');
 // Get the user_id and the auction_id from the screen before
 $userId = $_GET['for_user_id'];
 $feedbackMainResult = getFeedbackInformation($userId);
-$feedbackMainResultForAverageStars = queryAuctionData($_GET['auctionId']);
+$feedbackMainResultForAverageStars = getAverageStarsForUser($userId);
 ?>
 
 
@@ -25,9 +25,9 @@ require_once('../includes/layouts/header.php');
     <h1>Feedback for <?php echo $feedback["firstName"]." ".$feedback["lastName"]; ?> (<?php echo $feedbackMainResultForAverageStars["stars"]?> stars)</h1>
     <h4>User type: <?php
         if($feedback["role"] == 1) {
-            echo "buyer";
+            echo "Buyer";
         } else {
-            echo "seller";
+            echo "Seller";
         } ;
 
         ?></h4>
@@ -39,9 +39,15 @@ require_once('../includes/layouts/header.php');
         <col width="200px">
         <col width="400px">
 
-        <thead>
+
+        <?php
+        if ($feedback['comment'] !== null) {
+
+            
+
+            $outputTableHeader = "<thead>
         <tr>
-            <th align="right"><h4>Image</h4></th>
+            <th align=\"right\"><h4>Image</h4></th>
             <th><h4>Item Name</h4></th>
             <th><h4>Ratings</h4></th>
             <th><h4>Date</h4></th>
@@ -49,10 +55,11 @@ require_once('../includes/layouts/header.php');
         </tr>
         </thead>
 
-        <tbody>
-        <?php
+        <tbody>";
 
-        while($row = mysqli_fetch_assoc($feedbackMainResult)) {
+            echo $outputTableHeader;
+
+            while($row = mysqli_fetch_assoc($feedbackMainResult)) {
 
                 $output1 = "<tr>
             <td>              <img class=\"feedback_img\" src=\"img/auctions/{$row['imageName']}\" class=\"feedback-table\">
@@ -65,11 +72,11 @@ require_once('../includes/layouts/header.php');
             <td>
             <div class=\"feedback-result-rating\">";
 
-            // Get the number of stars fom the database first and pass it into the function called returnStarRating to echo the number of stars accordingly.
-            $starNumber = $row['stars'];
-            $output2 = returnStarRating($starNumber);
+                // Get the number of stars fom the database first and pass it into the function called returnStarRating to echo the number of stars accordingly.
+                $starNumber = $row['stars'];
+                $output2 = returnStarRating($starNumber);
 
-            $output3="
+                $output3="
             </div>
             </td>
             <td>
@@ -86,9 +93,12 @@ require_once('../includes/layouts/header.php');
                 </tr>";
 
 
-            $output = $output1 . $output2 . $output3;
-            echo $output;
+                $output = $output1 . $output2 . $output3;
+                echo $output;
             }
+        } else {
+            echo "<h6>No one feedback left for " . "{$feedback['firstName']}" . " " . "{$feedback['lastName']}" . " " . "yet" . "</h6>";
+        }
             ?>
         </tbody>
     </table>

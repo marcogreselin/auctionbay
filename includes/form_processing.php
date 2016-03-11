@@ -795,6 +795,18 @@ FROM (
   }
 }
 
+/** Get the average stars for a particular user */
+function getAverageStarsForUser($userId) {
+  global $connection;
 
+  //query to get the average stars for a user
+  $query = "SELECT IF(FLOOR(AVG(stars)) IS NULL, 0, FLOOR(AVG(stars))) as stars from feedback where user_id = $userId";
 
+  $averageStarForUser = mysqli_query($connection, $query);
+
+  if (!$averageStarForUser) {
+    die("Database query failed");
+  }
+  return mysqli_fetch_assoc($averageStarForUser);
+}
 ?>

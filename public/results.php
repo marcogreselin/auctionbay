@@ -11,10 +11,11 @@ if(!is_buyer() && !is_seller()) {
   redirect_to("index.php");
 }
 
-if(isset($_POST) && !empty($_POST)) {
-  if(!isset($_POST['stars']))
-    $_POST['stars'] = -1;
-}
+//What is this doing again?:NT
+// if(isset($_POST) && !empty($_POST)) {
+//   if(!isset($_POST['stars']))
+//     $_POST['stars'] = -1;
+// }
 
 if(isset($_GET['token'])) {
   //process search form
@@ -45,8 +46,12 @@ if(isset($_GET['token'])) {
       unset($auction_set[$i]['startingPrice']);
     }
     //print_r($auction_set);
+
+    //encode result in json format
+
+    $json_encoded_auction_set = json_encode($auction_set);
   }
-} else {
+} else {//if not set $_GET['token']
   redirect_to("search.php");
 }
 
@@ -62,14 +67,10 @@ if(isset($_GET['bottom']) && isset($_GET['top']) &&
 
 }
 
-
 include("../includes/layouts/header.php");
 ?>
 
-
-
 <div class="container-search-page" id="wrapper">
-
   <div class="search-page-header"><h5>Show results for <?php
                                             if(isset($_GET['token']))
                                             { echo urldecode($_GET['token']); }
@@ -117,30 +118,6 @@ include("../includes/layouts/header.php");
                 UML Programming
               </a>
             </li>
-
-            <li class="list-subcategory">
-              <a href="#fakelink">
-                Design Pattern Programming
-              </a>
-            </li>
-
-            <li class="list-subcategory">
-              <a href="#fakelink">
-                Programming Languages & Tools
-              </a>
-            </li>
-
-            <li class="list-subcategory">
-              <a href="#fakelink">
-                Computing & Internet Programming
-              </a>
-            </li>
-
-            <li class="list-subcategory">
-              <a href="#fakelink">
-                Design Pattern Programming
-              </a>
-            </li>
           -->
             <li class="divider"></li>
 
@@ -178,7 +155,8 @@ include("../includes/layouts/header.php");
               <!-- <div class="col-sm-8 col-sm-offset-2"> -->
                 <div class="text-center">
                 <input class="btn-filter btn-hg btn-primary btn-wide "
-                type="submit" name="btn-filter" value="Filter" onclick="filter();">
+                type="submit" name="btn-filter" value="Filter" onclick="
+                filter(<?php  echo htmlentities($json_encoded_auction_set);//pass json encoded result to js ?>)">
               </div>
             </div>
           <!--</form>-->
@@ -186,12 +164,14 @@ include("../includes/layouts/header.php");
       </div>
 
             <div class="col-sm-9">
-                <table class="search-page-table table-striped">
-                    <col width="200px">
-                    <col width="800px">
-
-                  <?php
-
+              <?php
+              //begin constructing auction set display table, id value used by
+              //jQuery to replace construct with ajax request response
+              //begin constructing table
+              $output = "
+              <table class=\"search-page-table table-striped\" id=\"results\">
+                  <col width=\"200px\">
+                  <col width=\"800px\">";
                 //if (filtered if requested) result set is not empty:
                 if($auction_set) {
 
@@ -211,8 +191,9 @@ include("../includes/layouts/header.php");
                                 Based on {$no_of_ratings} ratings<br/>";
                     }
 
-                    $output = "
-                    <td>
+                    $output .= "
+                    <tr>
+                      <td>
                           <a href=\"auction.php?auctionId={$auctionId}\">
                           <img src=\"img/auctions/{$imageName}\"
                                           title=\"{$title}\"
@@ -234,7 +215,10 @@ include("../includes/layouts/header.php");
                                           <div><h6 class=\"jqAuctionPrice\">
                                           Current Price:
                                             £{$currentPrice}</h6>
-                                            {$rating_string} </div>
+                                            </div>
+                                            <div>
+                                            {$rating_string}
+                                            </div>
                                       </div>
                                   </li>
                                   <li>
@@ -248,64 +232,15 @@ include("../includes/layouts/header.php");
                       </td>
                   </tr>";
 
-                  echo $output;
                   }
-                } //else {
-                //     redirect_to("search.php");
-                // }
+                } else {
+                    $output .= "<tr></tr><tr><td></td><td><h2>No results</h2></td></tr>";
+                }
+
+                //always close div before echo
+                $output .= "</table>";
+                echo $output;
                   ?>
-
-                      <!--
-                      <tr>
-                        <td>
-                            <a href="#"><img src="img/user-interface.svg" title="Insert title"
-                                             class="search-result-table"></a>
-                        </td>
-                        <td>
-                            <div class="row">
-                                <ul class="search-result-list">
-                                    <li>
-                                        <div class="col-sm-6">
-                                            <a href="#"><h6>Item name</h6></a>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div><h6>Price</h6></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim
-                                            movet
-                                            munere. Detracto rationibus instructior his an, ludus malorum docendi an
-                                            ius.
-                                            Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui
-                                            omnes
-                                            quando accusata, habeo viderer ea duo, brute instructior per ad. Illud
-                                            exerci at
-                                            duo, ne z
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
-                                                           name="btn-bid" value="Bid">
-                                                </div>
-
-                                                <div class="col-sm-6">
-                                                    <input class="btn-follow btn-lg btn-primary btn-wide"
-                                                           type="submit"
-                                                           name="btn-follow" value="Follow">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                        </td>
-                    </tr>-->
-
-                </table>
                 </div>
         </div>
     </div>
@@ -360,8 +295,9 @@ include("../includes/layouts/header.php");
     $('select').select2();
 </script>
 
-<!-- Still yet to implement-->
-<script type="text/javascript">
+<!-- Still yet to implement; What is this doing again? It generates a lot of
+errors in the javascript console?:NT-->
+<!--<script type="text/javascript">
     $(document).ready(function () {
         var s = $("#sticker");
         var pos = s.position();
@@ -374,7 +310,7 @@ include("../includes/layouts/header.php");
             }
         });
     });
-</script>
+</script>-->
 <script type="text/javascript">
   /*adds click listener to stars to change their class, so that their value can
   * later be retrieved to be used as GET data*/
@@ -385,9 +321,10 @@ include("../includes/layouts/header.php");
 </script>
 
 <script type="text/javascript">
-function filter() {
-  var rating, price, token, category;
-
+function filter(auctionSet) {
+  var rating, price, token, category, tokenChanged = false;
+  var searchToken = "<?php echo $search_token; ?>";
+  //read filtering parameters off DOM elements
   if($('.jqSelectedRatingChoice').length == 0)
   rating = -1;
   else
@@ -396,24 +333,21 @@ function filter() {
   price = $( "#slider3" ).slider( "values" );
   token = $('#token').val();
 
-
   category = $( '.category-select' ).find('option:selected').val();
 
-  /*//debug:
-  alert("Rating: " + rating + "\n" +
-  "Slider bottom: " + price[0] + "\n" +
-  "Slider top: " + price[1] + "\n" +
-  "Token: " + token);*/
+  tokenChanged = !(searchToken === token);
+  if(tokenChanged) {
+    // auctionSet = null;//new query necessary from asynchronous processing
+    //but for the moment just refresh the page
+    var reload_url = "results.php?";
+    reload_url +="token=" + token;
+    reload_url += "&bottom=" + price[0];
+    reload_url += "&top=" + price[1];
+    reload_url += "&rating=" + rating;
+    reload_url += "&category=" + category;
 
-
-  var reload_url = "results.php?";
-  reload_url +="token=" + token;
-  reload_url += "&bottom=" + price[0];
-  reload_url += "&top=" + price[1];
-  reload_url += "&rating=" + rating;
-  reload_url += "&category=" + category;
-
-  window.location = reload_url;
+    window.location = reload_url;
+  }
 
   /*a better solution would be to send some request to the server (to some
   * generate_auction_list.php page for example), which is also responsible for the
@@ -430,20 +364,24 @@ function filter() {
   * the page would not have been refreshed, the user would still see their
   * selection in terms of stars rating and price without these having to be set
   * through php or JS logic after the reload. :NT*/
-  //   $.ajax({
-  //    type:'GET',
-  //    url:'generate_auction_list.php',
-  //    data: {
-  //      rating: rating,
-  //      bottom: price[0],
-  //      top: price[1],
-  //      token: token
-  //    },
-  //    success: function (jqXHR, statusText) {
-  //      console.log(status);
-  //      console.log(jqXHR);
-  //    }
-  //  });
+    $.ajax({
+     type:'POST', //using POST to overcome limitation of uri length with GET
+     url:'generate_auction_list_display.php',
+     data: {
+       auctionSet: auctionSet,
+       rating: rating,
+       bottom: price[0],
+       top: price[1],
+       tokenChanged: tokenChanged,
+       token: token,
+       category: category
+     },
+     success: function (jqXHR, statusText) {
+       console.log(statusText);
+       console.log(jqXHR);
+       $("#results").replaceWith(jqXHR);
+     }
+   });
 }
 </script>
 </body>

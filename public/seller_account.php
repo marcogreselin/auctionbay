@@ -109,25 +109,36 @@
   <?php echo $_SESSION['zip'] . " " . $_SESSION['city'] ."<br/>"; ?><!--W1H 675 London<br>-->
   email: <?php echo " " . $_SESSION['email'] . "</p>"; ?> <!--alex@vally.com</p>-->
 
-  <a name="auctions"><h3>My Recent Auctions</h3></a>
-  <table class="table table-striped">
-    <col width="200px">
+
+
+
+    <!-- Only displays the My Recent Auctions table when there is really data in the table -->
+    <?php
+    $auction_set = filter_expired_auctions($auction_set_unfiltered);
+
+    $outputTableHeader = "
+      <a name=\"auctions\"><h3>My Recent Auctions</h3></a>
+  <table class=\"table table-striped\">
+    <col width=\"200px\">
     <tr>
       <th>Item Name</th>
       <th>Description</th>
       <th>Current Price</th>
     </tr>
-    <?php
-    $auction_set = filter_expired_auctions($auction_set_unfiltered);
+      ";
 
-    foreach ($auction_set as $auction) {
-      $imageName      = htmlentities($auction['imageName']);
-      $title          = htmlentities($auction['title']);
-      $description    = htmlentities($auction['description']);
-      $winning_price  = htmlentities($auction['winning_price']);
-      $link = "auction.php?auctionId=" .
-              urlencode(htmlentities($auction['auctionId']));
-      $output = "
+
+    if ($auction_set) {
+      echo $outputTableHeader;
+
+      foreach ($auction_set as $auction) {
+        $imageName = htmlentities($auction['imageName']);
+        $title = htmlentities($auction['title']);
+        $description = htmlentities($auction['description']);
+        $winning_price = htmlentities($auction['winning_price']);
+        $link = "auction.php?auctionId=" .
+            urlencode(htmlentities($auction['auctionId']));
+        $output2 = "
       <tr>
         <td><a href=\"{$link}\"><h7>{$title}</h7>
         <img src=\"img/auctions/{$imageName}\"
@@ -143,47 +154,51 @@
         </td>
       </tr>";
 
-      echo $output;
+        echo $output2;
+      }
+    } else {
+      echo "";
     }
-
     ?>
-    <!-- <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
-      <td>Third Row, second column</td>
-      <td>Third Row, third column</td>
-    </tr> -->
+
+
+
+
+    <!-- Only displays teh completed auction table if there is data in the table -->
   </table>
-
-
-    <!-- Table for the sold auctions for the seller -->
-    <a name="sold-auctions"><h3>Items Sold</h3></a>
-    <table class="table table-striped">
-      <col width="200px">
-      <col width="auto">
-      <col width="auto">
+    <?php
+    $completedAuction = getCompletedAuctionDetailsForSeller($userId);
+    if (mysqli_num_rows($completedAuction) !== 0) {
+      $outputTableHeader = "
+         <a name=\"sold-auctions\"><h3>Items Sold</h3></a>
+    <table class=\"table table-striped\">
+      <col width=\"200px\">
+      <col width=\"auto\">
+      <col width=\"auto\">
       <tr>
         <th>Auction Item</th>
         <th>Corresponding Buyer</th>
         <th>Final Price</th>
       </tr>
-
-      <?php
-      $completedAuction = getCompletedAuctionDetailsForSeller($userId);
+        ";
+      echo $outputTableHeader;
 
       while ($row = mysqli_fetch_assoc($completedAuction)) {
         $link = "auction.php?auctionId=" . urlencode($row['auction_id']);
 
-        $output = "
+        $output2 = "
        <tr>
-        <td><div>{$row['title']}</div><a href=\"{$link}\"><img src=\"img/auctions/{$row['imageName']}\" title=\"{$row['title']}\"></a></td>
+        <td><a href=\"{$link}\"><div>{$row['title']}</div><img src=\"img/auctions/{$row['imageName']}\" title=\"{$row['title']}\"></a></td>
         <td>{$row['buyerName']}<br><strong>Address:</strong> {$row['buyerAddress']}<br><strong>Email:</strong> {$row['buyeremail']}</td>
         <td>£{$row['finalAmount']}</td>
       </tr>";
-
-        echo $output;
+        echo $output2;
       }
-      ?>
-    </table>
+    } else {
+      echo "";
+    }
+    ?>
+      </table>
 </div>
 </div>
 </div>
