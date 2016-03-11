@@ -32,9 +32,6 @@
 
    }
   		redirect_to("index.php");
-  	} else {
-  		$_POST["error"];
-  	}
 
   }
 

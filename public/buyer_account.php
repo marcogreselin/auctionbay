@@ -130,6 +130,8 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
 
   <table class="table table-striped">
     <col width="200px">
+    <col>
+    <col width="200px">
     <tr>
       <th>Item Name</th>
       <th>Description</th>

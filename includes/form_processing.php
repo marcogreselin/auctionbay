@@ -402,32 +402,57 @@ function filter_auctions_already_rated($auction_set, $role) {
   return $result;
 }
 
-function addAuction() {
-  global $connection;
+// function addAuction() {
+//   global $connection;
 
-  $title = $_POST["title"];
-  $body = $_POST["body"];
-  $endDate = $_POST["endDate"];
-  $reservePrice = $_POST["reservePrice"];
-  $startingPrice = $_POST["startingPrice"];
-  $category_Id =$_POST["category"];
-  $seller=$_SESSION['userId'];
-  $imageName = $_FILES['image']['name'];
+//   $errors = array();
 
+//   if($_POST["title"] != null)
+//     $title = $_POST["title"];
+//   else
+//     $errors[] = 'title';
 
+//   if($_POST["body"] != null)
+//     $body = $_POST["body"];
+//   else
+//     $errors[] = 'body';
+//   if($_POST["endDate"] != null && strtotime($_POST["endDate"]) > time()) 
+//     $endDate = $_POST["endDate"];
+//   else
+//     $errors[] = 'time';
+//   if(is_int($_POST["reservePrice"]) && $_POST["reservePrice"] > $_POST["startingPrice"])
+//     $reservePrice = $_POST["reservePrice"];
+//   else
+//     $errors[] = 'reservePrice';
+//   if(is_int($_POST["startingPrice"]))
+//     $startingPrice = $_POST["startingPrice"];
+//   else
+//     $errors[] = 'startingPrice';
+//   $category_Id =$_POST["category"];
+//   $seller=$_SESSION['userId'];
+//   if($_FILES['image']['name'] != null)
+//     $imageName = $_FILES['image']['name'];
+//   else
+//     $errors[] = 'image';
 
-  $query = "INSERT INTO auction (title, description, seller, startingPrice, reservePrice,
-            expirationDate, category_Id, views, imageName)
-            VALUES ('{$title}', '{$body}','{$seller}','{$startingPrice}','{$reservePrice}',
-            '{$endDate}','{$category_Id}',0,'{$imageName}');";
-  $result = mysqli_query($connection,$query);
-  if($result){
-    return true;
-  } else {
-    return false;
-  }
+//   if(empty($errors[])){
 
-}
+//     $query = "INSERT INTO auction (title, description, seller, startingPrice, reservePrice,
+//             expirationDate, category_Id, views, imageName)
+//             VALUES ('{$title}', '{$body}','{$seller}','{$startingPrice}','{$reservePrice}',
+//             '{$endDate}','{$category_Id}',0,'{$imageName}');";
+//     $result = mysqli_query($connection,$query);
+//     if($result){
+//       return true;
+//     } else {
+//       return false;
+//     }
+
+//   } else {
+//     return $errors[];
+//   }
+
+// }
 
 function queryCatArray(){
   global $connection;
@@ -526,7 +551,6 @@ function bid($auctionData){
   $userId = $_SESSION["userId"];
   $auctionId = $_GET["auctionId"];
   $query="INSERT INTO `auction_site`.`bid` (`auction_id`, `user_id`, `bidAmount`) VALUES ('".$auctionId."', '".$userId."', '".$_POST["newBidAmount"]."');";
-
   if($_POST["newBidAmount"]>$auctionData["price"]){
     mysqli_query($connection,$query);
     if($auctionData['currentWinner']!=$userId){
@@ -542,6 +566,26 @@ function bid($auctionData){
     return false;
       }
 }
+// function bid($auctionData){
+//   global $connection;
+//   $userId = $_SESSION["userId"];
+//   $auctionId = $_GET["auctionId"];
+//   $query="INSERT INTO `auction_site`.`bid` (`auction_id`, `user_id`, `bidAmount`) VALUES ('".$auctionId."', '".$userId."', '".$_POST["newBidAmount"]."');";
+//   if($_POST["newBidAmount"]>$auctionData["price"]){
+//     mysqli_query($connection,$query);
+//     if($auctionData['currentWinner']!=$userId){
+//       $to      = $auctionData['currentWinnerEmail'];
+//       $subject = 'Your bid for '.$auctionData['title'];
+//       $message = "Hello there, \n We are writing you to inform you that your bid has been outbid by another user. The new price is set to £".$_POST["newBidAmount"].".\n Please visit AuctionBay and keep bidding!\n \n Your AuctionBay Team";
+//       $headers = 'From: auctiobay.ucl@gmail.com' . "\r\n" .
+//         'X-Mailer: PHP/' . phpversion();
+//       echo mail($to, $subject, $message, $headers);
+//     }
+//     return true;
+//   } else {
+//     return false;
+//       }
+// }
 
 /** Leave feedback after clicking the leave feedback pictures in the buyer_account or seller_account*/
 function leaveFeedback() {
