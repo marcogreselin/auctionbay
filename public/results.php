@@ -238,7 +238,8 @@ include("../includes/layouts/header.php");
                                       </div>
                                   </li>
                                   <li>
-                                      <div class=\"container-item-description\">
+                                      <div class=\"container-item-description\"
+                                      style=\"width: 50em; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">
                                           {$description}
                                       </div>
                                   </li>

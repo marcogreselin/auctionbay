@@ -228,7 +228,7 @@ function query_select_winning_bid($auctionId) {
 
   if($result)
     $result = mysqli_fetch_assoc($result);
-// print_r($result);
+ // print_r($result);
   return $result;
 }
 

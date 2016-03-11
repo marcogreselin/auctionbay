@@ -251,7 +251,16 @@ function query_select_buyer_auctions_success() {
   $userId = 38;
 
   $result = query_select_buyer_auctions($userId);
-  assert($result[0]['auctionId'] == 5);
+  $found_expected = 0;
+  foreach ($result as $auction) {
+    if($auction['auctionId'] == 5) {
+        $found_expected = 1;
+        break;
+    }
+  }
+  // assert($result[2]['auctionId'] == EXPECTED_AUCTION_ID);
+
+  assert($found_expected);
 }
 
 //@TEST
