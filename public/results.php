@@ -234,7 +234,10 @@ include("../includes/layouts/header.php");
                                           <div><h6 class=\"jqAuctionPrice\">
                                           Current Price:
                                             £{$currentPrice}</h6>
-                                            {$rating_string} </div>
+                                            </div>
+                                            <div>
+                                            {$rating_string}
+                                            </div>
                                       </div>
                                   </li>
                                   <li>
@@ -250,9 +253,9 @@ include("../includes/layouts/header.php");
 
                   echo $output;
                   }
-                } //else {
-                //     redirect_to("search.php");
-                // }
+                } else {
+                    echo "<h2>No results</h2>";
+                }
                   ?>
 
                       <!--
