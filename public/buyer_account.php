@@ -193,7 +193,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
     </tr>
     <?php
     $auction_set = retrieve_followed_by_user();
-    // $auction_set = filter_expired_auctions($auction_set);
+    $auction_set = filter_expired_auctions($auction_set);
     //TODO this should be extracted: occurs everywhere in buyer and seller pages
     foreach ($auction_set as $auction) {
       $imageName      = htmlentities($auction['imageName']);
@@ -242,33 +242,38 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
 
 
     <!-- Table for the awarded auctions for the buyer -->
-    <a name="awarded-auctions"><h3>Awarded Auctions</h3></a>
-    <table class="table table-striped">
-      <col width="200px">
-      <col width="auto">
-      <col width="auto">
-      <col width="50px">
+    <?php
+    $completedAuction = getCompletedAuctionDetailsForBuyer($userId);
+    $output1 = "
+      <a name=\"awarded-auctions\"><h3>Awarded Auctions</h3></a>
+    <table class=\"table table-striped\">
+      <col width=\"200px\">
+      <col width=\"auto\">
+      <col width=\"auto\">
+      <col width=\"50px\">
       <tr>
         <th>Auction Item</th>
         <th>Corresponding Seller</th>
         <th>Final Price</th>
       </tr>
+      ";
 
-      <?php
-      $completedAuction = getCompletedAuctionDetailsForBuyer($userId);
-
-
+    if (mysqli_num_rows($completedAuction) !== 0) {
+      echo $output1;
       while ($row = mysqli_fetch_assoc($completedAuction)) {
         $link = "auction.php?auctionId=" . urlencode($row['auction_id']);
-        $output = "
+        $output2 = "
        <tr>
-        <td><div>{$row['title']}</div><a href=\"{$link}\"><img src=\"img/auctions/{$row['imageName']}\" title=\"{$row['title']}\"></a></td>
+        <td><a href=\"{$link}\"><div>{$row['title']}</div><img src=\"img/auctions/{$row['imageName']}\" title=\"{$row['title']}\"></a></td>
         <td>{$row['sellerName']}<br><strong>Address:</strong> {$row['sellerAddress']}<br><strong>Email:</strong> {$row['sellerEmail']}</td>
         <td>£{$row['finalAmount']}</td>
       </tr>";
-        echo $output;
+        echo $output2;
       }
-      ?>
+    } else {
+      echo "";
+    }
+    ?>
     </table>
 
 
