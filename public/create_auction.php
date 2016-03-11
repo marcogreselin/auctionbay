@@ -28,20 +28,8 @@
 
       $expensions= array("jpeg","jpg","png");
 
-      // if(in_array($file_ext,$expensions)=== false){
-      //    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-      // }
+      move_uploaded_file($file_tmp,"img/auctions/".$file_name);
 
-      // if($file_size > 2097152){
-      //    $errors[]='File size must be excately 2 MB';
-      // }
-
-      // if(empty($errors)==true){
-         move_uploaded_file($file_tmp,"img/auctions/".$file_name);
-         // echo "Success";
-      // }else{
-      //    print_r($errors);
-      // }
    }
   		redirect_to("index.php");
   	} else {
@@ -124,26 +112,22 @@
   <select class="category-select form-control select select-primary select-sm mbl" id="sel1" name="category">
 
 
-  		    <?php
-$catArray = queryCatArray();
-while($row = mysqli_fetch_assoc($catArray)){
+	<?php
+	$catArray = queryCatArray();
+	while($row = mysqli_fetch_assoc($catArray)){
 
-  echo "<option value=\"";
-  echo $row["categoryId"];
-  echo "\">";
-  echo $row["name"];
-  echo "</option>";
+	  echo "<option value=\"";
+	  echo $row["categoryId"];
+	  echo "\">";
+	  echo $row["name"];
+	  echo "</option>";
 
-}
-?>
+	}
+	?>
 
   </select>
   </div>
 </div>
-
-
-
-
 
 	<button name="submitAuction" class="btn btn-hg btn-primary create-button">
 	  Create Auction
