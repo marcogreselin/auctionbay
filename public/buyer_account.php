@@ -123,10 +123,10 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
    <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?> <!--Alex Vally<br> -->
    <?php echo $_SESSION['number'] . ", " . $_SESSION['street'] . "<br>"; ?><!--54, Marylebone Street<br>-->
    <?php echo $_SESSION['zip'] . " " . $_SESSION['city'] ."<br/>"; ?><!--W1H 675 London<br>-->
-   email: <?php echo " " . $_SESSION['email'] . "<p>"; ?> <!--alex@vally.com</p>-->
+   email: <?php echo " " . $_SESSION['email'] . "</p>"; ?> <!--alex@vally.com</p>-->
 
 
-  <a name="address"><h3>My Recent Bids (to be changed?)</h3></a>
+  <a name="bids"><h3>My Recent Bids</h3></a>
 
   <table class="table table-striped">
     <col width="200px">
@@ -235,31 +235,9 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       echo $output;
     }
 
-    //DEBUG
-    // echo "<pre>";
-    // print_r($auction_set);
-    // echo "</pre>";
-
 
     ?>
-    <!--<tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Second Row, first column</a></td>
-      <td>Second Row, second column</td>
-      <td>Second Row, third column</td>
-      <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
-    </tr>
-    <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
-      <td>Third Row, second column</td>
-      <td>Third Row, third column</td>
-      <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
-    </tr>
-    <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
-      <td>Third Row, second column</td>
-      <td>Third Row, third column</td>
-      <td class="trash"><a href="#"><img src="img/trash.svg" class="trash-icon" title="Unollow"></a></td>
-    </tr>-->
+
   </table>
 
 
