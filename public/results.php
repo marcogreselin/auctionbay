@@ -234,7 +234,7 @@ include("../includes/layouts/header.php");
 
                   }
                 } else {
-                    $output .= "<tr><td></td><td><h2>No results</h2></td></tr>";
+                    $output .= "<tr></tr><tr><td></td><td><h2>No results</h2></td></tr>";
                 }
 
                 //always close div before echo
@@ -297,7 +297,7 @@ include("../includes/layouts/header.php");
 
 <!-- Still yet to implement; What is this doing again? It generates a lot of
 errors in the javascript console?:NT-->
-<script type="text/javascript">
+<!--<script type="text/javascript">
     $(document).ready(function () {
         var s = $("#sticker");
         var pos = s.position();
@@ -310,7 +310,7 @@ errors in the javascript console?:NT-->
             }
         });
     });
-</script>
+</script>-->
 <script type="text/javascript">
   /*adds click listener to stars to change their class, so that their value can
   * later be retrieved to be used as GET data*/
@@ -322,8 +322,8 @@ errors in the javascript console?:NT-->
 
 <script type="text/javascript">
 function filter(auctionSet) {
-  var rating, price, token, category;
-
+  var rating, price, token, category, tokenChanged = false;
+  var searchToken = "<?php echo $search_token; ?>";
   //read filtering parameters off DOM elements
   if($('.jqSelectedRatingChoice').length == 0)
   rating = -1;
@@ -335,14 +335,19 @@ function filter(auctionSet) {
 
   category = $( '.category-select' ).find('option:selected').val();
 
-  var reload_url = "results.php?";
-  reload_url +="token=" + token;
-  reload_url += "&bottom=" + price[0];
-  reload_url += "&top=" + price[1];
-  reload_url += "&rating=" + rating;
-  reload_url += "&category=" + category;
+  tokenChanged = !(searchToken === token);
+  if(tokenChanged) {
+    // auctionSet = null;//new query necessary from asynchronous processing
+    //but for the moment just refresh the page
+    var reload_url = "results.php?";
+    reload_url +="token=" + token;
+    reload_url += "&bottom=" + price[0];
+    reload_url += "&top=" + price[1];
+    reload_url += "&rating=" + rating;
+    reload_url += "&category=" + category;
 
-  // window.location = reload_url;
+    window.location = reload_url;
+  }
 
   /*a better solution would be to send some request to the server (to some
   * generate_auction_list.php page for example), which is also responsible for the
@@ -363,11 +368,13 @@ function filter(auctionSet) {
      type:'POST', //using POST to overcome limitation of uri length with GET
      url:'generate_auction_list_display.php',
      data: {
-          auctionSet: auctionSet
-    //    rating: rating,
-    //    bottom: price[0],
-    //    top: price[1],
-    //    token: token
+       auctionSet: auctionSet,
+       rating: rating,
+       bottom: price[0],
+       top: price[1],
+       tokenChanged: tokenChanged,
+       token: token,
+       category: category
      },
      success: function (jqXHR, statusText) {
        console.log(statusText);
