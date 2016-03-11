@@ -211,13 +211,18 @@ function process_search_form_success() {
 function get_price_success() {
   global $connection;
 
-  $result_set = (query_select_auction_search("long"));
+  $result_set = query_select_followed_by_user(38);
 
-  foreach ($result_set as $auction) {
-    //assert((get_price($auction) == EXPECTED_PRICE_FOR_AUCTION_5));
-    assert((get_price($auction['auctionId'],
-                  $auction['startingPrice']) == EXPECTED_PRICE_FOR_AUCTION_5));
-  }
+  $found_expected = 0;
+ foreach ($result_set as $auction) {
+    if($auction['auctionId'] &&
+        get_price($auction['auctionId'], $auction['startingPrice'])
+            == EXPECTED_PRICE_FOR_AUCTION_5) {
+      $found_expected = 1;
+      break;
+    }
+ }
+  assert($found_expected);
 }
 
 //@TEST
@@ -494,7 +499,7 @@ function retrieve_followed_by_user_success() {
     if($auction['auctionId'] == EXPECTED_AUCTION_ID &&
       $auction['winning_price'] == EXPECTED_AUCTION_ID &&
       $auction['winner_id'] == -1) {
-        $found_expected =1;
+        $found_expected = 1;
         break;
     }
   }

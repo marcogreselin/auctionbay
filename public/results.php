@@ -167,16 +167,13 @@ include("../includes/layouts/header.php");
               <?php
               //begin constructing auction set display table, id value used by
               //jQuery to replace construct with ajax request response
-              $output = "<div id=\"results\">";
-
+              //begin constructing table
+              $output = "
+              <table class=\"search-page-table table-striped\" id=\"results\">
+                  <col width=\"200px\">
+                  <col width=\"800px\">";
                 //if (filtered if requested) result set is not empty:
                 if($auction_set) {
-
-                  //begin constructing table
-                  $output = "
-                  <table class=\"search-page-table table-striped\">
-                      <col width=\"200px\">
-                      <col width=\"800px\">";
 
                   foreach ($auction_set as $auction) {
                     $imageName      = htmlentities($auction['imageName']);
@@ -236,14 +233,12 @@ include("../includes/layouts/header.php");
                   </tr>";
 
                   }
-                  //close table after looping
-                  $output .= "</table>";
                 } else {
-                    $output .= "<h2>No results</h2>";
+                    $output .= "<tr><td></td><td><h2>No results</h2></td></tr>";
                 }
 
                 //always close div before echo
-                $output .= "</div>";
+                $output .= "</table>";
                 echo $output;
                   ?>
                 </div>
@@ -347,7 +342,7 @@ function filter(auctionSet) {
   reload_url += "&rating=" + rating;
   reload_url += "&category=" + category;
 
-  window.location = reload_url;
+  // window.location = reload_url;
 
   /*a better solution would be to send some request to the server (to some
   * generate_auction_list.php page for example), which is also responsible for the
@@ -364,22 +359,22 @@ function filter(auctionSet) {
   * the page would not have been refreshed, the user would still see their
   * selection in terms of stars rating and price without these having to be set
   * through php or JS logic after the reload. :NT*/
-  //   $.ajax({
-  //    type:'POST', //using POST to overcome limitation of uri length with GET
-  //    url:'generate_auction_list_display.php',
-  //    data: {
-  //         auctionSet: auctionSet
-  //   //    rating: rating,
-  //   //    bottom: price[0],
-  //   //    top: price[1],
-  //   //    token: token
-  //    },
-  //    success: function (jqXHR, statusText) {
-  //      console.log(statusText);
-  //      console.log(jqXHR);
-  //      $("#results").replaceWith(jqXHR);
-  //    }
-  //  });
+    $.ajax({
+     type:'POST', //using POST to overcome limitation of uri length with GET
+     url:'generate_auction_list_display.php',
+     data: {
+          auctionSet: auctionSet
+    //    rating: rating,
+    //    bottom: price[0],
+    //    top: price[1],
+    //    token: token
+     },
+     success: function (jqXHR, statusText) {
+       console.log(statusText);
+       console.log(jqXHR);
+       $("#results").replaceWith(jqXHR);
+     }
+   });
 }
 </script>
 </body>
