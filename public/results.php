@@ -45,8 +45,11 @@ if(isset($_GET['token'])) {
       unset($auction_set[$i]['startingPrice']);
     }
     //print_r($auction_set);
+
+    //encode result in json format
+    $json_encoded_auction_set = json_encode($auction_set);
   }
-} else {
+} else {//if not set $_GET['token']
   redirect_to("search.php");
 }
 
@@ -62,14 +65,10 @@ if(isset($_GET['bottom']) && isset($_GET['top']) &&
 
 }
 
-
 include("../includes/layouts/header.php");
 ?>
 
-
-
 <div class="container-search-page" id="wrapper">
-
   <div class="search-page-header"><h5>Show results for <?php
                                             if(isset($_GET['token']))
                                             { echo urldecode($_GET['token']); }
@@ -118,29 +117,6 @@ include("../includes/layouts/header.php");
               </a>
             </li>
 
-            <li class="list-subcategory">
-              <a href="#fakelink">
-                Design Pattern Programming
-              </a>
-            </li>
-
-            <li class="list-subcategory">
-              <a href="#fakelink">
-                Programming Languages & Tools
-              </a>
-            </li>
-
-            <li class="list-subcategory">
-              <a href="#fakelink">
-                Computing & Internet Programming
-              </a>
-            </li>
-
-            <li class="list-subcategory">
-              <a href="#fakelink">
-                Design Pattern Programming
-              </a>
-            </li>
           -->
             <li class="divider"></li>
 
@@ -178,7 +154,8 @@ include("../includes/layouts/header.php");
               <!-- <div class="col-sm-8 col-sm-offset-2"> -->
                 <div class="text-center">
                 <input class="btn-filter btn-hg btn-primary btn-wide "
-                type="submit" name="btn-filter" value="Filter" onclick="filter();">
+                type="submit" name="btn-filter" value="Filter" onclick="
+                filter(<?php  echo htmlentities($json_encoded_auction_set);//pass json encoded result to js ?>)">
               </div>
             </div>
           <!--</form>-->
@@ -257,57 +234,6 @@ include("../includes/layouts/header.php");
                     echo "<h2>No results</h2>";
                 }
                   ?>
-
-                      <!--
-                      <tr>
-                        <td>
-                            <a href="#"><img src="img/user-interface.svg" title="Insert title"
-                                             class="search-result-table"></a>
-                        </td>
-                        <td>
-                            <div class="row">
-                                <ul class="search-result-list">
-                                    <li>
-                                        <div class="col-sm-6">
-                                            <a href="#"><h6>Item name</h6></a>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div><h6>Price</h6></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            Reque libris definitionem ne his, solum interesset ea sea. Eu mel enim
-                                            movet
-                                            munere. Detracto rationibus instructior his an, ludus malorum docendi an
-                                            ius.
-                                            Sadipscing vituperatoribus ei sea, id vix volutpat efficiendi. Eu qui
-                                            omnes
-                                            quando accusata, habeo viderer ea duo, brute instructior per ad. Illud
-                                            exerci at
-                                            duo, ne z
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="container-item-description">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <input class="btn-bid btn-lg btn-primary btn-wide" type="submit"
-                                                           name="btn-bid" value="Bid">
-                                                </div>
-
-                                                <div class="col-sm-6">
-                                                    <input class="btn-follow btn-lg btn-primary btn-wide"
-                                                           type="submit"
-                                                           name="btn-follow" value="Follow">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                        </td>
-                    </tr>-->
-
                 </table>
                 </div>
         </div>
@@ -388,7 +314,9 @@ include("../includes/layouts/header.php");
 </script>
 
 <script type="text/javascript">
-function filter() {
+//pass auction set to javascript as json object?
+// var auctionSet = JSON.parse('<?php echo json_encode($auction_set); ?>');
+function filter(auctionSet) {
   var rating, price, token, category;
 
   if($('.jqSelectedRatingChoice').length == 0)
