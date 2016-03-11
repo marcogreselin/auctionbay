@@ -116,7 +116,7 @@
     <?php
     $auction_set = filter_expired_auctions($auction_set_unfiltered);
 
-    $output1 = "
+    $outputTableHeader = "
       <a name=\"auctions\"><h3>My Recent Auctions</h3></a>
   <table class=\"table table-striped\">
     <col width=\"200px\">
@@ -127,8 +127,9 @@
     </tr>
       ";
 
+
     if ($auction_set) {
-      echo $output1;
+      echo $outputTableHeader;
 
       foreach ($auction_set as $auction) {
         $imageName = htmlentities($auction['imageName']);
@@ -159,18 +160,16 @@
       echo "";
     }
     ?>
-    <!-- <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
-      <td>Third Row, second column</td>
-      <td>Third Row, third column</td>
-    </tr> -->
+
+
+
+
+    <!-- Only displays teh completed auction table if there is data in the table -->
   </table>
-
-
     <?php
     $completedAuction = getCompletedAuctionDetailsForSeller($userId);
     if (mysqli_num_rows($completedAuction) !== 0) {
-      $output1 = "
+      $outputTableHeader = "
          <a name=\"sold-auctions\"><h3>Items Sold</h3></a>
     <table class=\"table table-striped\">
       <col width=\"200px\">
@@ -182,7 +181,7 @@
         <th>Final Price</th>
       </tr>
         ";
-      echo $output1;
+      echo $outputTableHeader;
 
       while ($row = mysqli_fetch_assoc($completedAuction)) {
         $link = "auction.php?auctionId=" . urlencode($row['auction_id']);

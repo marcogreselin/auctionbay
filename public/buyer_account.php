@@ -104,12 +104,6 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
                     </tr>";
         }
 
-        // <!--  <tr>
-        //
-        //     <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
-        //     <td>First Row, second column</td>
-        //     <td>First Row, third column</td>
-        //   </tr> -->
 
         $output .= "</table></div>";
 
@@ -126,34 +120,44 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
    email: <?php echo " " . $_SESSION['email'] . "</p>"; ?> <!--alex@vally.com</p>-->
 
 
-  <a name="bids"><h3>My Recent Bids</h3></a>
 
-  <table class="table table-striped">
-    <col width="200px">
+    <?php
+
+    $auction_set = filter_expired_auctions($auction_set_unfiltered);
+
+    if ($auction_set) {
+
+
+      $outputTableHeader = "<a name=\"bids\"><h3>My Recent Bids</h3></a>
+
+  <table class=\"table table-striped\">
+    <col width=\"200px\">
+    <col width=\"200px\">
     <tr>
       <th>Item Name</th>
       <th>Description</th>
       <th>Status</th>
-    </tr>
-    <?php
-    $auction_set = filter_expired_auctions($auction_set_unfiltered);
+    </tr>";
 
-    foreach ($auction_set as $auction) {
-      $imageName      = htmlentities($auction['imageName']);
-      $title          = htmlentities($auction['title']);
-      $description    = htmlentities($auction['description']);
-      $winning_price  = htmlentities($auction['winning_price']);
-      // echo $auction['winner_id'] . "<br/>";
+      echo $outputTableHeader;
 
-      if($_SESSION['userId'] == $auction['winner_id'])
-        $is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";
-      else
-        $is_this_buyer = "
+
+      foreach ($auction_set as $auction) {
+        $imageName      = htmlentities($auction['imageName']);
+        $title          = htmlentities($auction['title']);
+        $description    = htmlentities($auction['description']);
+        $winning_price  = htmlentities($auction['winning_price']);
+        // echo $auction['winner_id'] . "<br/>";
+
+        if($_SESSION['userId'] == $auction['winner_id'])
+          $is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";
+        else
+          $is_this_buyer = "
         <br><div id=\"this-not-you\">Your bid is not the winning bid!</div>";
 
-      $link = "auction.php?auctionId=" .
-              urlencode(htmlentities($auction['auctionId']));
-      $output = "
+        $link = "auction.php?auctionId=" .
+            urlencode(htmlentities($auction['auctionId']));
+        $output = "
       <tr>
         <td><a href=\"{$link}\"><h7>{$title}</h7>
         <img src=\"img/auctions/{$imageName}\"
@@ -170,7 +174,8 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
         </td>
       </tr>";
 
-      echo $output;
+        echo $output;
+      }
     }
 
     ?>
@@ -179,47 +184,57 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       <td>Third Row, second column</td>
       <td>Third Row, third column</td>
     </tr> -->
-  </table>
 
-  <a name="following"><h3>Following</h3></a>
-  <table class="table table-striped">
-    <col width="200px">
-    <col width="auto">
+    <?php
+
+
+    $auction_set = retrieve_followed_by_user();
+    $auction_set = filter_expired_auctions($auction_set);
+    //TODO this should be extracted: occurs everywhere in buyer and seller pages
+
+    if ($auction_set) {
+      $outputTableHeader = "
+      </table>
+
+  <a name=\"following\"><h3>Following</h3></a>
+  <table class=\"table table-striped\">
+    <col width=\"200px\">
+    <col width=\"auto\">
     <tr>
       <th>Item Name</th>
       <th>Description</th>
       <th>Current Price</th>
       <th>Unfollow</th>
     </tr>
-    <?php
-    $auction_set = retrieve_followed_by_user();
-    $auction_set = filter_expired_auctions($auction_set);
-    //TODO this should be extracted: occurs everywhere in buyer and seller pages
-    foreach ($auction_set as $auction) {
-      $imageName      = htmlentities($auction['imageName']);
-      $title          = htmlentities($auction['title']);
-      $description    = htmlentities($auction['description']);
-      $winning_price  = htmlentities($auction['winning_price']);
-      // echo $auction['winner_id'] . "<br/>";
-      $is_this_buyer = "";
-      if($_SESSION['userId'] == $auction['winner_id'])
+      ";
+
+      echo $outputTableHeader;
+
+      foreach ($auction_set as $auction) {
+        $imageName      = htmlentities($auction['imageName']);
+        $title          = htmlentities($auction['title']);
+        $description    = htmlentities($auction['description']);
+        $winning_price  = htmlentities($auction['winning_price']);
+        // echo $auction['winner_id'] . "<br/>";
+        $is_this_buyer = "";
+        if($_SESSION['userId'] == $auction['winner_id'])
         {$is_this_buyer = "<br><div id=\"this-you\">This is you!</div>";}
-      if((time() - strtotime($auction['expirationDate'])) < 0) {
-        $is_this_buyer .= "<br><div id=\"this-not-you\">
+        if((time() - strtotime($auction['expirationDate'])) < 0) {
+          $is_this_buyer .= "<br><div id=\"this-not-you\">
                             This auction is expired!</div>";
-      }
-      // else
-      //   $is_this_buyer = "
-      //   <br><div id=\"this-you\">Your bid is not the winning bid!</div>";
+        }
+        // else
+        //   $is_this_buyer = "
+        //   <br><div id=\"this-you\">Your bid is not the winning bid!</div>";
 
-      $link = "auction.php?auctionId=" .
-              urlencode(htmlentities($auction['auctionId']));
-      $link_delete_from_following =
-              "buyer_account.php?auctionId=" .
-              urlencode(htmlentities($auction['auctionId'])) .
-              "#following";
+        $link = "auction.php?auctionId=" .
+            urlencode(htmlentities($auction['auctionId']));
+        $link_delete_from_following =
+            "buyer_account.php?auctionId=" .
+            urlencode(htmlentities($auction['auctionId'])) .
+            "#following";
 
-      $output ="
+        $output ="
       <tr>
         <td><a href=\"{$link}\"><h7>{$title}</h7>
         <img src=\"img/auctions/{$imageName}\"
@@ -232,8 +247,14 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
         title=\"Unfollow\"></a></td>
       </tr>";
 
-      echo $output;
+        echo $output;
+      }
     }
+
+
+
+
+
 
 
     ?>
