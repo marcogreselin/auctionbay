@@ -21,10 +21,36 @@ if(isset($_POST['submit'])) {
   //  Double check for success of previous form submission before proceeding
   //  to send data to the database
   if(isset($_SESSION['user_details']) && isset($_SESSION['address_details'])) {
-
+    // echo "before:";
+    // echo "<pre>";
+    // echo print_r($_SESSION);
+    // echo "</pre>";
     if(create_new_user()) {
-      redirect_to("index.php");
-      //TODO destroy the session after registration is complete
+      //must attempt login in order to get the userId generated from the
+      //database logic
+      $user = attempt_login($_SESSION['email'], $_SESSION['password']);
+      if($user) {
+        //login successful
+
+        //restart the session
+        clear_session();
+        //$_SESSION['logged_in'] = 1;
+        $_SESSION['role']       = $user['role'];
+        $_SESSION['userId']     = $user['userId'];
+        $_SESSION['email']      = $user['email'];
+        $_SESSION['firstName']  = $user['firstName'];
+        $_SESSION['lastName']   = $user['lastName'];
+        //add address details
+        $_SESSION['street']     = $user['street'];
+        $_SESSION['number']     = $user['number'];
+        $_SESSION['zip']        = $user['zip'];
+        $_SESSION['city']       = $user['city'];
+        $_SESSION['country']    = $user['country'];
+
+        redirect_to("index.php");
+      } else {
+        $errors['login'] = "No database match";
+      }
     } else {
       //DEBUG
       echo "Errors:";

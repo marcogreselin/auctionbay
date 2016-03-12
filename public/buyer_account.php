@@ -10,7 +10,6 @@
       redirect_to("index.php");
     }
 
-
   $userId = $_SESSION['userId'];
 
 //TODO perhaps unfavoriteAuction should be parametrized, otherwise it is not
