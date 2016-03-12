@@ -99,7 +99,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
    <a name="address"><h3>My Details</h3></a>
    <p><b>My Address:</b><br>
    <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?> <!--Alex Vally<br> -->
-   <?php echo $_SESSION['number'] . ", " . $_SESSION['street'] . "<br>"; ?><!--54, Marylebone Street<br>-->
+   <?php echo $_SESSION['street'] . "<br>"; ?><!--54, Marylebone Street<br>-->
    <?php echo $_SESSION['zip'] . " " . $_SESSION['city'] ."<br/>"; ?><!--W1H 675 London<br>-->
    email: <?php echo " " . $_SESSION['email'] . "</p>"; ?> <!--alex@vally.com</p>-->
 
