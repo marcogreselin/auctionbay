@@ -161,10 +161,7 @@
     }
     ?>
 
-
-
-
-    <!-- Only displays teh completed auction table if there is data in the table -->
+    <!-- Only displays the completed auction table if there is data in the table -->
   </table>
     <?php
     $completedAuction = getCompletedAuctionDetailsForSeller($userId);

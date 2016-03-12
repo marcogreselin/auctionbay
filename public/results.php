@@ -28,27 +28,19 @@ if(isset($_GET['token'])) {
     for($i = 0; $i < sizeof($auction_set); $i++) {
       $current_price = get_price($auction_set[$i]['auctionId'],
                                   $auction_set[$i]['startingPrice']);
-
+      //add price to set elements
       $auction_set[$i]['currentPrice'] = $current_price;
-
-
-      // $auction_set[$i]['rating'] = 4;
-      //TODO: this happens with every new get request, with a fresh query
-      //for the token being made on the database, whereas no new query should
-      //occurr for filtering purposes
-      $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
-
-      $auction_set[$i]['stars']         = $feedback_array['stars'];
-      $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
-
       //once the current price is known, there is no further need for a
       //startingPrice field on the retrieved associative array
       unset($auction_set[$i]['startingPrice']);
+
+      //add feedback for seller for each element
+      $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
+      $auction_set[$i]['stars']         = $feedback_array['stars'];
+      $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
+
     }
-    //print_r($auction_set);
-
-    //encode result in json format
-
+    //encode result in json format to pass it to the javascript for ajax
     $json_encoded_auction_set = json_encode($auction_set);
   }
 } else {//if not set $_GET['token']
@@ -337,16 +329,16 @@ function filter(auctionSet) {
 
   tokenChanged = !(searchToken === token);
   if(tokenChanged) {
-    // auctionSet = null;//new query necessary from asynchronous processing
+    auctionSet = null;//new query necessary from asynchronous processing
     //but for the moment just refresh the page
-    var reload_url = "results.php?";
-    reload_url +="token=" + token;
-    reload_url += "&bottom=" + price[0];
-    reload_url += "&top=" + price[1];
-    reload_url += "&rating=" + rating;
-    reload_url += "&category=" + category;
-
-    window.location = reload_url;
+    // var reload_url = "results.php?";
+    // reload_url +="token=" + token;
+    // reload_url += "&bottom=" + price[0];
+    // reload_url += "&top=" + price[1];
+    // reload_url += "&rating=" + rating;
+    // reload_url += "&category=" + category;
+    //
+    // window.location = reload_url;
   }
 
   /*a better solution would be to send some request to the server (to some

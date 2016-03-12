@@ -191,6 +191,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
 
 
     $auction_set = retrieve_followed_by_user();
+    //decided to not filter out expired auctions for follower table
     // $auction_set = filter_expired_auctions($auction_set);
     //TODO this should be extracted: occurs everywhere in buyer and seller pages
 
@@ -252,12 +253,6 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
         echo $output;
       }
     }
-
-
-
-
-
-
 
     ?>
 
