@@ -51,12 +51,11 @@ function query_insert_address() {
   //prep values
   $address      = mysqli_real_escape_string($connection, $_POST['address']);
   $city         = mysqli_real_escape_string($connection, $_POST['city']);
-  $county       = mysqli_real_escape_string($connection, $_POST['county']);
   $postcode     = mysqli_real_escape_string($connection, $_POST['postcode']);
   $country      = mysqli_real_escape_string($connection, $_POST['country']);
   $phonenumber  = mysqli_real_escape_string($connection, $_POST['phonenumber']);
 
-  $street       = $address . ", " . $county;
+  $street       = $address;
   /*Unfortunately, userId must be fetched through a query to the database.
   * Different methods would involve generating a unique id per user through the
   * php logic, but this would probably produce a hexidecimal string, which would

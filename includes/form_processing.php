@@ -101,7 +101,7 @@ function process_second_form() {
     //  document with a get request TODO
     $_SESSION['address']      = $_POST['address'];
     $_SESSION['city']         = $_POST['city'];
-    $_SESSION['county']       = $_POST['county'];
+ 
     $_SESSION['postcode']     = $_POST['postcode'];
     $_SESSION['country']      = $_POST['country'];
     $_SESSION['phonenumber']  = $_POST['phonenumber'];
@@ -114,6 +114,8 @@ function process_second_form() {
       echo "</pre>";
     }
   } else {
+
+    
     //Failure outcome
     //Unit-testing only:
     if(isset($_POST['test'])){

@@ -181,13 +181,7 @@ if(isset($_POST['submit'])) {
             </div>
         </div>
 
-        <div class="form-group form-group-hg">
-            <div class="col-sm-8 col-sm-offset-2">
-                <input type="text" class="form-control" name="county"
-                <?php echo "value='" . repeat_input_POST("county") . "'"; ?>
-                id="county" placeholder="County">
-            </div>
-        </div>
+
 
         <div class="form-group form-group-hg">
 

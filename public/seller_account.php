@@ -88,12 +88,7 @@
           }
 
 
-          // <!--  <tr>
-          //
-          //     <td><a href="leave_feedback.php?user_id=40&auction_id=2"><img src="img/user-interface.svg" title="Insert title">First Row, first column</a></td>
-          //     <td>First Row, second column</td>
-          //     <td>First Row, third column</td>
-          //   </tr> -->
+
 
           $output .= "</table></div>";
 
@@ -104,10 +99,10 @@
 <!--Maybe add an "edit" button here, would require another query to user table-->
   <a name="address"><h3>My Details</h3></a>
   <p><b>My Address:</b><br>
-  <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?> <!--Alex Vally<br> -->
-  <?php echo $_SESSION['street'] . "<br>"; ?><!--54, Marylebone Street<br>-->
-  <?php echo $_SESSION['zip'] . " " . $_SESSION['city'] ."<br/>"; ?><!--W1H 675 London<br>-->
-  email: <?php echo " " . $_SESSION['email'] . "</p>"; ?> <!--alex@vally.com</p>-->
+  <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?> 
+  <?php echo $_SESSION['street'] . "<br>"; ?>
+  <?php echo $_SESSION['zip'] . " " . $_SESSION['city'] ."<br/>"; ?>
+  email: <?php echo " " . $_SESSION['email'] . "</p>"; ?> 
 
 
 
