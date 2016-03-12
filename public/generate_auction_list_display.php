@@ -16,46 +16,40 @@ if(isset($_POST['bottom']) && isset($_POST['top']) &&
   isset($_POST['rating']) && isset($_POST['category']) &&
   isset($_POST['auctionSet']) && isset($_POST['tokenChanged'])) {
 
+  //initialize to empty array
+  $auction_set = array();
+
   /*   Eventually, the token search field should work asynchronously too */
   if($_POST['tokenChanged']) {
-
     //process search form
-    $search_token = $_POST['token'];//process_search_form();
+    $search_token = trim($_POST['token']);//process_search_form();//uses GET from inside the body
     //if processed search token is not empty
     if($search_token) {
-
       //query database and modify result set with further queries
       $auction_set = (query_select_auction_search($search_token));
+      //extract this for loop TODO (used both here and results.php)
       for($i = 0; $i < sizeof($auction_set); $i++) {
+        //enrich with price
         $current_price = get_price($auction_set[$i]['auctionId'],
         $auction_set[$i]['startingPrice']);
-
         $auction_set[$i]['currentPrice'] = $current_price;
-
-
-        // $auction_set[$i]['rating'] = 4;
-        //TODO: this happens with every new get request, with a fresh query
-        //for the token being made on the database, whereas no new query should
-        //occurr for filtering purposes
-        $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
-
-        $auction_set[$i]['stars']         = $feedback_array['stars'];
-        $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
-
         //once the current price is known, there is no further need for a
         //startingPrice field on the retrieved associative array
         unset($auction_set[$i]['startingPrice']);
+
+        //enrich with rating
+        $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
+        $auction_set[$i]['stars']         = $feedback_array['stars'];
+        $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
       }
       //print_r($auction_set);
-
       //encode result in json format
-
-    //this is useless here//  $json_encoded_auction_set = json_encode($auction_set);
+      //this is useless here//  $json_encoded_auction_set = json_encode($auction_set);
     }
   } else {
     $auction_set = $_POST['auctionSet'];
   }
-  // print_r($auction_set);
+
   $auction_set = process_filter_form($auction_set,
                                     ($_POST['bottom']),
                                     ($_POST['top']),
@@ -132,14 +126,14 @@ $output = "
 
     }
   } else {
-      $output .= "<tr><td></td><td><h2>No results</h2></td></tr>";
+      $output .= "<tr></tr><tr><td></td><td><h2>No results</h2></td></tr>";
   }
   //always close div before echo
   $output .= "</table>";
   echo $output;
 } else {
-  // print_r($_POST);
-  die("Bad request: missing required POST parameters");
+  $errorMessage  = "Bad request: missing required POST parameters:<br/>";
+  die($errorMessage);
 }
 
  ?>

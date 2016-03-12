@@ -25,6 +25,7 @@ if(isset($_GET['token'])) {
 
     //query database and modify result set with further queries
     $auction_set = (query_select_auction_search($search_token));
+    //extract this for loop TODO (used both here and generate_auction_list_display)
     for($i = 0; $i < sizeof($auction_set); $i++) {
       $current_price = get_price($auction_set[$i]['auctionId'],
                                   $auction_set[$i]['startingPrice']);
@@ -38,7 +39,6 @@ if(isset($_GET['token'])) {
       $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
       $auction_set[$i]['stars']         = $feedback_array['stars'];
       $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
-
     }
     //encode result in json format to pass it to the javascript for ajax
     $json_encoded_auction_set = json_encode($auction_set);
@@ -313,7 +313,6 @@ errors in the javascript console?:NT-->
 </script>
 <script type="text/javascript">
 function filter(auctionSet) {
-  console.log("filter firing");
   var rating, price, token, category, tokenChanged = false;
   var searchToken = "<?php echo $search_token; ?>";
   //read filtering parameters off DOM elements
@@ -323,12 +322,12 @@ function filter(auctionSet) {
   rating = $('.jqSelectedRatingChoice').val();
 
   price = $( "#slider3" ).slider( "values" );
-  token = $('#token').val();
+  token = $.trim($('#token').val());
 
   category = $( '.category-select' ).find('option:selected').val();
 
   tokenChanged = !(searchToken === token);
-  if(tokenChanged) {
+  if(token && tokenChanged) {
     auctionSet = null;//new query necessary from asynchronous processing
     //but for the moment just refresh the page
     // var reload_url = "results.php?";
@@ -341,45 +340,35 @@ function filter(auctionSet) {
     // window.location = reload_url;
   }
 
-  /*a better solution would be to send some request to the server (to some
-  * generate_auction_list.php page for example), which is also responsible for the
-  * generation of the html code that displays the auctions resulting from the
-  * search, this page could use the data in the $_GET or $_POST superglobal to
-  * filter the results of the initial query: if the token does not change, then
-  * this page should receive a record of the items resulting from the database
-  * query (stored perhaps in the $_SESSION), and then selectively filter this data
-  * without further database queries. This request could also be carried out
-  * asynchronously (ajax), the JQuery in this page could use the html response
-  * from generate_auction_list.php to manipulate the DOM and substitute the
-  * initial search results with the filtered results it received. This would make
-  * for a better user experience as it would not require a page refresh, and since
-  * the page would not have been refreshed, the user would still see their
-  * selection in terms of stars rating and price without these having to be set
-  * through php or JS logic after the reload. :NT*/
-    $.ajax({
-     type:'POST', //using POST to overcome limitation of uri length with GET
-     url:'generate_auction_list_display.php',
-     data: {
-       auctionSet: auctionSet,
-       rating: rating,
-       bottom: price[0],
-       top: price[1],
-       tokenChanged: tokenChanged,
-       token: token,
-       category: category
-     },
-     success: function (jqXHR, statusText) {
-       console.log(statusText);
-       console.log(jqXHR);
-       $("#results").replaceWith(jqXHR);
-     }
-   });
+  //delay each request by 100ms; client-side, not good practice NT
+  // setTimeout(function () {}, 200);
+ $.ajax({
+  type:'POST', //using POST to overcome limitation of uri length with GET
+  url:'generate_auction_list_display.php',
+  data: {
+    auctionSet: auctionSet,
+    rating: rating,
+    bottom: price[0],
+    top: price[1],
+    tokenChanged: tokenChanged,
+    token: token,
+    category: category
+  },
+  success: function (jqXHR, statusText) {
+    //DEBUG: log status and content to js console
+    // console.log(statusText);
+    // console.log(jqXHR);
+    $("#results").replaceWith(jqXHR);
+  }
+});
 }
 </script>
 <script type="text/javascript">
 /*adds action listener to text field in filter form*/
-  $('#token').keyup(filter("<?php echo htmlentities($json_encoded_auction_set);?>"));
-  //.change(filter("<?php echo htmlentities($json_encoded_auction_set);?>"));
+  $('#token').keyup(function() {
+    //listener logic defers to filter() on change
+    filter("<?php echo htmlentities($json_encoded_auction_set);?>");
+  });
 </script>
 
 </body>

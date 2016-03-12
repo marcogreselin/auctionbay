@@ -229,7 +229,7 @@ function get_price_with_buyer_id($auctionId, $auctionStartingPrice) {
 * parameters, returns a subset of this set*/
 function process_filter_form($auction_set, $price_min, $price_max, $rating,
                               $category_id) {
-
+  
   foreach($auction_set as $auctionKey => $auctionElement) {
       if(($auctionElement['currentPrice'] < $price_min) ||
       ($auctionElement['currentPrice'] > $price_max))
@@ -416,7 +416,7 @@ function filter_auctions_already_rated($auction_set, $role) {
 //     $body = $_POST["body"];
 //   else
 //     $errors[] = 'body';
-//   if($_POST["endDate"] != null && strtotime($_POST["endDate"]) > time()) 
+//   if($_POST["endDate"] != null && strtotime($_POST["endDate"]) > time())
 //     $endDate = $_POST["endDate"];
 //   else
 //     $errors[] = 'time';

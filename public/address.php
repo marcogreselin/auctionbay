@@ -28,6 +28,7 @@ if(isset($_POST['submit'])) {
     if(create_new_user()) {
       //must attempt login in order to get the userId generated from the
       //database logic
+          //TODO should be extracted, occurs both here and in login.php
       $user = attempt_login($_SESSION['email'], $_SESSION['password']);
       if($user) {
         //login successful

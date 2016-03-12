@@ -20,6 +20,7 @@ if(isset($_POST['submit'])) {
 
   process_login_form();
   if($_POST['login_details']) {
+    //TODO should be extracted, occurs both here and in address.php
     $user = attempt_login($_POST['email'], $_POST['password']);
     if($user) {
       //login successful
