@@ -42,7 +42,6 @@ if(isset($_POST['submit'])) {
         $_SESSION['lastName']   = $user['lastName'];
         //add address details
         $_SESSION['street']     = $user['street'];
-        $_SESSION['number']     = $user['number'];
         $_SESSION['zip']        = $user['zip'];
         $_SESSION['city']       = $user['city'];
         $_SESSION['country']    = $user['country'];
