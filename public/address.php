@@ -21,6 +21,12 @@ if(isset($_POST['submit'])) {
   //  Double check for success of previous form submission before proceeding
   //  to send data to the database
   if(isset($_SESSION['user_details']) && isset($_SESSION['address_details'])) {
+<<<<<<< HEAD
+
+    if(create_new_user()) {
+      redirect_to("index.php");
+      //TODO destroy the session after registration is complete
+=======
     // echo "before:";
     // echo "<pre>";
     // echo print_r($_SESSION);
@@ -52,6 +58,7 @@ if(isset($_POST['submit'])) {
       } else {
         $errors['login'] = "No database match";
       }
+>>>>>>> origin/master
     } else {
       //DEBUG
       echo "Errors:";

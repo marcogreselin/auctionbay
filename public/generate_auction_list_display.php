@@ -9,7 +9,6 @@ require_once("../includes/dbconnection.php");
 //   print_r($auction);
 //   echo "</pre>";
 // }
-
 //process filtering if set as part of the get request, this modifies the
 //auction_set
 if(isset($_POST['bottom']) && isset($_POST['top']) &&
@@ -45,6 +44,7 @@ if(isset($_POST['bottom']) && isset($_POST['top']) &&
       //print_r($auction_set);
       //encode result in json format
       //this is useless here//  $json_encoded_auction_set = json_encode($auction_set);
+
     }
   } else {
     $auction_set = $_POST['auctionSet'];
@@ -55,8 +55,6 @@ if(isset($_POST['bottom']) && isset($_POST['top']) &&
                                     ($_POST['top']),
                                     ($_POST['rating']),
                                     ($_POST['category']));
-
-
 //begin constructing auction set display table, id value used by
 //jQuery to replace construct with ajax request response
 //begin constructing table
@@ -66,7 +64,6 @@ $output = "
     <col width=\"800px\">";
   //if (filtered if requested) result set is not empty:
   if($auction_set) {
-
     foreach ($auction_set as $auction) {
       $imageName      = htmlentities($auction['imageName']);
       $title          = htmlentities($auction['title']);
@@ -74,15 +71,12 @@ $output = "
       $currentPrice   = htmlentities($auction['currentPrice']);
       $description    = htmlentities($auction['description']);
       $rating_string  = "The seller has not yet been rated<br/>";
-
       if($auction['no_of_ratings'] > 0) {
         $rating         = htmlentities($auction['stars']);
         $no_of_ratings  = htmlentities($auction['no_of_ratings']);
-
         $rating_string = "Rating: {$rating} stars<br/>
                   Based on {$no_of_ratings} ratings<br/>";
       }
-
       $output .= "
       <tr>
         <td>
@@ -98,7 +92,6 @@ $output = "
                         <div class=\"col-sm-6\">
                             <a href=\"
                               auction.php?auctionId={$auctionId}\">
-
                             <h6 class=\"jqAuctionTitle\">
                             {$title}</h6>
                             </a>
@@ -119,11 +112,9 @@ $output = "
                             {$description}
                         </div>
                     </li>
-
                 </ul>
         </td>
     </tr>";
-
     }
   } else {
       $output .= "<tr></tr><tr><td></td><td><h2>No results</h2></td></tr>";
@@ -135,5 +126,4 @@ $output = "
   $errorMessage  = "Bad request: missing required POST parameters:<br/>";
   die($errorMessage);
 }
-
  ?>

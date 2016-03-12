@@ -40,6 +40,7 @@ if(isset($_POST['submit'])) {
       $_SESSION['city']       = $user['city'];
       $_SESSION['country']    = $user['country'];
 
+
       redirect_to("index.php");
     } else {
       $errors['login'] = "No database match";

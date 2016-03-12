@@ -5,24 +5,19 @@ require_once("../includes/session.php");
 require_once("../includes/dbconnection.php");
 require_once("../includes/queries.php");
 require_once("../includes/form_processing.php");
-
-
 if(!is_buyer() && !is_seller()) {
   redirect_to("index.php");
 }
-
 //What is this doing again?:NT
 // if(isset($_POST) && !empty($_POST)) {
 //   if(!isset($_POST['stars']))
 //     $_POST['stars'] = -1;
 // }
-
 if(isset($_GET['token'])) {
   //process search form
   $search_token = process_search_form(/*add urldecode($var) here*/);
   //if processed search token is not empty
   if($search_token) {
-
     //query database and modify result set with further queries
     $auction_set = (query_select_auction_search($search_token));
     //extract this for loop TODO (used both here and generate_auction_list_display)
@@ -34,7 +29,6 @@ if(isset($_GET['token'])) {
       //once the current price is known, there is no further need for a
       //startingPrice field on the retrieved associative array
       unset($auction_set[$i]['startingPrice']);
-
       //add feedback for seller for each element
       $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
       $auction_set[$i]['stars']         = $feedback_array['stars'];
@@ -46,7 +40,6 @@ if(isset($_GET['token'])) {
 } else {//if not set $_GET['token']
   redirect_to("search.php");
 }
-
 //process filtering if set as part of the get request, this modifies the
 //auction_set
 if(isset($_GET['bottom']) && isset($_GET['top']) &&
@@ -56,9 +49,7 @@ if(isset($_GET['bottom']) && isset($_GET['top']) &&
                                     urldecode($_GET['top']),
                                     urldecode($_GET['rating']),
                                     urldecode($_GET['category']));
-
 }
-
 include("../includes/layouts/header.php");
 ?>
 
@@ -88,13 +79,11 @@ include("../includes/layouts/header.php");
               <?php
                 $catArray = queryCatArray();
                 while($row = mysqli_fetch_assoc($catArray)){
-
                   echo "<option value=\"";
                   echo $row["categoryId"];
                   echo "\">";
                   echo $row["name"];
                   echo "</option>";
-
                 }
                 ?>
             </select></li>
@@ -104,7 +93,6 @@ include("../includes/layouts/header.php");
                 Computing & Internet
               </a>
             </li>
-
             <li class="list-subcategory">
               <a href="#fakelink">
                 UML Programming
@@ -166,7 +154,6 @@ include("../includes/layouts/header.php");
                   <col width=\"800px\">";
                 //if (filtered if requested) result set is not empty:
                 if($auction_set) {
-
                   foreach ($auction_set as $auction) {
                     $imageName      = htmlentities($auction['imageName']);
                     $title          = htmlentities($auction['title']);
@@ -174,15 +161,12 @@ include("../includes/layouts/header.php");
                     $currentPrice   = htmlentities($auction['currentPrice']);
                     $description    = htmlentities($auction['description']);
                     $rating_string  = "The seller has not yet been rated<br/>";
-
                     if($auction['no_of_ratings'] > 0) {
                       $rating         = htmlentities($auction['stars']);
                       $no_of_ratings  = htmlentities($auction['no_of_ratings']);
-
                       $rating_string = "Rating: {$rating} stars<br/>
                                 Based on {$no_of_ratings} ratings<br/>";
                     }
-
                     $output .= "
                     <tr>
                       <td>
@@ -198,7 +182,6 @@ include("../includes/layouts/header.php");
                                       <div class=\"col-sm-6\">
                                           <a href=\"
                                             auction.php?auctionId={$auctionId}\">
-
                                           <h6 class=\"jqAuctionTitle\">
                                           {$title}</h6>
                                           </a>
@@ -219,16 +202,13 @@ include("../includes/layouts/header.php");
                                           {$description}
                                       </div>
                                   </li>
-
                               </ul>
                       </td>
                   </tr>";
-
                   }
                 } else {
                     $output .= "<tr></tr><tr><td></td><td><h2>No results</h2></td></tr>";
                 }
-
                 //always close div before echo
                 $output .= "</table>";
                 echo $output;
@@ -255,7 +235,6 @@ include("../includes/layouts/header.php");
     var $slider3 = $("#slider3")
         , slider3ValueMultiplier = 1
         , slider3Options;
-
     if ($slider3.length > 0) {
         $slider3.slider({
             min: 1,
@@ -271,7 +250,6 @@ include("../includes/layouts/header.php");
                     .text("£" + ui.values[1] * slider3ValueMultiplier);
             }
         });
-
         slider3Options = $slider3.slider("option");
         $slider3.addSliderSegments(slider3Options.max)
             .find(".ui-slider-value:first")
@@ -320,12 +298,10 @@ function filter(auctionSet) {
   rating = -1;
   else
   rating = $('.jqSelectedRatingChoice').val();
-
   price = $( "#slider3" ).slider( "values" );
   token = $.trim($('#token').val());
 
   category = $( '.category-select' ).find('option:selected').val();
-
   tokenChanged = !(searchToken === token);
   if(token && tokenChanged) {
     auctionSet = null;//new query necessary from asynchronous processing
@@ -340,27 +316,27 @@ function filter(auctionSet) {
     // window.location = reload_url;
   }
 
-  //delay each request by 100ms; client-side, not good practice NT
-  // setTimeout(function () {}, 200);
- $.ajax({
-  type:'POST', //using POST to overcome limitation of uri length with GET
-  url:'generate_auction_list_display.php',
-  data: {
-    auctionSet: auctionSet,
-    rating: rating,
-    bottom: price[0],
-    top: price[1],
-    tokenChanged: tokenChanged,
-    token: token,
-    category: category
-  },
-  success: function (jqXHR, statusText) {
-    //DEBUG: log status and content to js console
-    // console.log(statusText);
-    // console.log(jqXHR);
-    $("#results").replaceWith(jqXHR);
-  }
-});
+    //delay each request by 100ms; client-side, not good practice NT
+    // setTimeout(function () {}, 200);
+   $.ajax({
+    type:'POST', //using POST to overcome limitation of uri length with GET
+    url:'generate_auction_list_display.php',
+    data: {
+      auctionSet: auctionSet,
+      rating: rating,
+      bottom: price[0],
+      top: price[1],
+      tokenChanged: tokenChanged,
+      token: token,
+      category: category
+    },
+    success: function (jqXHR, statusText) {
+      //DEBUG: log status and content to js console
+      // console.log(statusText);
+      // console.log(jqXHR);
+      $("#results").replaceWith(jqXHR);
+    }
+  });
 }
 </script>
 <script type="text/javascript">

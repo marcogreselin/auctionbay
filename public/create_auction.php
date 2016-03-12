@@ -1,4 +1,3 @@
-
 <?php
 
 	//  Dependencies
@@ -12,36 +11,46 @@
 		redirect_to("search.php");
 	}
 
-
-
   if(isset($_POST["submitAuction"])){
-
-  	if(addAuction()){
+  	$functionOutput = addAuction();
+  	if($functionOutput===true){
   		// from http://www.tutorialspoint.com/php/php_file_uploading.htm
-     if(isset($_FILES['image'])){
-      $errors= array();
-      $file_name = $_FILES['image']['name'];
-      $file_size =$_FILES['image']['size'];
-      $file_tmp =$_FILES['image']['tmp_name'];
-      $file_type=$_FILES['image']['type'];
-      $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
-
-      $expensions= array("jpeg","jpg","png");
-
-      move_uploaded_file($file_tmp,"img/auctions/".$file_name);
-
-   }
-  		redirect_to("index.php");
-
+	     if(isset($_FILES['image'])){
+		      $errors= array();
+		      $file_name = $_FILES['image']['name'];
+		      $file_size =$_FILES['image']['size'];
+		      $file_tmp =$_FILES['image']['tmp_name'];
+		      $file_type=$_FILES['image']['type'];
+		      $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+		      $expensions= array("jpeg","jpg","png");
+		      move_uploaded_file($file_tmp,"img/auctions/".$file_name);
+	     }
+	  	 redirect_to("index.php");
+  	} 
   }
-
-?>
-<?php
+  
 	include("../includes/layouts/header.php");
-
 ?>
 <div class="container">
 	<h1>Create an Auction</h1>
+
+<?php if(isset($functionOutput)) {
+      $output  = "<p>";
+      $output .= "<div class=\"alert alert-danger login-box\">";
+      $output .= "<button class=\"close fui-cross\" data-dismiss=\"alert\"></button>";
+      $output .= "<h4>Something went wrong!</h4>";
+      $output .= "<ul>";
+      foreach($functionOutput as $value){
+      	$output .= "<li>".$value."</li>";
+      }
+      $output .= "</ul>";
+      $output .= "</div>";
+      $output .= "</p>";
+
+      echo $output;
+    }
+?>
+
 <form action="create_auction.php" method="post" enctype="multipart/form-data">
 	<p><input name="title" type="text" class="form-control input-hg auction-form" placeholder="Enter the Title" /></p>
 	<p><textarea name="body" class="form-control" rows="15" id="comment" placeholder="Enter the Body"></textarea></p>
@@ -140,4 +149,5 @@
 
 <?php
   include("../includes/layouts/footer.php");
+
 ?>

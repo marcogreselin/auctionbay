@@ -3,6 +3,8 @@
 require_once('../includes/navigation.php');
 require_once('../includes/validation_functions.php');
 require_once('../includes/queries.php');
+require_once('../includes/mailmanager.php');
+
 
 /*  Processes the content of the first form, not needed outside of
 address.php*/
@@ -229,7 +231,7 @@ function get_price_with_buyer_id($auctionId, $auctionStartingPrice) {
 * parameters, returns a subset of this set*/
 function process_filter_form($auction_set, $price_min, $price_max, $rating,
                               $category_id) {
-  
+
   foreach($auction_set as $auctionKey => $auctionElement) {
       if(($auctionElement['currentPrice'] < $price_min) ||
       ($auctionElement['currentPrice'] > $price_max))
@@ -402,57 +404,58 @@ function filter_auctions_already_rated($auction_set, $role) {
   return $result;
 }
 
-// function addAuction() {
-//   global $connection;
+function addAuction() {
+  global $connection;
+  
+  $errors = array();
 
-//   $errors = array();
+  if($_POST["title"] != null)
+    $title = $_POST["title"];
+  else
+    $errors[] = 'Enter a valid title.';
 
-//   if($_POST["title"] != null)
-//     $title = $_POST["title"];
-//   else
-//     $errors[] = 'title';
+  if($_POST["body"] != null)
+    $body = $_POST["body"];
+  else
+    $errors[] = 'Enter a body.';
+  if($_POST["endDate"] != null && strtotime($_POST["endDate"]) > time())
+    $endDate = $_POST["endDate"];
+  else
+    $errors[] = 'Enter a valid end date.';
+  if(ctype_digit($_POST["reservePrice"]) && $_POST["reservePrice"] > $_POST["startingPrice"])
+    $reservePrice = $_POST["reservePrice"];
+  else
+    $errors[] = 'Enter a valid reserve price.';
+  if(ctype_digit($_POST["startingPrice"]))
+    $startingPrice = $_POST["startingPrice"];
+  else
+    $errors[] = 'Enter a valid starting price.';
+  $category_Id =$_POST["category"];
+  $seller=$_SESSION['userId'];
+  if($_FILES['image']['name'] != null && in_array(strtolower(end(explode('.',$_FILES['image']['name']))),array("jpg", "jpeg", "gif", "png", "bmp")))
+    $imageName = $_FILES['image']['name'];
+  else
+    $errors[] = 'Enter a valid image.';
 
-//   if($_POST["body"] != null)
-//     $body = $_POST["body"];
-//   else
-//     $errors[] = 'body';
-//   if($_POST["endDate"] != null && strtotime($_POST["endDate"]) > time())
-//     $endDate = $_POST["endDate"];
-//   else
-//     $errors[] = 'time';
-//   if(is_int($_POST["reservePrice"]) && $_POST["reservePrice"] > $_POST["startingPrice"])
-//     $reservePrice = $_POST["reservePrice"];
-//   else
-//     $errors[] = 'reservePrice';
-//   if(is_int($_POST["startingPrice"]))
-//     $startingPrice = $_POST["startingPrice"];
-//   else
-//     $errors[] = 'startingPrice';
-//   $category_Id =$_POST["category"];
-//   $seller=$_SESSION['userId'];
-//   if($_FILES['image']['name'] != null)
-//     $imageName = $_FILES['image']['name'];
-//   else
-//     $errors[] = 'image';
+  if(empty($errors)){
 
-//   if(empty($errors[])){
+    $query = "INSERT INTO auction (title, description, seller, startingPrice, reservePrice,
+            expirationDate, category_Id, views, imageName)
+            VALUES ('{$title}', '{$body}','{$seller}','{$startingPrice}','{$reservePrice}',
+            '{$endDate}','{$category_Id}',0,'{$imageName}');";
 
-//     $query = "INSERT INTO auction (title, description, seller, startingPrice, reservePrice,
-//             expirationDate, category_Id, views, imageName)
-//             VALUES ('{$title}', '{$body}','{$seller}','{$startingPrice}','{$reservePrice}',
-//             '{$endDate}','{$category_Id}',0,'{$imageName}');";
-//     $result = mysqli_query($connection,$query);
-//     if($result){
-//       return true;
-//     } else {
-//       return false;
-//     }
+    $result = mysqli_query($connection,$query);
+    if($result){
+      return true;
+    } else {
+      return false;
+    }
 
-//   } else {
-//     return $errors[];
-//   }
+  } else {
+    return $errors;
+  }
 
-// }
+}
 
 function queryCatArray(){
   global $connection;
@@ -556,10 +559,9 @@ function bid($auctionData){
     if($auctionData['currentWinner']!=$userId){
       $to      = $auctionData['currentWinnerEmail'];
       $subject = 'Your bid for '.$auctionData['title'];
-      $message = "Hello there, \n We are writing you to inform you that your bid has been outbid by another user. The new price is set to £".$_POST["newBidAmount"].".\n Please visit AuctionBay and keep bidding!\n \n Your AuctionBay Team";
-      $headers = 'From: auctiobay.ucl@gmail.com' . "\r\n" .
-        'X-Mailer: PHP/' . phpversion();
-      mail($to, $subject, $message, $headers);
+
+      $message = "Hello there, \n We are writing you to inform you that your bid has been outbid by another user. The new price is set to GBP".$_POST["newBidAmount"].".\n Please visit AuctionBay and keep bidding!\n \n Your AuctionBay Team";
+      sendMail($to, $subject, $message);
     }
     return true;
   } else {
