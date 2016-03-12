@@ -180,7 +180,8 @@ th {
 
 
 img.search-result-table {
-	height: 80px;
+	heigth: auto;
+	max-width: 90px;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
@@ -494,6 +495,7 @@ html, body {
 }
 .auction_img{
 	max-height: 300px;
+	max-width: 500px;
 	display: block;
     margin-left: auto;
     margin-right: auto;

@@ -90,7 +90,7 @@ function query_select_address($userId) {
   global $connection;
 
  //construct query:
- $query  = "SELECT street, number, zip, city, country FROM address ";
+ $query  = "SELECT street, zip, city, country FROM address ";
  $query .= "WHERE user_id={$userId}; ";
 
  $result = mysqli_query($connection, $query);
