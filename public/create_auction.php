@@ -1,4 +1,5 @@
 <?php
+
 	//  Dependencies
 	require_once('../includes/dbconnection.php');
 	require_once('../includes/session.php');
@@ -9,6 +10,7 @@
 	if(is_buyer()){
 		redirect_to("search.php");
 	}
+
   if(isset($_POST["submitAuction"])){
   	$functionOutput = addAuction();
   	if($functionOutput===true){
@@ -46,7 +48,9 @@
       $output .= "</p>";
 
       echo $output;
-    }?>
+    }
+?>
+
 <form action="create_auction.php" method="post" enctype="multipart/form-data">
 	<p><input name="title" type="text" class="form-control input-hg auction-form" placeholder="Enter the Title" /></p>
 	<p><textarea name="body" class="form-control" rows="15" id="comment" placeholder="Enter the Body"></textarea></p>
@@ -117,11 +121,13 @@
 	<?php
 	$catArray = queryCatArray();
 	while($row = mysqli_fetch_assoc($catArray)){
+
 	  echo "<option value=\"";
 	  echo $row["categoryId"];
 	  echo "\">";
 	  echo $row["name"];
 	  echo "</option>";
+
 	}
 	?>
 
@@ -143,4 +149,5 @@
 
 <?php
   include("../includes/layouts/footer.php");
+
 ?>

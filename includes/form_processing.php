@@ -5,6 +5,7 @@ require_once('../includes/validation_functions.php');
 require_once('../includes/queries.php');
 require_once('../includes/mailmanager.php');
 
+
 /*  Processes the content of the first form, not needed outside of
 address.php*/
 function process_first_form() {
@@ -403,6 +404,7 @@ function filter_auctions_already_rated($auction_set, $role) {
   return $result;
 }
 
+
 function addAuction() {
   global $connection;
 
@@ -558,6 +560,7 @@ function bid($auctionData){
     if($auctionData['currentWinner']!=$userId){
       $to      = $auctionData['currentWinnerEmail'];
       $subject = 'Your bid for '.$auctionData['title'];
+
       $message = "Hello there, \n We are writing you to inform you that your bid has been outbid by another user. The new price is set to GBP".$_POST["newBidAmount"].".\n Please visit AuctionBay and keep bidding!\n \n Your AuctionBay Team";
       sendMail($to, $subject, $message);
     }

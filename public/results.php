@@ -5,56 +5,40 @@ require_once("../includes/session.php");
 require_once("../includes/dbconnection.php");
 require_once("../includes/queries.php");
 require_once("../includes/form_processing.php");
-
-
 if(!is_buyer() && !is_seller()) {
   redirect_to("index.php");
 }
-
 //What is this doing again?:NT
 // if(isset($_POST) && !empty($_POST)) {
 //   if(!isset($_POST['stars']))
 //     $_POST['stars'] = -1;
 // }
-
 if(isset($_GET['token'])) {
   //process search form
-  $search_token = process_search_form();
+  $search_token = process_search_form(/*add urldecode($var) here*/);
   //if processed search token is not empty
   if($search_token) {
-
     //query database and modify result set with further queries
     $auction_set = (query_select_auction_search($search_token));
     for($i = 0; $i < sizeof($auction_set); $i++) {
       $current_price = get_price($auction_set[$i]['auctionId'],
                                   $auction_set[$i]['startingPrice']);
-
+      //add price to set elements
       $auction_set[$i]['currentPrice'] = $current_price;
-
-
-      // $auction_set[$i]['rating'] = 4;
-      //TODO: this happens with every new get request, with a fresh query
-      //for the token being made on the database, whereas no new query should
-      //occurr for filtering purposes
-      $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
-
-      $auction_set[$i]['stars']         = $feedback_array['stars'];
-      $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
-
       //once the current price is known, there is no further need for a
       //startingPrice field on the retrieved associative array
       unset($auction_set[$i]['startingPrice']);
+      //add feedback for seller for each element
+      $feedback_array = query_select_user_rating($auction_set[$i]['seller']);
+      $auction_set[$i]['stars']         = $feedback_array['stars'];
+      $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
     }
-    //print_r($auction_set);
-
-    //encode result in json format
-
+    //encode result in json format to pass it to the javascript for ajax
     $json_encoded_auction_set = json_encode($auction_set);
   }
 } else {//if not set $_GET['token']
   redirect_to("search.php");
 }
-
 //process filtering if set as part of the get request, this modifies the
 //auction_set
 if(isset($_GET['bottom']) && isset($_GET['top']) &&
@@ -64,9 +48,7 @@ if(isset($_GET['bottom']) && isset($_GET['top']) &&
                                     urldecode($_GET['top']),
                                     urldecode($_GET['rating']),
                                     urldecode($_GET['category']));
-
 }
-
 include("../includes/layouts/header.php");
 ?>
 
@@ -96,13 +78,11 @@ include("../includes/layouts/header.php");
               <?php
                 $catArray = queryCatArray();
                 while($row = mysqli_fetch_assoc($catArray)){
-
                   echo "<option value=\"";
                   echo $row["categoryId"];
                   echo "\">";
                   echo $row["name"];
                   echo "</option>";
-
                 }
                 ?>
             </select></li>
@@ -112,7 +92,6 @@ include("../includes/layouts/header.php");
                 Computing & Internet
               </a>
             </li>
-
             <li class="list-subcategory">
               <a href="#fakelink">
                 UML Programming
@@ -174,7 +153,6 @@ include("../includes/layouts/header.php");
                   <col width=\"800px\">";
                 //if (filtered if requested) result set is not empty:
                 if($auction_set) {
-
                   foreach ($auction_set as $auction) {
                     $imageName      = htmlentities($auction['imageName']);
                     $title          = htmlentities($auction['title']);
@@ -182,15 +160,12 @@ include("../includes/layouts/header.php");
                     $currentPrice   = htmlentities($auction['currentPrice']);
                     $description    = htmlentities($auction['description']);
                     $rating_string  = "The seller has not yet been rated<br/>";
-
                     if($auction['no_of_ratings'] > 0) {
                       $rating         = htmlentities($auction['stars']);
                       $no_of_ratings  = htmlentities($auction['no_of_ratings']);
-
                       $rating_string = "Rating: {$rating} stars<br/>
                                 Based on {$no_of_ratings} ratings<br/>";
                     }
-
                     $output .= "
                     <tr>
                       <td>
@@ -206,7 +181,6 @@ include("../includes/layouts/header.php");
                                       <div class=\"col-sm-6\">
                                           <a href=\"
                                             auction.php?auctionId={$auctionId}\">
-
                                           <h6 class=\"jqAuctionTitle\">
                                           {$title}</h6>
                                           </a>
@@ -227,16 +201,13 @@ include("../includes/layouts/header.php");
                                           {$description}
                                       </div>
                                   </li>
-
                               </ul>
                       </td>
                   </tr>";
-
                   }
                 } else {
                     $output .= "<tr></tr><tr><td></td><td><h2>No results</h2></td></tr>";
                 }
-
                 //always close div before echo
                 $output .= "</table>";
                 echo $output;
@@ -248,8 +219,8 @@ include("../includes/layouts/header.php");
 <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
 <script src="js/vendor/jquery.min.js"></script>
 
-<!-- Includes the Boostrap JavaScript plugins) -->
-<script src="js/vendor/bootstrap.min.js"></script>
+<!-- Includes the Boostrap JavaScript plugins); actually produces an error: there is no such file NT -->
+<!--<script src="js/vendor/bootstrap.min.js"></script>-->
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 
@@ -263,7 +234,6 @@ include("../includes/layouts/header.php");
     var $slider3 = $("#slider3")
         , slider3ValueMultiplier = 1
         , slider3Options;
-
     if ($slider3.length > 0) {
         $slider3.slider({
             min: 1,
@@ -279,7 +249,6 @@ include("../includes/layouts/header.php");
                     .text("£" + ui.values[1] * slider3ValueMultiplier);
             }
         });
-
         slider3Options = $slider3.slider("option");
         $slider3.addSliderSegments(slider3Options.max)
             .find(".ui-slider-value:first")
@@ -319,9 +288,9 @@ errors in the javascript console?:NT-->
     $(this).attr('class', 'jqSelectedRatingChoice');
   });
 </script>
-
 <script type="text/javascript">
 function filter(auctionSet) {
+  console.log("filter firing");
   var rating, price, token, category, tokenChanged = false;
   var searchToken = "<?php echo $search_token; ?>";
   //read filtering parameters off DOM elements
@@ -329,26 +298,22 @@ function filter(auctionSet) {
   rating = -1;
   else
   rating = $('.jqSelectedRatingChoice').val();
-
   price = $( "#slider3" ).slider( "values" );
   token = $('#token').val();
-
   category = $( '.category-select' ).find('option:selected').val();
-
   tokenChanged = !(searchToken === token);
   if(tokenChanged) {
-    // auctionSet = null;//new query necessary from asynchronous processing
+    auctionSet = null;//new query necessary from asynchronous processing
     //but for the moment just refresh the page
-    var reload_url = "results.php?";
-    reload_url +="token=" + token;
-    reload_url += "&bottom=" + price[0];
-    reload_url += "&top=" + price[1];
-    reload_url += "&rating=" + rating;
-    reload_url += "&category=" + category;
-
-    window.location = reload_url;
+    // var reload_url = "results.php?";
+    // reload_url +="token=" + token;
+    // reload_url += "&bottom=" + price[0];
+    // reload_url += "&top=" + price[1];
+    // reload_url += "&rating=" + rating;
+    // reload_url += "&category=" + category;
+    //
+    // window.location = reload_url;
   }
-
   /*a better solution would be to send some request to the server (to some
   * generate_auction_list.php page for example), which is also responsible for the
   * generation of the html code that displays the auctions resulting from the
@@ -384,5 +349,11 @@ function filter(auctionSet) {
    });
 }
 </script>
+<script type="text/javascript">
+/*adds action listener to text field in filter form*/
+  $('#token').keyup(filter("<?php echo htmlentities($json_encoded_auction_set);?>"));
+  //.change(filter("<?php echo htmlentities($json_encoded_auction_set);?>"));
+</script>
+
 </body>
 </html>
