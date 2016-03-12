@@ -485,7 +485,7 @@ function queryAuctionData($auctionId){
     $query .= "LIMIT 1 ";
   $query .= ") AS j ON j.auction_id = auction.auctionId ";
   $query .= "WHERE auctionId=".$auctionId." ";
-  $query .= "GROUP BY userId;";
+  $query .= "GROUP BY auction.title, seller, description, views, imageName, firstName, lastName, expirationDate, price, currentWinner, currentWinnerEmail";
 
   $results = mysqli_query($connection, $query);
   if (!$results) {
