@@ -554,19 +554,19 @@ function bid($auctionData){
   $userId = $_SESSION["userId"];
   $auctionId = $_GET["auctionId"];
   $query="INSERT INTO `auction_site`.`bid` (`auction_id`, `user_id`, `bidAmount`) VALUES ('".$auctionId."', '".$userId."', '".$_POST["newBidAmount"]."');";
-  if($_POST["newBidAmount"]>$auctionData["price"]){
-    mysqli_query($connection,$query);
-    if($auctionData['currentWinner']!=$userId){
+  if($_POST["newBidAmount"]>$auctionData["price"] && $auctionData['currentWinner']!=$userId){
+    
+      mysqli_query($connection,$query);
       $to      = $auctionData['currentWinnerEmail'];
       $subject = 'Your bid for '.$auctionData['title'];
 
       $message = "Hello there, \n We are writing you to inform you that your bid has been outbid by another user. The new price is set to GBP".$_POST["newBidAmount"].".\n Please visit AuctionBay and keep bidding!\n \n Your AuctionBay Team";
       sendMail($to, $subject, $message);
-    }
+    
     return true;
   } else {
     return false;
-      }
+  }
 }
 // function bid($auctionData){
 //   global $connection;
