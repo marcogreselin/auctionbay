@@ -22,7 +22,7 @@
   $isFavorite = isFavorite();
 
   if(isset($_POST["bidButton"])){
-  	bid($auctionData);
+  	$resultBid = bid($auctionData);
     $auctionData = queryAuctionData($_GET["auctionId"]);
   }
     $bidders = bidderList();
@@ -32,6 +32,18 @@
 
 <div class="container">
 <div class="rating2"></div>
+<?php if(isset($resultBid) && $resultBid === false) {
+      $output  = "<p>";
+      $output .= "<div class=\"alert alert-danger login-box\">";
+      $output .= "<button class=\"close fui-cross\" data-dismiss=\"alert\"></button>";
+      $output .= "<h4>Something went wrong!</h4>";
+      $output .= "You either entered an invalid amount or were already winning this auction.";
+      $output .= "</div>";
+      $output .= "</p>";
+
+      echo $output;
+    }
+?>
 	<h1><?php echo $auctionData["title"] ?></h1>
 	<p><h6 id="stars-price">Sold by <?php echo "<a href=\"feedback.php?for_user_id={$auctionData['seller']}&auctionId={$_GET['auctionId']}\">" . $auctionData["firstName"] . " ". $auctionData["lastName"] . "</a>" ?> (<?php echo $auctionData["stars"]?> stars)</h6>
 	<h7>Time remaining: <?php
