@@ -19,7 +19,7 @@ if(!is_buyer() && !is_seller()) {
 
 if(isset($_GET['token'])) {
   //process search form
-  $search_token = process_search_form();
+  $search_token = process_search_form(/*add urldecode($var) here*/);
   //if processed search token is not empty
   if($search_token) {
 
@@ -240,8 +240,8 @@ include("../includes/layouts/header.php");
 <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
 <script src="js/vendor/jquery.min.js"></script>
 
-<!-- Includes the Boostrap JavaScript plugins) -->
-<script src="js/vendor/bootstrap.min.js"></script>
+<!-- Includes the Boostrap JavaScript plugins); actually produces an error: there is no such file NT -->
+<!--<script src="js/vendor/bootstrap.min.js"></script>-->
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 
@@ -311,9 +311,9 @@ errors in the javascript console?:NT-->
     $(this).attr('class', 'jqSelectedRatingChoice');
   });
 </script>
-
 <script type="text/javascript">
 function filter(auctionSet) {
+  console.log("filter firing");
   var rating, price, token, category, tokenChanged = false;
   var searchToken = "<?php echo $search_token; ?>";
   //read filtering parameters off DOM elements
@@ -376,5 +376,11 @@ function filter(auctionSet) {
    });
 }
 </script>
+<script type="text/javascript">
+/*adds action listener to text field in filter form*/
+  $('#token').keyup(filter("<?php echo htmlentities($json_encoded_auction_set);?>"));
+  //.change(filter("<?php echo htmlentities($json_encoded_auction_set);?>"));
+</script>
+
 </body>
 </html>
