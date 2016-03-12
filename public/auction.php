@@ -45,7 +45,7 @@
     }
 ?>
 	<h1><?php echo $auctionData["title"] ?></h1>
-	<p><h6 id="stars-price">Sold by <?php echo "<a href=\"feedback.php?for_user_id={$auctionData['seller']}&auctionId={$_GET['auctionId']}\">" . $auctionData["firstName"] . " ". $auctionData["lastName"] . "</a>" ?> (<?php echo $auctionData["stars"]?> stars)</h6>
+	<p><h6 id="stars-price">Sold by <?php echo "<a href=\"feedback.php?for_user_id={$auctionData['seller']}\">" . $auctionData["firstName"] . " ". $auctionData["lastName"] . "</a>" ?> (<?php echo $auctionData["stars"]?> stars)</h6>
 	<h7>Time remaining: <?php
 		$dateInterval=timeRemaining($auctionData["expirationDate"]);
 		if($dateInterval==false){
