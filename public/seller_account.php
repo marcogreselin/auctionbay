@@ -99,7 +99,7 @@
 
        ?>
 <!--Maybe add an "edit" button here, would require another query to user table-->
-   <a name="address"><h3>My Details</h3></a> <?php echo "<p>Average Feedback: <a href='feedback.php?for_user_id={$userId}'>"  . $average_stars_user['stars'] . "stars</a>.</p>";?>
+   <a name="address"><h3>My Details</h3></a> <?php echo "<p>Average Feedback: <a href='feedback.php?for_user_id={$userId}'>"  . $average_stars_user['stars'] . " stars</a>.</p>";?>
    <p><b>My Address:</b><br>
    <?php echo $_SESSION['firstName'] . " " . "<br>"; ?>
    <?php echo $_SESSION['street'] . "<br>"; ?>
