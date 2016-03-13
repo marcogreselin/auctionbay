@@ -639,7 +639,7 @@ function getFeedbackInformation($userId) {
   global $connection;
 
  // query to retrieve the current all the relevant feedback information
-  $query = "SELECT firstName, lastName, imageName, auction.title, stars, comment, role,  date(date)
+  $query = "SELECT firstName, lastName, imageName, auction.title as auctionTitle, stars, comment, role,  date(date), auctionId, feedback.title as feedbackTitle
   FROM user
   LEFT JOIN feedback ON user.userid = feedback.user_id
   LEFT JOIN auction ON auction.auctionId = feedback.auction_id
