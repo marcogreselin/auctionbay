@@ -596,6 +596,13 @@ h7{
 	color: #e74c3c;
 	border-color: #e74c3c;
 }
+#average-stars-account{
+	font-size: 15px;
+	color: #f1c40f;
+	border-color: #f1c40f;
+}
+
+
 .rating2{
 	content: '★ ';
 	font-size: 3em;

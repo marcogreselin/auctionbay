@@ -54,6 +54,8 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
 
   <div class="col-md-10">
     <?php
+    $average_stars_user = getAverageStarsForUser($userId);
+
       $auction_set_unfiltered = retrieve_buyer_auctions();
       $auction_set = filter_non_expired_auctions($auction_set_unfiltered);
       $auction_set = filter_auctions_not_won($auction_set, $_SESSION['userId']);
@@ -98,7 +100,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
 
    <a name="address"><h3>My Details</h3></a>
    <p><b>My Address:</b><br>
-   <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?> 
+   <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<span id=average-stars-account>" . " " . "("  . "Average Stars: "  . $average_stars_user['stars']  . ")" . "</span>" . "<br>"; ?>
    <?php echo $_SESSION['street'] . "<br>"; ?>
    <?php echo $_SESSION['zip'] . " " . $_SESSION['city'] ."<br/>"; ?>
    email: <?php echo " " . $_SESSION['email'] . "</p>"; ?>
