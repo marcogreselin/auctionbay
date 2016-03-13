@@ -22,29 +22,30 @@ require_once('../includes/layouts/header.php');
         $feedback = mysqli_fetch_assoc(getFeedbackInformation($userId));
         ?>
 
-    <h1>Feedback for <?php echo $feedback["firstName"]." ".$feedback["lastName"]; ?> (<?php echo $feedbackMainResultForAverageStars["stars"]?> stars)</h1>
-    <h4>User type: <?php
-        if($feedback["role"] == 1) {
-            echo "Buyer";
-        } else {
-            echo "Seller";
-        } ;
 
-        ?></h4>
-
-    <table class="feedback-table table table-striped">
-        <col width="300px">
-        <col width="200px">
-        <col width="200px">
-        <col width="400px">
 
 
         <?php
         if ($feedback['comment'] !== null) {
 
-            
+        $outputIntroduction = "<h1>" . "Feedback for" . " " . "{$feedback["firstName"]}" . " " . "{$feedback["lastName"]}" . " " . "(" . "{$feedbackMainResultForAverageStars["stars"]}" . " stars" . ")" . "</h1>";$outputIntroduction .= "<h4>" . "</h4>";
+            echo $outputIntroduction;
 
-            $outputTableHeader = "<thead>
+            if($feedback["role"] == 1) {
+                echo "<h4>" . "User Type:" . " Buyer" . "</h4>";
+            } else {
+                echo "<h4>" . "User Type:" . " Seller" . "</h4>";
+            } ;
+
+
+            $outputTableHeader = "
+ <table class=\"feedback-table table table-striped\">
+        <col width=\"300px\">
+        <col width=\"200px\">
+        <col width=\"200px\">
+        <col width=\"400px\">
+
+<thead>
         <tr>
             <th><h4>Auction Item</h4></th>
             <th><h4>Ratings</h4></th>
@@ -52,6 +53,10 @@ require_once('../includes/layouts/header.php');
             <th><h4>Feedback</h4></th>
         </tr>
         </thead>
+
+
+
+
 
         <tbody>";
 
@@ -106,7 +111,7 @@ require_once('../includes/layouts/header.php');
                 echo $output;
             }
         } else {
-            echo "<h6>No feedback left for " . "{$feedback['firstName']}" . " " . "{$feedback['lastName']}" . " " . "yet" . "</h6>";
+            echo "<h2>No feedback left for " . "{$feedback['firstName']}" . " " . "{$feedback['lastName']}" . " " . "yet" . "</h2>";
         }
             ?>
         </tbody>
