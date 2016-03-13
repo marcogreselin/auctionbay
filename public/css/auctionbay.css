@@ -105,17 +105,22 @@
 
 /** address.css **/
 
-.country-select {
-	position: relative;
-	left: -0.68em;
-	right: 0.30em;
-	bottom: 0.45em;
-	width: 390px !important;
-}
-
 .menu-margin{
 	margin-top: 30px;
 }
+
+
+button,
+button:active,
+button:focus,
+button:hover,
+.btn,
+.btn:active,
+.btn:focus,
+.btn:hover{
+	outline:none !important;
+}
+
 a > h3 {
 	color: #34495e;
 }
@@ -615,6 +620,34 @@ h7{
 	width: 400px;
 }
 
+.table {
+	table-layout: fixed;
+}
+
 ul {
 	list-style-type: none;
 }
+
+
+
+
+/** Changing the width of the country-select dropdown menu */
+.country-select {
+	position: relative;
+	left: -0.68em;
+	right: 0.30em;
+	bottom: 0.45em;
+	width: 400px !important;
+}
+
+
+
+@media only screen and (max-width: 1080px) {
+	.country-select {
+		position: relative;
+		width: 350px !important;
+	}
+}
+
+
+
