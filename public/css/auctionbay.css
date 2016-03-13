@@ -625,7 +625,7 @@ h7{
 }
 
 /** Makes sure that the width of the columns is always fixed at that*/
-#table-results{
+#results{
 	table-layout: fixed;
 	width: 400px;
 }
