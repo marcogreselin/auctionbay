@@ -149,7 +149,7 @@ include("../includes/layouts/header.php");
               //jQuery to replace construct with ajax request response
               //begin constructing table
               $output = "
-              <table class=\"search-page-table table-striped\" id=\"table-results\">
+              <table class=\"search-page-table table-striped\" id=\"results\">
                   <col width=\"200px\">
                   <col width=\"400px\">
                   <col width=\"800px\">";
@@ -248,8 +248,8 @@ include("../includes/layouts/header.php");
     if ($slider3.length > 0) {
         $slider3.slider({
             min: 1,
-            max: 1000,
-            values: [1, 1000],
+            max: 3000,
+            values: [1, 3000],
             orientation: "horizontal",
             range: true,
             slide: function (event, ui) {
