@@ -58,10 +58,11 @@ if(isset($_POST['bottom']) && isset($_POST['top']) &&
 //begin constructing auction set display table, id value used by
 //jQuery to replace construct with ajax request response
 //begin constructing table
-$output = "
-<table class=\"search-page-table table-striped\" id=\"results\">
-    <col width=\"200px\">
-    <col width=\"800px\">";
+  $output = "
+              <table class=\"search-page-table table-striped\" id=\"results\">
+                  <col width=\"200px\">
+                  <col width=\"400px\">
+                  <col width=\"800px\">";
   //if (filtered if requested) result set is not empty:
   if($auction_set) {
     foreach ($auction_set as $auction) {
@@ -75,46 +76,55 @@ $output = "
         $rating         = htmlentities($auction['stars']);
         $no_of_ratings  = htmlentities($auction['no_of_ratings']);
         $rating_string = "Rating: {$rating} stars<br/>
-                  Based on {$no_of_ratings} ratings<br/>";
+                                Based on {$no_of_ratings} ratings<br/>";
       }
       $output .= "
-      <tr>
-        <td>
-            <a href=\"auction.php?auctionId={$auctionId}\">
-            <img src=\"img/auctions/{$imageName}\"
-                            title=\"{$title}\"
-                            class=\"search-result-table\"></a>
-        </td>
-        <td>
-            <div class=\"row\">
-                <ul class=\"search-result-list\">
-                    <li>
-                        <div class=\"col-sm-6\">
-                            <a href=\"
-                              auction.php?auctionId={$auctionId}\">
-                            <h6 class=\"jqAuctionTitle\">
-                            {$title}</h6>
-                            </a>
-                        </div>
-                        <div class=\"col-sm-6\">
-                            <div><h6 class=\"jqAuctionPrice\">
-                            Current Price:
-                              £{$currentPrice}</h6>
-                              </div>
-                              <div>
-                              {$rating_string}
-                              </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class=\"container-item-description\"
-                        style=\"width: 50em; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">
-                            {$description}
-                        </div>
-                    </li>
-                </ul>
-        </td>
-    </tr>";
+                    <tr>
+                      <td>
+                          <a href=\"auction.php?auctionId={$auctionId}\">
+                          <img src=\"img/auctions/{$imageName}\"
+                                          title=\"{$title}\"
+                                          class=\"search-result-table\"></a>
+                      </td>
+                      <td>
+                           <ul class=\"search-result-list\">
+                              <li>
+                                      <div class=\"col-sm-6\">
+                                          <a href=\"
+                                            auction.php?auctionId={$auctionId}\">
+                                          <h6 class=\"jqAuctionTitle\">
+                                          {$title}</h6>
+                                          </a>
+                                      </div>
+                               </li>
+
+                              <li>
+                                   <div class=\"container-item-description\"
+                                      <span style=\"width:27em; text-overflow:ellipsis; white-space:nowrap; overflow-x:auto; overflow-y:auto; word-wrap: break-word\">
+                                          {$description}
+                                          </span>
+                                  </div>
+                               </li>
+                               </ul>
+                       </td>
+
+
+                      <td>
+                               <ul>
+                                 <li>
+                                    <div class=\"col-sm-6\">
+                                          <div><h6 class=\"jqAuctionPrice\">
+                                          Current Price:
+                                            £{$currentPrice}</h6>
+                                            </div>
+                                            <div>
+                                            {$rating_string}
+                                            </div>
+                                      </div>
+                                  </li>
+                              </ul>
+                      </td>
+                  </tr>";
     }
   } else {
       $output .= "<tr></tr><tr><td></td><td><h2>No results</h2></td></tr>";
