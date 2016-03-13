@@ -81,7 +81,7 @@
 			    <span class="input-group-btn">
 			      <button class="btn" type="button"><span class="fui-calendar"></span></button>
 			    </span>
-			    <input name="endDate" type="text" class="form-control" value="2016-02-24" id="datepicker-01" />
+			    <input name="endDate" type="text" class="form-control" value="<?php echo date("d-m-Y", time()+86400)?>" id="datepicker-01" />
 			  </div>
 			</div>
 		</div>
