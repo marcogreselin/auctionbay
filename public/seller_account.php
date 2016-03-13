@@ -116,7 +116,9 @@
     $outputTableHeader = "
       <a name=\"auctions\"><h3>My Recent Auctions</h3></a>
   <table class=\"table table-striped\">
-    <col width=\"200px\">
+    <col width=\"20%\">
+    <col width=\"60%\">
+    <col width=\"20%\">
     <tr>
       <th>Item Name</th>
       <th>Description</th>
@@ -170,9 +172,9 @@
       $outputTableHeader = "
          <a name=\"sold-auctions\"><h3>Items Sold</h3></a>
     <table class=\"table table-striped\">
-      <col width=\"200px\">
-      <col width=\"auto\">
-      <col width=\"auto\">
+        <col width=\"20%\">
+        <col width=\"60%\">
+        <col width=\"20%\">
       <tr>
         <th>Auction Item</th>
         <th>Corresponding Buyer</th>
