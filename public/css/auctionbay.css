@@ -608,3 +608,13 @@ h7{
 	font-size: 3em;
 	color: gold;
 }
+
+/** Makes sure that the width of the columns is always fixed at that*/
+#table-results{
+	table-layout: fixed;
+	width: 400px;
+}
+
+ul {
+	list-style-type: none;
+}

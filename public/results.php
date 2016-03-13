@@ -149,8 +149,9 @@ include("../includes/layouts/header.php");
               //jQuery to replace construct with ajax request response
               //begin constructing table
               $output = "
-              <table class=\"search-page-table table-striped\" id=\"results\">
+              <table class=\"search-page-table table-striped\" id=\"table-results\">
                   <col width=\"200px\">
+                  <col width=\"400px\">
                   <col width=\"800px\">";
                 //if (filtered if requested) result set is not empty:
                 if($auction_set) {
@@ -176,9 +177,8 @@ include("../includes/layouts/header.php");
                                           class=\"search-result-table\"></a>
                       </td>
                       <td>
-                          <div class=\"row\">
-                              <ul class=\"search-result-list\">
-                                  <li>
+                           <ul class=\"search-result-list\">
+                              <li>
                                       <div class=\"col-sm-6\">
                                           <a href=\"
                                             auction.php?auctionId={$auctionId}\">
@@ -186,7 +186,23 @@ include("../includes/layouts/header.php");
                                           {$title}</h6>
                                           </a>
                                       </div>
-                                      <div class=\"col-sm-6\">
+                               </li>
+
+                              <li>
+                                   <div class=\"container-item-description\"
+                                      <span style=\"width:27em; text-overflow:ellipsis; white-space:nowrap; overflow-x:auto; overflow-y:auto; word-wrap: break-word\">
+                                          {$description}
+                                          </span>
+                                  </div>
+                               </li>
+                               </ul>
+                       </td>
+
+
+                      <td>
+                               <ul>
+                                 <li>
+                                    <div class=\"col-sm-6\">
                                           <div><h6 class=\"jqAuctionPrice\">
                                           Current Price:
                                             £{$currentPrice}</h6>
@@ -194,12 +210,6 @@ include("../includes/layouts/header.php");
                                             <div>
                                             {$rating_string}
                                             </div>
-                                      </div>
-                                  </li>
-                                  <li>
-                                      <div class=\"container-item-description\"
-                                      style=\"width: 50em; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">
-                                          {$description}
                                       </div>
                                   </li>
                               </ul>
