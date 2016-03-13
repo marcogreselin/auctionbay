@@ -33,9 +33,8 @@ require_once('../includes/layouts/header.php');
         ?></h4>
 
     <table class="feedback-table table table-striped">
-        <col width="200px">
-        <col width="200px">
         <col width="300px">
+        <col width="200px">
         <col width="200px">
         <col width="400px">
 
@@ -47,8 +46,7 @@ require_once('../includes/layouts/header.php');
 
             $outputTableHeader = "<thead>
         <tr>
-            <th align=\"right\"><h4>Image</h4></th>
-            <th><h4>Item Name</h4></th>
+            <th><h4>Auction Item</h4></th>
             <th><h4>Ratings</h4></th>
             <th><h4>Date</h4></th>
             <th><h4>Feedback</h4></th>
@@ -61,14 +59,16 @@ require_once('../includes/layouts/header.php');
 
             while($row = mysqli_fetch_assoc($feedbackMainResult)) {
 
+                $link = "auction.php?auctionId=" . urlencode($row['auctionId']);
+
                 $output1 = "<tr>
-            <td>              <img class=\"feedback_img\" src=\"img/auctions/{$row['imageName']}\" class=\"feedback-table\">
-                </td>
             <td>
-            <div class=\"container-feedback-item-title\">
-                <h7>{$row['title']}</h7>
-                </div>
-            </td>
+            <a href=\"{$link}\"><h6>{$row['auctionTitle']}</h6></a>
+            <a href=\"{$link}\"><img class=\"feedback_img\" src=\"img/auctions/{$row['imageName']}\" class=\"feedback-table\"></a>
+
+                </td>
+
+
             <td>
             <div class=\"feedback-result-rating\">";
 
@@ -85,10 +85,19 @@ require_once('../includes/layouts/header.php');
                 </div>
             </td>
 
-            <td>
-                <div class=\"container-feedback-comment\">`
+            <td id=\"row-for-ul\">
+                <ul>
+                <li>
+                <u>
+                    <div class=\"container-feedback-comment-title\">{$row['feedbackTitle']}<div>
+                </li>
+                </u>
+
+                <li>
+                <div class=\"container-feedback-comment\">
                      {$row['comment']}
-                </div>
+                </li>
+                </ul>
             </td>
                 </tr>";
 
@@ -97,7 +106,7 @@ require_once('../includes/layouts/header.php');
                 echo $output;
             }
         } else {
-            echo "<h6>No one feedback left for " . "{$feedback['firstName']}" . " " . "{$feedback['lastName']}" . " " . "yet" . "</h6>";
+            echo "<h6>No feedback left for " . "{$feedback['firstName']}" . " " . "{$feedback['lastName']}" . " " . "yet" . "</h6>";
         }
             ?>
         </tbody>

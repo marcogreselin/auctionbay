@@ -191,7 +191,7 @@ if(isset($_POST['submit'])) {
             </div>
 
             <div class="col-sm-4">
-            <select class="country-select form-control select select-primary select-hg mbl" name="country">
+            <select class="country-select form-group form-control select select-primary select-hg mbl" name="country" id="country-select-dropdown">
                 <option value="">Country...</option>
                 <option value="AFG">Afghanistan</option>
                 <option value="ALA">Åland Islands</option>
@@ -459,7 +459,7 @@ if(isset($_POST['submit'])) {
 
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-2 text-center">
-                <input class="btn-register btn-hg btn-primary btn-block"
+                <input class="btn btn-register btn-hg btn-primary btn-block"
                 type="submit" name="second_submit" value="Register">
             </div>
         </div>
