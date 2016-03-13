@@ -100,7 +100,7 @@ if(isset($_POST['bottom']) && isset($_POST['top']) &&
 
                               <li>
                                    <div class=\"container-item-description\"
-                                      <span style=\"width:27em; text-overflow:ellipsis; white-space:nowrap; overflow-x: hidden;; overflow-y:hidden; word-wrap: break-word\">
+                                      <span style=\"width:27em; text-overflow:ellipsis; white-space:nowrap; overflow-x: hidden; overflow-y:hidden; word-wrap: break-word\">
                                           {$description}
                                           </span>
                                   </div>
