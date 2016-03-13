@@ -84,7 +84,6 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
                       title=\"{$title}\">
                       </a></td>
                       <td>
-                        <strong>Description:</strong><br/>
                         {$auction['description']}
                       </td>
                       <td>
@@ -113,9 +112,9 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
     if ($auction_set) {
       $outputTableHeader = "<a name=\"bids\"><h3>My Recent Bids</h3></a>
   <table class=\"table table-striped\">
-    <col width=\"200px\">
-    <col>
-    <col width=\"200px\">
+    <col width=\"20%\">
+    <col width=\"60%\">
+    <col width=\"20%\">
     <tr>
       <th>Item Name</th>
       <th>Description</th>
@@ -171,8 +170,10 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       </table>
   <a name=\"following\"><h3>Following</h3></a>
   <table class=\"table table-striped\">
-    <col width=\"200px\">
-    <col width=\"auto\">
+    <col width=\"15%\">
+    <col width=\"50%\">
+    <col width=\"20%\">
+    <col width=\"15%\">
     <tr>
       <th>Item Name</th>
       <th>Description</th>
@@ -229,10 +230,9 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
     $output1 = "
       <a name=\"awarded-auctions\"><h3>Awarded Auctions</h3></a>
     <table class=\"table table-striped\">
-      <col width=\"200px\">
-      <col width=\"auto\">
-      <col width=\"auto\">
-      <col width=\"50px\">
+      <col width=\"20%\">
+      <col width=\"60%\">
+      <col width=\"20%\">
       <tr>
         <th>Auction Item</th>
         <th>Corresponding Seller</th>
