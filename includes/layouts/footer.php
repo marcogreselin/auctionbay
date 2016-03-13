@@ -19,8 +19,10 @@
       $(datepickerSelector).datepicker({
         showOtherMonths: true,
         selectOtherMonths: true,
+        defaultDate: +1,
         dateFormat: "yy-mm-dd",
-        yearRange: '-0:+0'
+        minDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        maxDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000*60)
       }).prev('.btn').on('click', function (e) {
         e && e.preventDefault();
         $(datepickerSelector).focus();
