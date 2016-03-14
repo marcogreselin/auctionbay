@@ -745,7 +745,7 @@ JOIN (
     JOIN user ON auction.seller=user.userId
     JOIN address ON address.user_id = user.userId
 ) auction ON auction.auctionId = a.auction_id
-WHERE expirationDate<DATE(NOW()) AND a.userid = $userId";
+WHERE expirationDate<NOW() AND a.userid = $userId";
 
   $completedAuctionResult = mysqli_query($connection, $query);
 
@@ -791,7 +791,7 @@ FROM (
     JOIN user ON auction.seller=user.userId
     JOIN address ON address.user_id = user.userId
   ) auction ON auction.auctionId = a.auction_id
-  WHERE expirationDate<DATE(NOW()) AND seller = $userId";
+  WHERE expirationDate<NOW() AND seller = $userId";
 
   $completedAuctionResult = mysqli_query($connection, $query);
 
