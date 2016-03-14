@@ -111,7 +111,7 @@ require_once('../includes/layouts/header.php');
                 echo $output;
             }
         } else {
-            echo "<h2>No feedback left for " . "{$feedback['firstName']}" . " " . "{$feedback['lastName']}" . " " . "yet" . "</h2>";
+            echo "<h2>No feedback left for " . "{$feedback['firstName']}" . " " . "{$feedback['lastName']}" . " " . "yet." . "</h2>";
         }
             ?>
         </tbody>
