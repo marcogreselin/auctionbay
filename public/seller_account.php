@@ -101,7 +101,7 @@
 <!--Maybe add an "edit" button here, would require another query to user table-->
    <a name="address"><h3>My Details</h3></a> <?php echo "<p>Average Feedback: <a href='feedback.php?for_user_id={$userId}'>"  . $average_stars_user['stars'] . " stars</a>.</p>";?>
    <p><b>My Address:</b><br>
-   <?php echo $_SESSION['firstName'] . " " . "<br>"; ?>
+   <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?>
    <?php echo $_SESSION['street'] . "<br>"; ?>
    <?php echo $_SESSION['zip'] . " " . $_SESSION['city'] ."<br/>"; ?>
    email: <?php echo " " . $_SESSION['email'] . "</p>"; ?>
@@ -116,7 +116,9 @@
     $outputTableHeader = "
       <a name=\"auctions\"><h3>My Recent Auctions</h3></a>
   <table class=\"table table-striped\">
-    <col width=\"200px\">
+    <col width=\"20%\">
+    <col width=\"60%\">
+    <col width=\"20%\">
     <tr>
       <th>Item Name</th>
       <th>Description</th>
@@ -158,9 +160,6 @@
     }
     ?>
 
-
-
-
     <!-- Only displays teh completed auction table if there is data in the table -->
 
   </table>
@@ -170,9 +169,9 @@
       $outputTableHeader = "
          <a name=\"sold-auctions\"><h3>Items Sold</h3></a>
     <table class=\"table table-striped\">
-      <col width=\"200px\">
-      <col width=\"auto\">
-      <col width=\"auto\">
+        <col width=\"20%\">
+        <col width=\"60%\">
+        <col width=\"20%\">
       <tr>
         <th>Auction Item</th>
         <th>Corresponding Buyer</th>
