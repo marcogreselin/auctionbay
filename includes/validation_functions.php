@@ -114,4 +114,18 @@ function clear_errors() {
   $errors = array();
 }
 
+/*Checks for role checkbox presence and adds a flag to the $error global if
+* input is unacceptable*/
+function validate_role($role_check) {
+  global $errors;
+
+  switch($role_check) {
+    case 1:
+    case 2:
+      break; //the above defines the only valid values
+    default:
+      $errors['role-check'] = "Please select a role";
+  }
+}
+
 ?>

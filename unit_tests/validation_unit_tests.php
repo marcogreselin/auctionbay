@@ -78,6 +78,28 @@ function validate_presences_general_failure() {
   assert(!validate_presences_general(array('presence1', 'presence2'), $array));
 }
 
+function validate_role_failure() {
+  global $errors;
+  clear_errors();
+
+  unset($_POST);
+  validate_role($_POST['role-check']);
+  assert(!empty($errors));
+
+  $_POST['role-check'] = "unacceptable";
+  validate_role($_POST['role-check']);
+  assert(!empty($errors));
+}
+
+function validate_role_success() {
+  global $errors;
+  clear_errors();
+
+  $_POST['role-check'] = 1;
+  validate_role($_POST['role-check']);
+  assert(empty($errors));
+}
+
 //validate_phone()
 validate_phone_failure1();
 validate_phone_failure2();
@@ -90,6 +112,10 @@ validate_email_failure();
 //validate_presences_general()
 validate_presences_general_success();
 validate_presences_general_failure();
+
+//validate_role()
+validate_role_success();
+validate_role_failure();
 
 echo "<h3>All tests completed</h3>";
 ?>

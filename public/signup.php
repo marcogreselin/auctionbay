@@ -14,6 +14,8 @@ if(isset($_SESSION['errors']))
 $firstname  = repeat_input("firstname");
 $lastname   = repeat_input("lastname");
 $email      = repeat_input("email");
+
+
 ?>
 
 <!DOCTYPE html>

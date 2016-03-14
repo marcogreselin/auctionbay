@@ -12,7 +12,7 @@ function process_first_form() {
   global $errors;
 
   $required_fields = array("firstname", "lastname", "email", "password",
-                            "passwordagain"/*, "role-check"*/);
+                            "passwordagain");
   validate_presences($required_fields);
 
   //  Limits provided should correspond to the limits set in the sql database
@@ -26,6 +26,9 @@ function process_first_form() {
 
   // check that email has not already been used
   validate_email($_POST['email']);
+
+  // check that role was checked and value is acceptable
+  validate_role($_POST['role-check']);
 
   if(empty($errors)) {
   // Success outcome:
@@ -101,7 +104,7 @@ function process_second_form() {
     //  document with a get request TODO
     $_SESSION['address']      = $_POST['address'];
     $_SESSION['city']         = $_POST['city'];
- 
+
     $_SESSION['postcode']     = $_POST['postcode'];
     $_SESSION['country']      = $_POST['country'];
     $_SESSION['phonenumber']  = $_POST['phonenumber'];
@@ -115,7 +118,7 @@ function process_second_form() {
     }
   } else {
 
-    
+
     //Failure outcome
     //Unit-testing only:
     if(isset($_POST['test'])){
@@ -185,7 +188,7 @@ function attempt_login($email, $password) {
 }
 
 /*Returns either the search input token trimmed and encoded or an empty string
-in case the input token was blank or absent*/
+in case the input token was blank or absent TODO should be parametrized*/
 function process_search_form() {
   $value = "";
 
@@ -408,7 +411,7 @@ function filter_auctions_already_rated($auction_set, $role) {
 
 function addAuction() {
   global $connection;
-  
+
   $errors = array();
 
   if($_POST["title"] != null)
@@ -557,14 +560,14 @@ function bid($auctionData){
   $auctionId = $_GET["auctionId"];
   $query="INSERT INTO `auction_site`.`bid` (`auction_id`, `user_id`, `bidAmount`) VALUES ('".$auctionId."', '".$userId."', '".$_POST["newBidAmount"]."');";
   if($_POST["newBidAmount"]>$auctionData["price"] && $auctionData['currentWinner']!=$userId){
-    
+
       mysqli_query($connection,$query);
       $to      = $auctionData['currentWinnerEmail'];
       $subject = 'Your bid for '.$auctionData['title'];
 
       $message = "Hello there, \n We are writing you to inform you that your bid has been outbid by another user. The new price is set to GBP".$_POST["newBidAmount"].".\n Please visit AuctionBay and keep bidding!\n \n Your AuctionBay Team";
       sendMail($to, $subject, $message);
-    
+
     return true;
   } else {
     return false;
