@@ -722,7 +722,7 @@ function getCompletedAuctionDetailsForBuyer($userId)
 a.userid winner, expirationDate, sellerEmail, sellerName, sellerAddress, seller
 FROM (
     SELECT bidamount AS bidamount, user.userid userId, auction_id, email buyeremail, CONCAT(firstName, ' ', lastName) buyerName,
-    CONCAT(number,', ', street, ' - ', city) buyerAddress
+    CONCAT(street, ' - ', city) buyerAddress
 	FROM bid
 	JOIN user ON user.userId = bid.user_id
     JOIN address ON address.user_id = user.userId
@@ -768,7 +768,7 @@ function getCompletedAuctionDetailsForSeller($userId)
 a.userid winner, expirationDate, sellerEmail, sellerName, sellerAddress, seller
 FROM (
     SELECT bidamount AS bidamount, user.userid userId, auction_id, email buyeremail, CONCAT(firstName, ' ', lastName) buyerName,
-    CONCAT(number,', ', street, ' - ', city) buyerAddress
+    CONCAT(street, ' - ', city) buyerAddress
 	FROM bid
 	JOIN user ON user.userId = bid.user_id
     JOIN address ON address.user_id = user.userId

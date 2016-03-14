@@ -186,7 +186,7 @@
         $output2 = "
        <tr>
         <td><a href=\"{$link}\"><div>{$row['title']}</div><img src=\"img/auctions/{$row['imageName']}\" title=\"{$row['title']}\"></a></td>
-        <td>{$row['buyerName']}<br><strong>Address:</strong> {$row['buyerAddress']}<br><strong>Email:</strong> {$row['buyeremail']}</td>
+        <td>{$row['buyerName']}<br><strong>Address:</strong> {$row['buyerAddress']}<br><strong>Email:</strong> {$row['buyerEmail']}</td>
         <td>£{$row['finalAmount']}</td>
       </tr>";
         echo $output2;
