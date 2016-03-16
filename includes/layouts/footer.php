@@ -33,8 +33,25 @@
     </script>
 
 <!-- Select-two javascript for getting the select to work -->
-<script type="text/javascript">
+    <script type="text/javascript">
     $('select').select2();
-</script>
+    </script>
+
+
+    <!-- Counting down the number of characters left in the comment textarea -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var maxText = 500;
+            $('#textarea-characters-remaining').html(maxText + ' characters remaining');
+
+            $('#textarea-comment').keyup(function () {
+                var textLength = $('#textarea-comment').val().length;
+                var remainingText = maxText - textLength;
+
+                $('#textarea-characters-remaining').html(remainingText + ' characters remaining');
+            });
+        });
+    </script>
+
   </body>
 </html>

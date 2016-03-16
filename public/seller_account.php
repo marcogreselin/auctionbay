@@ -104,7 +104,7 @@
    <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?>
    <?php echo $_SESSION['street'] . "<br>"; ?>
    <?php echo $_SESSION['zip'] . " " . $_SESSION['city'] ."<br/>"; ?>
-   email: <?php echo " " . $_SESSION['email'] . "</p>"; ?>
+   <strong>Email</strong>: <?php echo " " . $_SESSION['email'] . "</p>"; ?>
 
 
 
