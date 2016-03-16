@@ -211,17 +211,12 @@ if (isset($_GET['bottom']) && isset($_GET['top']) &&
     </div>
 </div>
 </div>
-<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+
+
+
 <script src="js/vendor/jquery.min.js"></script>
-
-<!-- Includes the Boostrap JavaScript plugins); actually produces an error: there is no such file NT -->
-<!--<script src="js/vendor/bootstrap.min.js"></script>-->
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-
 <script src="js/vendor/video.js"></script>
 <script src="js/flat-ui-pro.js"></script>
-<!--<script src="css/glyphicons/js/bootstrap.min.js"></script>-->
 
 
 <script type="text/javascript">
@@ -283,16 +278,7 @@ if (isset($_GET['bottom']) && isset($_GET['top']) &&
         category = $('.category-select').find('option:selected').val();
         tokenChanged = !(searchToken === token);
         if (token && tokenChanged) {
-            auctionSet = null;//new query necessary from asynchronous processing
-            //but for the moment just refresh the page
-            // var reload_url = "results.php?";
-            // reload_url +="token=" + token;
-            // reload_url += "&bottom=" + price[0];
-            // reload_url += "&top=" + price[1];
-            // reload_url += "&rating=" + rating;
-            // reload_url += "&category=" + category;
-            //
-            // window.location = reload_url;
+            auctionSet = null;
         }
 
         //delay each request by 100ms; client-side, not good practice NT
@@ -310,9 +296,6 @@ if (isset($_GET['bottom']) && isset($_GET['top']) &&
                 category: category
             },
             success: function (jqXHR, statusText) {
-                //DEBUG: log status and content to js console
-                // console.log(statusText);
-                // console.log(jqXHR);
                 $("#results").replaceWith(jqXHR);
             }
         });

@@ -2,13 +2,6 @@
 require_once("../includes/form_processing.php");
 require_once("../includes/queries.php");
 require_once("../includes/dbconnection.php");
-//DEUBG
-// foreach ($_GET['auctionSet'] as $json_auction) {
-// foreach ($_POST['auctionSet'] as $auction) {
-//   echo "<pre>";
-//   print_r($auction);
-//   echo "</pre>";
-// }
 //process filtering if set as part of the get request, this modifies the
 //auction_set
 if(isset($_POST['bottom']) && isset($_POST['top']) &&
@@ -41,10 +34,6 @@ if(isset($_POST['bottom']) && isset($_POST['top']) &&
         $auction_set[$i]['stars']         = $feedback_array['stars'];
         $auction_set[$i]['no_of_ratings'] = $feedback_array['occurrences'];
       }
-      //print_r($auction_set);
-      //encode result in json format
-      //this is useless here//  $json_encoded_auction_set = json_encode($auction_set);
-
     }
   } else {
     $auction_set = $_POST['auctionSet'];
