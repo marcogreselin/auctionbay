@@ -5,6 +5,7 @@ require_once('../includes/validation_functions.php');
 require_once('../includes/queries.php');
 require_once('../includes/mailmanager.php');
 
+/* Is it better to put all the queires in antoher file or in a file called for_processing.php */
 
 /*  Processes the content of the first form, not needed outside of
 address.php*/
@@ -47,10 +48,9 @@ function process_first_form() {
   } else {
   // Failure outcome: one or more elements in $errors
 
-  //  Either display messages from $erros here in address.php or
+  //  Either display messages from $errors here in address.php or
   //  signup.php
 
-  //Unit-testing only, should be removed and placed into unit tests
     if(!isset($_POST['test'])) {
     //Store what is needed in the session
       $_SESSION['firstname']  = $_POST['firstname'];
@@ -58,14 +58,6 @@ function process_first_form() {
       $_SESSION["email"]      = $_POST['email'];
       $_SESSION['errors'] = $errors;
       redirect_to("signup.php");
-    }
-
-  //Unit-testing only:
-    if(isset($_POST['test'])){
-      echo "Errors from process_first_form():";
-      echo "<pre>";
-      echo print_r($errors);
-      echo "</pre>";
     }
   }
 }
@@ -115,20 +107,6 @@ function process_second_form() {
       echo "<pre>";
       echo print_r($_SESSION);
       echo "</pre>";
-    }
-  } else {
-
-
-    //Failure outcome
-    //Unit-testing only:
-    if(isset($_POST['test'])){
-      echo "Errors from process_second_form()";
-      echo "<pre>";
-      echo print_r($errors);
-      echo "</pre>";
-    }
-    else {
-      //redirect_to("signup.php");
     }
   }
 }
@@ -211,13 +189,6 @@ function get_price($auctionId, $auctionStartingPrice) {
   else
     return $result['value']; //an integer
 }
-/* old version: function get_price($auction) {
-  $result = query_select_winning_bid($auction['auctionId']);
-  if(!$result)
-    return $auction['startingPrice'];//an integer
-  else
-    return $result; //an integer
-}*/
 
 /*Performs a query to get both the price and the buyer's id from the database,
 * given an auctionId and a startingPrice, returns an associative array containing
@@ -292,14 +263,7 @@ function filter_auctions_without_bids($auction_set) {
 * (an empty array)*/
 function filter_non_expired_auctions($auction_set) {
   $result = array();
-
   for($i=0; $i<sizeof($auction_set); $i++) {
-
-    // echo time() - strtotime($auction_set[$i]['expirationDate']);
-    // echo "<br/>";
-    //time() - strtotime($auction_set[$i]['expirationDate'])
-    //returns a negative number if expirationDate is in the future
-
     if((time() - strtotime($auction_set[$i]['expirationDate'])) > 0) {
       array_push($result, $auction_set[$i]);
     }
@@ -313,14 +277,7 @@ function filter_non_expired_auctions($auction_set) {
 * (an empty array)*/
 function filter_expired_auctions($auction_set) {
   $result = array();
-
   for($i=0; $i<sizeof($auction_set); $i++) {
-
-    // echo time() - strtotime($auction_set[$i]['expirationDate']);
-    // echo "<br/>";
-    //time() - strtotime($auction_set[$i]['expirationDate'])
-    //returns a negative number if expirationDate is in the future
-
     if((time() - strtotime($auction_set[$i]['expirationDate'])) < 0) {
       array_push($result, $auction_set[$i]);
     }
@@ -342,9 +299,6 @@ function retrieve_buyer_auctions() {
 
     $auction_set[$i]['winning_price'] = $winning_bid['value'];
     $auction_set[$i]['winner_id']     = $winning_bid['user_id'];
-    // $temp = queryAuctionData($auction_set[$i]['auctionId']);
-    // $auction_set[$i]['winner_id']     = $temp['currentWinner'];//$winning_bid['user_id'];
-
   }
 
   return $auction_set;
@@ -399,13 +353,11 @@ function filter_auctions_already_rated($auction_set, $role) {
       if(!query_feedback_left($auction['seller'], $auction['auctionId'])) {
 
           array_push($result, $auction);
-          // echo "<br/>Session id: ".$_SESSION['userId']."<br/> Seller id: ".$auction['seller'];
       }
     }
   } else {
     $result = $auction_set;
   }
-
   return $result;
 }
 
@@ -500,21 +452,15 @@ function queryAuctionData($auctionId){
 
 function addVisit($auctionId){
   global $connection;
-
   $query = "UPDATE auction SET views = views + 1 WHERE auctionId = " . $auctionId;
-
-
   return  mysqli_query($connection,$query);
-
 }
+
 function favoriteAuction(){
   global $connection;
   $userId = $_SESSION["userId"];
   $auctionId = $_GET["auctionId"];
-
   $query = "INSERT INTO follower (`auction_id`, `user_id`) VALUES ('".$auctionId."','".$userId."')";
-
-
   return  mysqli_query($connection,$query);
 }
 
@@ -548,11 +494,8 @@ function unfavoriteAuction(){
 
   $query  = "DELETE FROM follower WHERE `user_id`='".$userId."' AND ";
   $query .= "auction_id='{$auctionId}';";
-
-
   mysqli_query($connection,$query);
 }
-
 
 function bid($auctionData){
   global $connection;
@@ -573,47 +516,21 @@ function bid($auctionData){
     return false;
   }
 }
-// function bid($auctionData){
-//   global $connection;
-//   $userId = $_SESSION["userId"];
-//   $auctionId = $_GET["auctionId"];
-//   $query="INSERT INTO `auction_site`.`bid` (`auction_id`, `user_id`, `bidAmount`) VALUES ('".$auctionId."', '".$userId."', '".$_POST["newBidAmount"]."');";
-//   if($_POST["newBidAmount"]>$auctionData["price"]){
-//     mysqli_query($connection,$query);
-//     if($auctionData['currentWinner']!=$userId){
-//       $to      = $auctionData['currentWinnerEmail'];
-//       $subject = 'Your bid for '.$auctionData['title'];
-//       $message = "Hello there, \n We are writing you to inform you that your bid has been outbid by another user. The new price is set to £".$_POST["newBidAmount"].".\n Please visit AuctionBay and keep bidding!\n \n Your AuctionBay Team";
-//       $headers = 'From: auctiobay.ucl@gmail.com' . "\r\n" .
-//         'X-Mailer: PHP/' . phpversion();
-//       echo mail($to, $subject, $message, $headers);
-//     }
-//     return true;
-//   } else {
-//     return false;
-//       }
-// }
 
 /** Leave feedback after clicking the leave feedback pictures in the buyer_account or seller_account*/
 function leaveFeedback() {
   global $connection;
-
-
-
   $stars = (int)$_POST['stars'];
   $comment = $_POST['comment'];
   $title = $_POST['title'];
   $auction_id = isset($_GET['auction_id']) ? $_GET['auction_id'] : $_SESSION['auction_id'];
   $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
-  $date = new DateTime('now');
 
   // construct query
   $query = "INSERT INTO feedback (auction_id, user_id, stars, comment, title) VALUES ({$auction_id}, {$user_id}, {$stars}, '{$comment}', '{$title}')";
 
   $feedbackResult = mysqli_query($connection, $query);
 
-
-  // Test if there was a query error, if no error, redirect to the index.php page
   if (!$feedbackResult) {
     die("Database query failed. " . mysqli_error($connection));
   } else {
@@ -647,7 +564,6 @@ function getFeedbackInformation($userId) {
   LEFT JOIN feedback ON user.userid = feedback.user_id
   LEFT JOIN auction ON auction.auctionId = feedback.auction_id
   WHERE user.userId = $userId";
-
 
   $feedbackMainResult = mysqli_query($connection, $query);
 
@@ -695,12 +611,9 @@ function process_feedback_form() {
 /** Get details for the leave_feedback.php */
 function getAuctionForFeedback($auction_id) {
   global $connection;
-
-  // query to retrieve the current all the relevant feedback information
   $query = "SELECT imageName, title
   FROM auction
   WHERE auctionId = $auction_id";
-
 
   $auctionFeedbackQueryResult = mysqli_query($connection, $query);
 
@@ -713,7 +626,6 @@ function getAuctionForFeedback($auction_id) {
 
 
 /** Get details for awarded auctions for buyer*/
-
 function getCompletedAuctionDetailsForBuyer($userId)
 {
   global $connection;
@@ -756,10 +668,7 @@ WHERE expirationDate<NOW() AND a.userid = $userId";
   }
 }
 
-
-
 /** Get details for items sold for seller*/
-
 function getCompletedAuctionDetailsForSeller($userId)
 {
   global $connection;
