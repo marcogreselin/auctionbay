@@ -11,7 +11,6 @@ if(isset($_POST['bottom']) && isset($_POST['top']) &&
   //initialize to empty array
   $auction_set = array();
 
-  /*   Eventually, the token search field should work asynchronously too */
   if($_POST['tokenChanged']) {
     //process search form
     $search_token = trim($_POST['token']);//process_search_form();//uses GET from inside the body
@@ -19,7 +18,6 @@ if(isset($_POST['bottom']) && isset($_POST['top']) &&
     if($search_token) {
       //query database and modify result set with further queries
       $auction_set = (query_select_auction_search($search_token));
-      //extract this for loop TODO (used both here and results.php)
       for($i = 0; $i < sizeof($auction_set); $i++) {
         //enrich with price
         $current_price = get_price($auction_set[$i]['auctionId'],

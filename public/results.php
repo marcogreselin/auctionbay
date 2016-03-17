@@ -16,7 +16,6 @@ if (isset($_GET['token'])) {
     if ($search_token) {
         //query database and modify result set with further queries
         $auction_set = (query_select_auction_search($search_token));
-        //extract this for loop TODO (used both here and generate_auction_list_display)
         for ($i = 0; $i < sizeof($auction_set); $i++) {
             $current_price = get_price($auction_set[$i]['auctionId'],
                 $auction_set[$i]['startingPrice']);
@@ -59,7 +58,7 @@ if (isset($_GET['bottom']) && isset($_GET['top']) &&
         <div class="col-sm-3">
             <div class="search-side-panel" style="margin-top: 30px;">
                 <!-- php-based GET form submission, used jQuery instead because of front
-                end components. :NT-->
+                end components. -->
                 <ul class="nav nav-list divider-vertical">
                     <li class="nav-header">
                         <input class="form-control input-hg" type="text"

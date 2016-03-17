@@ -211,16 +211,6 @@ function query_select_winning_bid($auctionId) {
 
   $query  = "SELECT user_id, bidAmount AS value ";
   $query .= "FROM bid WHERE bidAmount = ($subquery_select_max_bid_for_auction)";
-  /*//old logic, queried a "current_price" table for the data
-  $subquery_select_max_bid_for_auction  = "SELECT MAX(bidAmount) ";
-  $subquery_select_max_bid_for_auction .= "FROM bid WHERE auction_id={$auctionId}";
-
-  $subquery_select_from_bids  = "SELECT bidId FROM bid WHERE ";
-  $subquery_select_from_bids .= "bidAmount=({$subquery_select_max_bid_for_auction})";
-
-  $query  = "SELECT current_price.value, bid.user_id FROM current_price ";
-  $query .= "INNER JOIN bid ON current_price.bid_id=bid.bidId ";
-  $query .= "WHERE bid_id=({$subquery_select_from_bids})";*/
 
   //do query:
   $result = mysqli_query($connection, $query);

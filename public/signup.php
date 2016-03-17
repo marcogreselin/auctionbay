@@ -4,8 +4,6 @@ require_once("../includes/session.php");
 require_once("../includes/validation_functions.php");
 require_once("../includes/output.php");
 
- //if user is logged in, log them out:
- //TODO (see login.php)
 
 //SESSION is used to communicate errors between signup.php and address.php
 if(isset($_SESSION['errors']))
@@ -136,7 +134,6 @@ require_once("../includes/layouts/header_default.php");
         </div>
 
 
-        <!-- Submitting form will post the data to address.php to be used -->
         <div class="form-group form-group-hg">
             <div class="col-sm-8 col-sm-offset-4 text-center">
                 <input class="btn btn-hg btn-primary btn-block"
@@ -145,7 +142,6 @@ require_once("../includes/layouts/header_default.php");
         </div>
     </form>
 </div>
-<!-- /.container -->
 
 
 <?php
