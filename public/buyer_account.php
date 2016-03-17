@@ -9,10 +9,6 @@
       redirect_to("index.php");
     }
   $userId = $_SESSION['userId'];
-//TODO perhaps unfavoriteAuction should be parametrized, otherwise it is not
-//necessarily clear to the user what the effect of entering an auctionId on the
-//url might be (used to be buyer_account.php?uf=$id instead of
-//buyer_account.php?auctionId=$id)
 if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
   unfavoriteAuction();
 ?>
@@ -154,17 +150,9 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
       }
     }
     ?>
-    <!-- <tr>
-      <td><a href="#"><img src="img/user-interface.svg" title="Insert title">Third Row, first column</a></td>
-      <td>Third Row, second column</td>
-      <td>Third Row, third column</td>
-    </tr> -->
 
     <?php
     $auction_set = retrieve_followed_by_user();
-    //decided to not filter out expired auctions for follower table
-    // $auction_set = filter_expired_auctions($auction_set);
-    //TODO this should be extracted: occurs everywhere in buyer and seller pages
     if ($auction_set) {
       $outputTableHeader = "
       </table>
@@ -195,9 +183,7 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
           $is_this_buyer .= "<br><div id=\"this-not-you\">
                             This auction is expired!</div>";
         }
-        // else
-        //   $is_this_buyer = "
-        //   <br><div id=\"this-you\">Your bid is not the winning bid!</div>";
+
         $link = "auction.php?auctionId=" .
             urlencode(htmlentities($auction['auctionId']));
         $link_delete_from_following =
@@ -222,9 +208,6 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
     ?>
 
   </table>
-
-
-    <!-- Table for the awarded auctions for the buyer -->
     <?php
     $completedAuction = getCompletedAuctionDetailsForBuyer($userId);
     $output1 = "
@@ -256,9 +239,6 @@ if(isset($_GET['auctionId']) && !empty($_GET['auctionId']))
     }
     ?>
     </table>
-
-
-
 </div>
 </div>
 

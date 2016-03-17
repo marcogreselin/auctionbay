@@ -98,7 +98,6 @@
         }
 
        ?>
-<!--Maybe add an "edit" button here, would require another query to user table-->
    <a name="address"><h3>My Details</h3></a> <?php echo "<p>Average Feedback: <a href='feedback.php?for_user_id={$userId}'>"  . $average_stars_user['stars'] . " stars</a>.</p>";?>
    <p><b>My Address:</b><br>
    <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "<br>"; ?>
@@ -109,7 +108,6 @@
 
 
 
-    <!-- Only displays the My Recent Auctions table when there is really data in the table -->
     <?php
     $auction_set = filter_expired_auctions($auction_set_unfiltered);
 
@@ -161,7 +159,6 @@
     ?>
 
     <!-- Only displays teh completed auction table if there is data in the table -->
-
   </table>
     <?php
     $completedAuction = getCompletedAuctionDetailsForSeller($userId);
