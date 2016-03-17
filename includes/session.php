@@ -9,7 +9,6 @@
   function clear_session() {
     $_SESSION = array();
     session_unset();
-    //destroy cookie session name TODO
   }
 
 /*Returns true if the session stores the value ROLE_BUYER under the 'role' key,

@@ -5,7 +5,6 @@ require_once('../includes/validation_functions.php');
 require_once('../includes/queries.php');
 require_once('../includes/mailmanager.php');
 
-/* Is it better to put all the queires in antoher file or in a file called for_processing.php */
 
 /*  Processes the content of the first form, not needed outside of
 address.php*/
@@ -89,14 +88,8 @@ function process_second_form() {
   validate_phone("phonenumber");
 
   if(empty($errors)) {
-    //  Success outcome:
-    //  Store values in SESSION and proceed to registration.php
-    //  on second thought: this better be a fresh post request to a pure php
-    //  processing document, so that a user cannot otherwise navigate to the
-    //  document with a get request TODO
     $_SESSION['address']      = $_POST['address'];
     $_SESSION['city']         = $_POST['city'];
-
     $_SESSION['postcode']     = $_POST['postcode'];
     $_SESSION['country']      = $_POST['country'];
     $_SESSION['phonenumber']  = $_POST['phonenumber'];
@@ -128,7 +121,6 @@ function create_new_user() {
 /*Processes the content of the login form.*/
 function process_login_form() {
   global $errors;
-
   $required_fields = array("email", "password");
   validate_presences($required_fields);
 
@@ -165,8 +157,6 @@ function attempt_login($email, $password) {
   }
 }
 
-/*Returns either the search input token trimmed and encoded or an empty string
-in case the input token was blank or absent TODO should be parametrized*/
 function process_search_form() {
   $value = "";
 
@@ -268,7 +258,6 @@ function filter_non_expired_auctions($auction_set) {
       array_push($result, $auction_set[$i]);
     }
   }
-
   return $result;
 }
 
@@ -626,8 +615,7 @@ function getAuctionForFeedback($auction_id) {
 
 
 /** Get details for awarded auctions for buyer*/
-function getCompletedAuctionDetailsForBuyer($userId)
-{
+function getCompletedAuctionDetailsForBuyer($userId) {
   global $connection;
 
   $query = "SELECT a.auction_id, title, imageName, a.bidamount finalAmount, buyerEmail, buyerAddress, buyerName,

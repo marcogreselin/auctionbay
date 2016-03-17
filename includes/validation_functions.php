@@ -8,10 +8,6 @@ function fieldname_as_text($fieldname) {
   return $fieldname;
 }
 
-// * presence
-// use trim() so empty spaces don't count
-// use === to avoid false positives
-// empty() would consider "0" to be empty
 function has_presence($value) {
 	return isset($value) && $value !== "";
 }
@@ -49,7 +45,6 @@ function validate_presences_general($required_fields, $array) {
       $result = 0;
   	}
   }
-
   return $result;
 }
 

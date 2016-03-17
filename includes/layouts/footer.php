@@ -28,7 +28,7 @@
         $(datepickerSelector).focus();
       });
 
-      // Now let's align datepicker with the prepend button
+      // Aligning datepicker with the prepend button
       $(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
     </script>
 
